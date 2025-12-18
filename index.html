@@ -11,12 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <!-- Barre de navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top" data-aos="fade-down" data-aos-duration="1100" data-aos-delay="100">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <span>N</span><span>NFC</span><span>Guinée</span>
@@ -48,7 +49,7 @@
     <section class="hero" id="hero">
         <div class="container">
             <div class="row align-items-center" style="margin-top: 10vh;">
-                <div class="col-lg-6 hero-content">
+                <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-offset="0" data-aos-delay="200">
                     <div class="nouveau-badge">
                         <i class="bi bi-stars"></i>
                         Nouveau en Guinée
@@ -69,7 +70,7 @@
                             En savoir plus
                         </button>
                     </div>
-                    <div class="statistics">
+                    <div class="statistics" data-aos="fade" data-aos-delay="1600">
                         <div class="stat-item">
                             <h2>500+</h2>
                             <p>Clients satisfaits</p>
@@ -84,13 +85,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 hero-image d-none d-lg-block">
+                <div class="hero-image d-none d-lg-block col-lg-6" data-aos="zoom-in" data-aos-duration="1100"
+                    data-aos-delay="400">
                     <div class="card-display">
-                        <div class="nfc-icon">
-                            ((NFC))
-                        </div>
+                        <img src="./img/heroimage.jpg" alt="Image carte NFC de la section hero" class="hero-nfc-image">
                     </div>
                 </div>
+
+
             </div>
         </div>
         <div class="scroll-indicator">
@@ -99,7 +101,7 @@
     </section>
 
     <!-- Section Avantages -->
-    <section class="avantages-section" id="avantages">
+    <section class="avantages-section" id="avantages" data-aos="fade" data-aos-delay="200">
         <div class="container">
             <div class="section-subtitle">POURQUOI NFC ?</div>
             <h2 class="section-title">
@@ -111,7 +113,7 @@
 
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="0">
                         <div class="advantage-icon">
                             <i class="bi bi-phone"></i>
                         </div>
@@ -122,7 +124,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="180">
                         <div class="advantage-icon">
                             <i class="bi bi-lightning-charge"></i>
                         </div>
@@ -132,7 +134,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="360">
                         <div class="advantage-icon">
                             <i class="bi bi-shield-check"></i>
                         </div>
@@ -142,7 +144,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="540">
                         <div class="advantage-icon">
                             <i class="bi bi-globe"></i>
                         </div>
@@ -152,7 +154,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="720">
                         <div class="advantage-icon">
                             <i class="bi bi-person-badge"></i>
                         </div>
@@ -162,7 +164,7 @@
                 </div>
 
                 <div class="col-md-6 col-lg-4">
-                    <div class="advantage-card">
+                    <div class="advantage-card" data-aos="fade" data-aos-delay="900">
                         <div class="advantage-icon">
                             <i class="bi bi-arrow-repeat"></i>
                         </div>
@@ -175,7 +177,7 @@
     </section>
 
     <!-- Section Offres -->
-    <section class="offres-section" id="cartes">
+    <section class="offres-section" id="cartes" data-aos="fade" data-aos-delay="200">
         <div class="container">
             <div class="section-subtitle">NOS OFFRES</div>
             <h2 class="section-title">
@@ -187,7 +189,7 @@
 
             <div class="row g-4 justify-content-center">
                 <!-- Essentiel -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="pricing-card">
                         <h3 class="plan-name">Essentiel</h3>
                         <p class="plan-subtitle">Parfait pour les particuliers</p>
@@ -225,7 +227,7 @@
                 </div>
 
                 <!-- Pro (Populaire) -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="pricing-card popular">
                         <div class="popular-badge">
                             <i class="bi bi-star-fill"></i>
@@ -272,7 +274,7 @@
                 </div>
 
                 <!-- Entreprise -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                     <div class="pricing-card">
                         <h3 class="plan-name">Entreprise</h3>
                         <p class="plan-subtitle">Pour les équipes et entreprises</p>
@@ -317,7 +319,7 @@
     </section>
 
     <!-- Section Comment ça marche -->
-    <section class="how-it-works-section" id="comment">
+    <section class="how-it-works-section" id="comment" data-aos="fade-up" data-aos-delay="100">
         <div class="container">
             <div class="section-subtitle">SIMPLE ET RAPIDE</div>
             <h2 class="section-title">
@@ -330,7 +332,7 @@
             <div class="steps-container">
                 <div class="step-line d-none d-lg-block"></div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6" data-aos="fade" data-aos-delay="200">
                         <div class="step-item">
                             <div class="step-number">01</div>
                             <div class="step-content text-center">
@@ -341,7 +343,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6" data-aos="fade" data-aos-delay="300">
                         <div class="step-item">
                             <div class="step-number">02</div>
                             <div class="step-content text-center">
@@ -352,7 +354,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6" data-aos="fade" data-aos-delay="400">
                         <div class="step-item">
                             <div class="step-number">03</div>
                             <div class="step-content text-center">
@@ -363,7 +365,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6" data-aos="fade" data-aos-delay="500">
                         <div class="step-item">
                             <div class="step-number">04</div>
                             <div class="step-content text-center">
@@ -379,7 +381,7 @@
     </section>
 
     <!-- Section Témoignages -->
-    <section class="testimonials-section" id="temoignages">
+    <section class="testimonials-section" id="temoignages" data-aos="fade-up" data-aos-delay="200">
         <div class="container">
             <div class="section-subtitle">TÉMOIGNAGES</div>
             <h2 class="section-title">
@@ -390,7 +392,7 @@
             </p>
 
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <div class="stars">
@@ -414,7 +416,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <div class="stars">
@@ -438,7 +440,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" data-aos="fade" data-aos-delay="800">
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <div class="stars">
@@ -469,16 +471,15 @@
     <section class="cta-section">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="cta-image">
                         <div class="cta-cards-display">
-                            <img src="./img/nfc_card.png"
-                                alt="Cartes NFC"
+                            <img src="./img/nfc_card.jpg" alt="Cartes NFC"
                                 style="width: 100%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.4);">
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 cta-content">
+                <div class="col-lg-6 cta-content" data-aos="fade-left" data-aos-delay="200">
                     <h2 class="cta-title">
                         Prêt à passer au <span class="highlight">networking moderne</span> ?
                     </h2>
@@ -514,7 +515,7 @@
     </section>
 
     <!-- Section Contact -->
-    <section class="contact-section" id="contact">
+    <section class="contact-section" id="contact" data-aos="fade" data-aos-delay="100">
         <div class="container">
             <div class="section-subtitle">CONTACT</div>
             <h2 class="section-title">
@@ -525,7 +526,7 @@
             </p>
 
             <div class="row g-4">
-                <div class="col-lg-5">
+                <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
                     <div class="contact-info-card">
                         <h3>Nos coordonnées</h3>
 
@@ -568,7 +569,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-7">
+                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
                     <div class="contact-form">
                         <form>
                             <div class="form-group">
@@ -686,6 +687,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

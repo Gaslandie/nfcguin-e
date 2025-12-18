@@ -160,11 +160,11 @@
  }
 
  @media (max-width: 576px) {
-    .hero-buttons .btn {
-        padding: 12px 20px;
-        font-size: 0.85rem;
-    }
-}
+     .hero-buttons .btn {
+         padding: 12px 20px;
+         font-size: 0.85rem;
+     }
+ }
 
  .hero-buttons .btn {
      padding: 16px 35px;
@@ -214,20 +214,6 @@
      margin: 0;
  }
 
- @media (max-width: 576px) {
-    .statistics {
-        padding: 25px 15px;
-    }
-    
-    .stat-item h2 {
-        font-size: 2rem;
-    }
-    
-    .stat-item p {
-        font-size: 0.75rem;
-    }
-}
-
  /* Hero Image */
  .hero-image {
      position: relative;
@@ -235,22 +221,31 @@
      align-items: center;
      justify-content: center;
      height: 100%;
-     padding-left: 15vh;
+     padding-left: 6rem;
+     perspective: 1000px;
+
  }
 
  .card-display {
      position: relative;
-     width: 400px;
-     height: 250px;
-     background: linear-gradient(135deg, rgb(30, 30, 33) 0%, rgb(20, 20, 22) 100%);
+     width: 600px;
+     height: 350px;
      border-radius: 20px;
      box-shadow: 0 0 15px rgba(218, 166, 34, 0.5);
      display: flex;
      align-items: center;
      justify-content: center;
-     border: 1px solid rgba(218, 166, 34, 0.3);
+     overflow: hidden;
      animation: float 6s ease-in-out infinite;
  }
+
+ .hero-nfc-image {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     border-radius: 20px;
+ }
+
 
  @keyframes float {
 
@@ -290,29 +285,76 @@
      }
  }
 
- .nfc-icon {
-     font-size: 4rem;
-     color: rgb(218, 166, 34);
-     text-shadow: 0 0 30px rgba(218, 166, 34, 0.5);
- }
-
  /* Responsive */
  @media (max-width: 768px) {
+     .hero {
+         min-height: auto;
+         padding: 90px 0 50px;
+         text-align: center;
+     }
+
+     .hero-image {
+         display: none !important;
+     }
+
+     .hero::before {
+         display: none;
+         /* halo retiré sur mobile */
+     }
+
+     .hero-content {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+     }
+
+     .nouveau-badge {
+         margin-bottom: 20px;
+         font-size: 0.8rem;
+         padding: 10px 16px;
+     }
+
      .hero h1 {
-         font-size: 2.5rem;
+         font-size: 2.2rem;
+         line-height: 1.2;
+         letter-spacing: -1px;
+         margin-bottom: 15px;
      }
 
      .hero p {
-         font-size: 1rem;
+         font-size: 0.95rem;
+         max-width: 100%;
+         margin-bottom: 25px;
+     }
+
+     .hero-buttons {
+         justify-content: center;
+         gap: 15px;
+         margin-bottom: 30px;
      }
 
      .statistics {
-         flex-direction: column;
-         gap: 25px;
+         display: flex;
+         flex-direction: row;
+         justify-content: space-between;
+         gap: 10px;
+         width: 100%;
+         padding: 20px 0;
+     }
+
+     .stat-item {
+         flex: 1;
+         text-align: center;
      }
 
      .stat-item h2 {
-         font-size: 2.5rem;
+         font-size: 1.6rem;
+         margin-bottom: 4px;
+     }
+
+     .stat-item p {
+         font-size: 0.75rem;
+         line-height: 1.2;
      }
 
      .card-display {
@@ -320,8 +362,8 @@
          height: 190px;
      }
 
-     .hero {
-         padding: 100px 0 40px;
+     .scroll-indicator {
+         display: none;
      }
  }
 
@@ -414,6 +456,53 @@
      position: relative;
      overflow: hidden;
  }
+
+ .advantage-card {
+     opacity: 0;
+     transform: translateY(-60px);
+ }
+
+ @keyframes settleDown {
+     0% {
+         transform: translateY(-90px);
+     }
+
+     55% {
+         transform: translateY(16px);
+     }
+
+     75% {
+         transform: translateY(-8px);
+     }
+
+     90% {
+         transform: translateY(4px);
+     }
+
+     100% {
+         transform: translateY(0);
+     }
+ }
+
+
+ .advantage-card.aos-animate {
+     opacity: 1;
+     animation: settleDown 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+ }
+
+
+
+ .advantage-card {
+     transition: box-shadow 0.3s ease;
+     will-change: transform;
+
+ }
+
+ .advantage-card:hover {
+     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+ }
+
+
 
  .advantage-card::before {
      content: '';
@@ -624,30 +713,30 @@
  }
 
  /* Section Comment ça marche */
-.how-it-works-section {
-    background-color: rgb(9, 9, 11);
-    padding: 100px 0;
-    color: white;
-    position: relative;  
-    overflow: hidden;
-}
+ .how-it-works-section {
+     background-color: rgb(9, 9, 11);
+     padding: 100px 0;
+     color: white;
+     position: relative;
+     overflow: hidden;
+ }
 
-.how-it-works-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: radial-gradient(circle at right center, rgba(218, 166, 34, 0.08) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-}
+ .how-it-works-section::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     right: 0;
+     width: 50%;
+     height: 100%;
+     background: radial-gradient(circle at right center, rgba(218, 166, 34, 0.08) 0%, transparent 60%);
+     pointer-events: none;
+     z-index: 0;
+ }
 
  .steps-container {
      position: relative;
      margin-top: 60px;
-     z-index: 1; 
+     z-index: 1;
  }
 
  .step-line {
