@@ -1,11 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact - NFC Guinée</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
+
+<body class="text-white bg-deep-dark">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top" data-aos="fade-down" data-aos-duration="1100">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span>N</span><span>NFC</span><span>Guinée</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="avantages.html">Avantages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cartes.html">Nos Cartes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="comment.html">Comment ça marche</a></li>
+                    <li class="nav-item"><a class="nav-link" href="temoignages.html">Témoignages</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                </ul>
+                <button class="btn btn-commander">Commander</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="py-5 mt-5">
+        <div class="container text-center pt-5" data-aos="zoom-out">
+            <span class="section-subtitle">Parlons de votre projet</span>
+            <h1 class="section-title">
+                Contactez <span class="highlight">NFC Guinée</span>
+            </h1>
+            <p class="section-description">
+                Une question, une commande ou un partenariat ?
+                Notre équipe vous répond rapidement.
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTACT SECTION -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4 align-items-stretch">
+
+                <!-- Infos -->
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div class="contact-card h-100">
+                        <h3 class="mb-4">Nos coordonnées</h3>
+
+                        <div class="contact-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <span>Conakry, Guinée<br>Kaloum</span>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="bi bi-telephone"></i>
+                            <span>+224 620 00 00 00</span>
+                        </div>
+
+                        <div class="contact-item">
+                            <i class="bi bi-envelope"></i>
+                            <span>contact@nfcguinee.com</span>
+                        </div>
+
+                        <div class="contact-hours mt-4">
+                            <h5>Horaires</h5>
+                            <p>Lundi – Vendredi : 8h – 18h<br>Samedi : 9h – 14h</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire -->
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="contact-card h-100">
+                        <h3 class="mb-4">Envoyez-nous un message</h3>
+
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Nom complet" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Adresse email" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="tel" class="form-control" placeholder="Téléphone" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" rows="5" placeholder="Votre message..."
+                                        required></textarea>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-commander mt-4 w-100">
+                                Envoyer le message <i class="bi bi-send ms-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a class="navbar-brand" href="#">
+                                <span>N</span><span>NFC</span><span>Guinée</span>
+                            </a>
+                        </div>
+                        <p class="footer-description">
+                            La première entreprise de cartes de visite NFC en Guinée. Modernisez votre networking avec
+                            la technologie.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-column">
+                            <h4>Navigation</h4>
+                            <ul class="footer-links">
+                                <li><a href="avantages.html">Avantages</a></li>
+                                <li><a href="cartes.html">Nos Cartes</a></li>
+                                <li><a href="comment.html">Comment ça marche</a></li>
+                                <li><a href="temoignages.html">Témoignages</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-column">
+                            <h4>Nos Services</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">Cartes NFC Particuliers</a></li>
+                                <li><a href="#">Cartes NFC Entreprises</a></li>
+                                <li><a href="#">Design Personnalisé</a></li>
+                                <li><a href="#">Solutions Corporate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-column">
+                            <h4>Contact</h4>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Conakry, Guinée<br>Quartier Kaloum</span>
+                            </div>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-telephone-fill"></i>
+                                <span>+224 620 00 00 00</span>
+                            </div>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>contact@nfcguinee.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 NFC Guinée. Tous droits réservés.
+                </p>
+                <div class="footer-legal">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-out-back',
+            once: true
+        });
+    </script>
 </body>
+
 </html>

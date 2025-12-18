@@ -59,7 +59,9 @@
      color: rgb(218, 166, 34) !important;
  }
 
- .navbar .btn-commander, .contact-info-card .btn-commander {
+ .navbar .btn-commander,
+ .contact-info-card .btn-commander,
+ .contact-card .btn-commander {
      background-color: rgb(218, 166, 34);
      color: black;
      font-weight: 600;
@@ -69,7 +71,8 @@
      transition: all 0.3s ease;
  }
 
- .navbar .btn-commander:hover, .contact-info-card .btn-commander:hover {
+ .navbar .btn-commander:hover,
+ .contact-info-card .btn-commander:hover {
      transform: scale(1.05);
      box-shadow: 0 0 20px rgba(218, 166, 34, 0.4);
  }
@@ -1283,189 +1286,363 @@
  }
 
 
-.border-gold {
-    border: 2px solid rgba(218, 166, 34, 0.3);
-}
+ .border-gold {
+     border: 2px solid rgba(218, 166, 34, 0.3);
+ }
 
-/* --- Cartes d'Impact Modernes --- */
-.impact-card {
-    background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.8));
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 30px;
-    padding: 40px;
-    height: 100%;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+ /* --- avantages pages --- */
+ .impact-card {
+     background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.8));
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     border-radius: 30px;
+     padding: 40px;
+     height: 100%;
+     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+ }
 
-.impact-card:hover {
-    transform: translateY(-15px);
-    border-color: rgba(218, 166, 34, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
+ .impact-card:hover {
+     transform: translateY(-15px);
+     border-color: rgba(218, 166, 34, 0.4);
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+ }
 
-.impact-card.featured {
-    border: 1px dashed rgba(218, 166, 34, 0.5);
-    background: linear-gradient(145deg, rgba(40, 35, 25, 0.8), rgba(20, 20, 25, 0.8));
-}
+ .impact-card.featured {
+     border: 1px dashed rgba(218, 166, 34, 0.5);
+     background: linear-gradient(145deg, rgba(40, 35, 25, 0.8), rgba(20, 20, 25, 0.8));
+ }
 
-.impact-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
+ .impact-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 30px;
+ }
 
-.impact-label {
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: rgb(218, 166, 34);
-    font-weight: 700;
-}
+ .impact-label {
+     text-transform: uppercase;
+     font-size: 0.75rem;
+     letter-spacing: 2px;
+     color: rgb(218, 166, 34);
+     font-weight: 700;
+ }
 
-.impact-header i {
-    font-size: 1.8rem;
-}
+ .impact-header i {
+     font-size: 1.8rem;
+ }
 
-.impact-main h3 {
-    margin-bottom: 15px;
-    letter-spacing: -2px;
-}
+ .impact-main h3 {
+     margin-bottom: 15px;
+     letter-spacing: -2px;
+ }
 
-.impact-footer {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.9rem;
-    font-weight: 500;
-}
+ .impact-footer {
+     margin-top: 30px;
+     padding-top: 20px;
+     border-top: 1px solid rgba(255, 255, 255, 0.05);
+     font-size: 0.9rem;
+     font-weight: 500;
+ }
 
-/* page nos cartes */
-/* Fond sombre avec dégradé subtil */
-.bg-deep-dark {
-    background-color: rgb(9, 9, 11);
-    background-image: 
-        radial-gradient(circle at 0% 0%, rgba(218, 166, 34, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 100% 100%, rgba(218, 166, 34, 0.05) 0%, transparent 50%);
-    background-attachment: fixed;
-}
+ .features-section {
+     position: relative;
+ }
 
-/* Espacement entre les produits */
-.mb-100 {
-    margin-bottom: 150px;
-}
+ .feature-card {
+     background: linear-gradient(145deg,
+             rgba(30, 30, 35, 0.85),
+             rgba(18, 18, 22, 0.85));
+     border: 1px solid rgba(255, 255, 255, 0.05);
+     border-radius: 28px;
+     padding: 45px 35px;
+     height: 100%;
+     text-align: center;
+     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+     position: relative;
+     overflow: hidden;
+ }
 
-/* Styles des textes et titres */
-.product-header {
-    padding: 160px 0 60px;
-}
+ /* effet subtil au hover */
+ .feature-card::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     background: radial-gradient(circle at top,
+             rgba(218, 166, 34, 0.15),
+             transparent 60%);
+     opacity: 0;
+     transition: opacity 0.4s ease;
+ }
 
-.product-features-list {
-    list-style: none;
-    padding: 0;
-}
+ .feature-card:hover::before {
+     opacity: 1;
+ }
 
-.product-features-list li {
-    margin-bottom: 12px;
-    color: rgb(163, 163, 160);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+ .feature-card:hover {
+     transform: translateY(-18px);
+     border-color: rgba(218, 166, 34, 0.35);
+     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+ }
 
-.product-features-list li i {
-    color: rgb(218, 166, 34);
-}
+ /* Icone */
+ .feature-icon {
+     width: 70px;
+     height: 70px;
+     margin: 0 auto 25px;
+     border-radius: 50%;
+     background: rgba(218, 166, 34, 0.12);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: rgb(218, 166, 34);
+     font-size: 1.9rem;
+ }
 
-/* Ombre dorée sur les images */
-.shadow-gold {
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(218, 166, 34, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
+ /* Titre */
+ .feature-card h3 {
+     font-weight: 700;
+     margin-bottom: 15px;
+     font-size: 1.35rem;
+ }
 
-/* Boutons */
-.btn-gold-outline {
-    border: 1px solid rgb(218, 166, 34);
-    color: rgb(218, 166, 34);
-    background: transparent;
-    padding: 12px 35px;
-    border-radius: 10px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+ /* Texte */
+ .feature-card p {
+     color: rgba(255, 255, 255, 0.75);
+     font-size: 0.95rem;
+     line-height: 1.7;
+ }
 
-.btn-gold-outline:hover {
-    background: rgba(218, 166, 34, 0.1);
-    color: white;
-    transform: translateY(-3px);
-}
+ /* page nos cartes */
+ /* Fond sombre avec dégradé subtil */
+ .bg-deep-dark {
+     background-color: rgb(9, 9, 11);
+     background-image:
+         radial-gradient(circle at 0% 0%, rgba(218, 166, 34, 0.05) 0%, transparent 50%),
+         radial-gradient(circle at 100% 100%, rgba(218, 166, 34, 0.05) 0%, transparent 50%);
+     background-attachment: fixed;
+ }
 
-/* page comment.html */
-/* --- Styles pour la Timeline --- */
-.timeline-container {
-    position: relative;
-    padding: 40px 0;
-}
+ /* Espacement entre les produits */
+ .mb-100 {
+     margin-bottom: 150px;
+ }
 
-.timeline-line {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 90%;
-    background: linear-gradient(180deg, rgb(218, 166, 34) 0%, rgba(218, 166, 34, 0.1) 100%);
-    top: 50px;
-    z-index: 0;
-}
+ /* Styles des textes et titres */
+ .product-header {
+     padding: 160px 0 60px;
+ }
 
-.timeline-dot {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgb(218, 166, 34);
-    border: 4px solid rgb(9, 9, 11);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    font-weight: 800;
-    z-index: 2;
-}
+ .product-features-list {
+     list-style: none;
+     padding: 0;
+ }
 
-.timeline-item {
-    position: relative;
-}
+ .product-features-list li {
+     margin-bottom: 12px;
+     color: rgb(163, 163, 160);
+     display: flex;
+     align-items: center;
+     gap: 12px;
+ }
 
-.step-card-mini {
-    padding: 20px;
-    transition: 0.3s;
-}
+ .product-features-list li i {
+     color: rgb(218, 166, 34);
+ }
 
-.timeline-content h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
+ /* Ombre dorée sur les images */
+ .shadow-gold {
+     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(218, 166, 34, 0.05);
+     border: 1px solid rgba(255, 255, 255, 0.05);
+ }
 
-/* --- Adaptabilité Mobile --- */
-@media (max-width: 768px) {
-    .timeline-line {
-        left: 20px;
-    }
-    .timeline-dot {
-        left: 20px;
-    }
-    .timeline-content {
-        text-align: left !important;
-        padding-left: 60px;
-    }
-    .step-card-mini {
-        padding-left: 60px;
-        text-align: left !important;
-    }
-}
+ /* Boutons */
+ .btn-gold-outline {
+     border: 1px solid rgb(218, 166, 34);
+     color: rgb(218, 166, 34);
+     background: transparent;
+     padding: 12px 35px;
+     border-radius: 10px;
+     font-weight: 600;
+     transition: all 0.3s ease;
+ }
+
+ .btn-gold-outline:hover {
+     background: rgba(218, 166, 34, 0.1);
+     color: white;
+     transform: translateY(-3px);
+ }
+
+ /* page comment.html */
+ /* --- Styles pour la Timeline --- */
+ .timeline-container {
+     position: relative;
+     padding: 40px 0;
+ }
+
+ .timeline-line {
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 2px;
+     height: 90%;
+     background: linear-gradient(180deg, rgb(218, 166, 34) 0%, rgba(218, 166, 34, 0.1) 100%);
+     top: 50px;
+     z-index: 0;
+ }
+
+ .timeline-dot {
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     width: 40px;
+     height: 40px;
+     background: rgb(218, 166, 34);
+     border: 4px solid rgb(9, 9, 11);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: black;
+     font-weight: 800;
+     z-index: 2;
+ }
+
+ .timeline-item {
+     position: relative;
+ }
+
+ .step-card-mini {
+     padding: 20px;
+     transition: 0.3s;
+ }
+
+ .timeline-content h3 {
+     font-size: 1.8rem;
+     font-weight: 700;
+ }
+
+ /* --- Adaptabilité Mobile --- */
+ @media (max-width: 768px) {
+     .timeline-line {
+         left: 20px;
+     }
+
+     .timeline-dot {
+         left: 20px;
+     }
+
+     .timeline-content {
+         text-align: left !important;
+         padding-left: 60px;
+     }
+
+     .step-card-mini {
+         padding-left: 60px;
+         text-align: left !important;
+     }
+ }
+
+ /* --- Styles Pages Témoignages --- */
+ .testimonial-card {
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.1);
+     border-radius: 24px;
+     padding: 35px;
+     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ }
+
+ .testimonial-card:hover {
+     transform: translateY(-12px);
+     border-color: rgb(218, 166, 34);
+     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+ }
+
+ .featured-testimonial {
+     background: linear-gradient(135deg, rgb(218, 166, 34) 0%, rgb(180, 130, 20) 100%);
+     border: none;
+     box-shadow: 0 15px 40px rgba(218, 166, 34, 0.2);
+ }
+
+ .testimonial-text {
+     font-size: 1.1rem;
+     line-height: 1.6;
+     font-style: italic;
+     color: rgba(255, 255, 255, 0.85);
+ }
+
+ .featured-testimonial .testimonial-text {
+     color: #000 !important;
+ }
+
+ .author-avatar {
+     width: 45px;
+     height: 45px;
+     background: rgba(218, 166, 34, 0.2);
+     color: rgb(218, 166, 34);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border-radius: 50%;
+     font-weight: 700;
+     margin-right: 15px;
+ }
+
+ .author-info h4 {
+     font-size: 1rem;
+     margin-bottom: 2px;
+     font-weight: 600;
+ }
+
+ .author-info p {
+     font-size: 0.85rem;
+     color: rgba(255, 255, 255, 0.5);
+     margin-bottom: 0;
+ }
+
+ /* style page contact */
+ /* CONTACT */
+ .contact-card {
+     background: rgba(18, 18, 20, 0.95);
+     border-radius: 22px;
+     padding: 35px;
+     border: 1px solid rgba(218, 166, 34, 0.15);
+ }
+
+ .contact-card h3 {
+     font-weight: 600;
+ }
+
+ .contact-item {
+     display: flex;
+     align-items: center;
+     gap: 15px;
+     margin-bottom: 20px;
+     color: #cfcfcf;
+ }
+
+ .contact-item i {
+     font-size: 1.4rem;
+     color: rgb(218, 166, 34);
+ }
+
+ .contact-hours h5 {
+     color: rgb(218, 166, 34);
+     margin-bottom: 8px;
+ }
+
+ .form-control {
+     background: #0b0b0d;
+     border: 1px solid rgba(218, 166, 34, 0.2);
+     color: white;
+     border-radius: 14px;
+     padding: 14px;
+ }
+
+ .form-control:focus {
+     background: #0b0b0d;
+     border-color: rgb(218, 166, 34);
+     box-shadow: none;
+     color: white;
+ }
