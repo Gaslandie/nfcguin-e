@@ -1,121 +1,691 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFCGuinée</title>
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <title>NFCGuinée - Votre carte de visite connectée</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- la barre de navigation -->
+    <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container d-flex justify-content-between align-items-center p-3">
+        <div class="container">
             <a class="navbar-brand" href="#">
-                <span class="rounded-3">N</span><span style="color:white">NFC</span><span
-                    style="color:rgb(218,166,34)">Guinée</span>
+                <span>N</span><span>NFC</span><span>Guinée</span>
             </a>
-            <div class="collapse navbar-collapse " id="navbarNav">
-                <ul class="navbar-nav mx-auto d-flex gap-3">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#hero">Avantages</a>
+                        <a class="nav-link" href="#avantages">Avantages</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#offers">Nos Cartes</a>
+                        <a class="nav-link" href="#cartes">Nos Cartes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">Comment ça marche</a>
+                        <a class="nav-link" href="#comment">Comment ça marche</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#testimonials">Témoignages</a>
+                        <a class="nav-link" href="#temoignages">Témoignages</a>
                     </li>
                 </ul>
+                <button class="btn btn-commander">Commander</button>
             </div>
-            <button class="btn">Commander</button>
         </div>
     </nav>
 
-    <!-- fin barre de navigation -->
-
-    <!-- section hero-->
-    <section class="hero">
-        <div class="row">
-            <div class="col-md-6 p-3">
-                <span class="nouveau_en_guinée w-auto rounded-4 p-3" style="background-color: rgb(29,29,32);"><i
-                        class="bi bi-stars me-2"></i>Nouveau en Guinée</span>
-                <h1>Votre carte de<br> visite <span style="color:rgb(218, 166, 34)" class="connecte">connectée</span>
-                </h1>
-                <p>Partagez vos coordonnées en un seul geste. La technologie NFC<br> révolutionne le networking en
-                    Guinée.
-                </p>
-                <div class="d-flex gap-3 hero_buttons">
-                    <button class="btn">Decouvrir nos cartes <i class="bi bi-arrow-right"></i></button>
-                    <button class="btn">En savoir plus</button>
-
+    <!-- Section Hero -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="row align-items-center" style="margin-top: 10vh;">
+                <div class="col-lg-6 hero-content">
+                    <div class="nouveau-badge">
+                        <i class="bi bi-stars"></i>
+                        Nouveau en Guinée
+                    </div>
+                    <h1>
+                        Votre carte de<br>
+                        visite <span class="connecte">connectée</span>
+                    </h1>
+                    <p>
+                        Partagez vos coordonnées en un seul geste. La technologie<br> NFC révolutionne le networking en
+                        Guinée.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary">
+                            Découvrir nos cartes <i class="bi bi-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-secondary">
+                            En savoir plus
+                        </button>
+                    </div>
+                    <div class="statistics">
+                        <div class="stat-item">
+                            <h2>500+</h2>
+                            <p>Clients satisfaits</p>
+                        </div>
+                        <div class="stat-item">
+                            <h2>1000+</h2>
+                            <p>Cartes créées</p>
+                        </div>
+                        <div class="stat-item">
+                            <h2>24h</h2>
+                            <p>Livraison</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="statistic d-flex justify-content-between mt-3 p-3">
-                    <div>
-                        <h2 class="clients_satisfaits mb-0">500+</h2>
-                        <p style="font-size: 1rem;">Clients satisfaits</p>
+                <div class="col-lg-6 hero-image d-none d-lg-block">
+                    <div class="card-display">
+                        <div class="nfc-icon">
+                            ((NFC))
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="cartes_crées mb-0">1000+</h2>
-                        <p style="font-size: 1rem;">Cartes crées</p>
-
-                    </div>
-                    <div>
-                        <h2 class="cartes_crées mb-0">24h</h2>
-                        <p style="font-size: 1rem;">Livraison</p>
-
-                    </div>
-
                 </div>
-            </div>
-            <div class="col-md-6">
-
             </div>
         </div>
-        <div class="row">
-
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
         </div>
     </section>
 
-    <!-- fin section hero -->
+    <!-- Section Avantages -->
+    <section class="avantages-section" id="avantages">
+        <div class="container">
+            <div class="section-subtitle">POURQUOI NFC ?</div>
+            <h2 class="section-title">
+                La carte de visite <span class="highlight">du futur</span>
+            </h2>
+            <p class="section-description">
+                Découvrez tous les avantages de nos cartes NFC et pourquoi elles transforment le networking en Guinée.
+            </p>
 
-    <!-- pourquoi NFC -->
-    <!-- fin pourquoi NFC -->
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h3>Sans Application</h3>
+                        <p>Fonctionne avec tous les smartphones NFC. Aucune application requise pour partager vos
+                            informations.</p>
+                    </div>
+                </div>
 
-    <!-- section les offres -->
-    <!-- fin section les offres -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-lightning-charge"></i>
+                        </div>
+                        <h3>Instantané</h3>
+                        <p>Partagez vos coordonnées en moins d'une seconde. Un simple tap suffit.</p>
+                    </div>
+                </div>
 
-    <!-- comment ça marche -->
-    <!-- fin comment ça marche -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>Sécurisé</h3>
+                        <p>Vos données sont protégées. Vous contrôlez ce que vous partagez.</p>
+                    </div>
+                </div>
 
-    <!-- temoignages -->
-    <!-- fin temoignages -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <h3>Écologique</h3>
+                        <p>Réduisez votre impact environnemental. Plus de cartes papier jetées.</p>
+                    </div>
+                </div>
 
-    <!-- rejoindre NFCGuinée -->
-    <!-- fin rejoindre NFCGuinée -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <h3>Professionnel</h3>
+                        <p>Impressionnez vos contacts avec une carte moderne et innovante.</p>
+                    </div>
+                </div>
 
-    <!-- contact -->
-    <!-- fin contact -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h3>Modifiable</h3>
+                        <p>Mettez à jour vos informations à tout moment sans changer de carte.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- footer -->
-    <!-- fin footer -->
+    <!-- Section Offres -->
+    <section class="offres-section" id="cartes">
+        <div class="container">
+            <div class="section-subtitle">NOS OFFRES</div>
+            <h2 class="section-title">
+                Choisissez votre <span class="highlight">carte NFC</span>
+            </h2>
+            <p class="section-description">
+                Des solutions adaptées à chaque besoin, du particulier à l'entreprise.
+            </p>
 
+            <div class="row g-4 justify-content-center">
+                <!-- Essentiel -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Essentiel</h3>
+                        <p class="plan-subtitle">Parfait pour les particuliers</p>
 
+                        <div class="plan-price">
+                            150 000
+                            <span class="currency">GNF</span>
+                        </div>
 
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Carte NFC basique
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Profil en ligne personnalisé
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Partage illimité
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Design standard
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Support par email
+                            </li>
+                        </ul>
 
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+                        <button class="btn-order secondary">Commander maintenant</button>
+                    </div>
+                </div>
+
+                <!-- Pro (Populaire) -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">
+                            <i class="bi bi-star-fill"></i>
+                            Populaire
+                        </div>
+
+                        <h3 class="plan-name">Pro</h3>
+                        <p class="plan-subtitle">Idéal pour les professionnels</p>
+
+                        <div class="plan-price">
+                            250 000
+                            <span class="currency">GNF</span>
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Carte NFC premium métal
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Profil professionnel avancé
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Analytics de partage
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Design personnalisé
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                QR Code intégré
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Support prioritaire
+                            </li>
+                        </ul>
+
+                        <button class="btn-order primary">Commander maintenant</button>
+                    </div>
+                </div>
+
+                <!-- Entreprise -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <h3 class="plan-name">Entreprise</h3>
+                        <p class="plan-subtitle">Pour les équipes et entreprises</p>
+
+                        <div class="plan-price">
+                            400 000
+                            <span class="currency">GNF</span>
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Cartes NFC haut de gamme
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Branding entreprise complet
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Dashboard analytique
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Gestion multi-utilisateurs
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Intégration CRM
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Account manager dédié
+                            </li>
+                        </ul>
+
+                        <button class="btn-order secondary">Commander maintenant</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Comment ça marche -->
+    <section class="how-it-works-section" id="comment">
+        <div class="container">
+            <div class="section-subtitle">SIMPLE ET RAPIDE</div>
+            <h2 class="section-title">
+                Comment <span class="highlight">ça marche</span> ?
+            </h2>
+            <p class="section-description">
+                En 4 étapes simples, passez à la carte de visite du futur.
+            </p>
+
+            <div class="steps-container">
+                <div class="step-line d-none d-lg-block"></div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">01</div>
+                            <div class="step-content text-center">
+                                <h3>Choisissez votre carte</h3>
+                                <p>Sélectionnez le design et le forfait qui correspondent à vos besoins professionnels
+                                    ou personnels.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">02</div>
+                            <div class="step-content text-center">
+                                <h3>Personnalisez votre profil</h3>
+                                <p>Ajoutez vos coordonnées, liens à sociaux, portfolio et toutes les informations que
+                                    vous souhaitez partager.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">03</div>
+                            <div class="step-content text-center">
+                                <h3>Recevez votre carte</h3>
+                                <p>Livraison rapide à Conakry et dans toute la Guinée. Votre carte est prête à l'emploi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="step-item">
+                            <div class="step-number">04</div>
+                            <div class="step-content text-center">
+                                <h3>Partagez en un tap</h3>
+                                <p>Approchez votre carte d'un smartphone pour partager instantanément vos informations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Témoignages -->
+    <section class="testimonials-section" id="temoignages">
+        <div class="container">
+            <div class="section-subtitle">TÉMOIGNAGES</div>
+            <h2 class="section-title">
+                Ce que disent <span class="highlight">nos clients</span>
+            </h2>
+            <p class="section-description">
+                Découvrez pourquoi nos clients adorent leurs cartes NFC.
+            </p>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Ma carte NFC a transformé ma façon de networker. Les clients sont impressionnés et je n'ai
+                            plus jamais à chercher de cartes papier."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <h4>Mamadou Diallo</h4>
+                                <p>Entrepreneur, Conakry</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Un investissement qui vaut vraiment le coup. Le design est magnifique et le partage de
+                            contact est instantané. Je recommande à 100%."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">F</div>
+                            <div class="author-info">
+                                <h4>Fatoumata Camara</h4>
+                                <p>Consultante Marketing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Nous avons équipé toute notre équipe commerciale. L'image professionnelle de notre
+                            entreprise s'est considérablement améliorée."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">I</div>
+                            <div class="author-info">
+                                <h4>Ibrahima Bah</h4>
+                                <p>Directeur Commercial</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section CTA (Prêt à passer) -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="cta-image">
+                        <div class="cta-cards-display">
+                            <img src="./img/nfc_card.png"
+                                alt="Cartes NFC"
+                                style="width: 100%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.4);">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 cta-content">
+                    <h2 class="cta-title">
+                        Prêt à passer au <span class="highlight">networking moderne</span> ?
+                    </h2>
+                    <p class="cta-description">
+                        Rejoignez les centaines de professionnels guinéens qui ont déjà adopté la carte de visite NFC.
+                        Commandez la vôtre aujourd'hui.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-cta-primary">
+                            Commander ma carte <i class="bi bi-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-cta-secondary">
+                            Nous contacter
+                        </button>
+                    </div>
+                    <div class="cta-features">
+                        <div class="cta-feature">
+                            <i class="bi bi-dot"></i>
+                            <span>Livraison gratuite à Conakry</span>
+                        </div>
+                        <div class="cta-feature">
+                            <i class="bi bi-dot"></i>
+                            <span>Paiement sécurisé</span>
+                        </div>
+                        <div class="cta-feature">
+                            <i class="bi bi-dot"></i>
+                            <span>Garantie satisfait</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-subtitle">CONTACT</div>
+            <h2 class="section-title">
+                <span class="highlight">Contactez</span>-nous
+            </h2>
+            <p class="section-description">
+                Une question ? Un projet ? N'hésitez pas à nous contacter.
+            </p>
+
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="contact-info-card">
+                        <h3>Nos coordonnées</h3>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-telephone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Téléphone</h4>
+                                <p>+224 622 00 00 00</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <p>contact@nfcguinee.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Adresse</h4>
+                                <p>Conakry, Guinée</p>
+                            </div>
+                        </div>
+
+                        <div class="hours-card">
+                            <h4>Horaires d'ouverture</h4>
+                            <p>Lundi - Vendredi: 8h00 - 18h00</p>
+                            <p>Samedi: 9h00 - 14h00</p>
+                            <p>Dimanche: Fermé</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="contact-form">
+                        <form>
+                            <div class="form-group">
+                                <label>Nom complet <span>*</span></label>
+                                <input type="text" class="form-control" placeholder="Votre nom">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email <span>*</span></label>
+                                <input type="email" class="form-control" placeholder="votre@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Téléphone <span>*</span></label>
+                                <input type="tel" class="form-control" placeholder="+224 600 00 00 00">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Message <span>*</span></label>
+                                <textarea class="form-control" placeholder="Décrivez votre demande..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                Envoyer le message <i class="bi bi-send"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a class="navbar-brand" href="#">
+                                <span>N</span><span>NFC</span><span>Guinée</span>
+                            </a>
+                        </div>
+                        <p class="footer-description">
+                            La première entreprise de cartes de visite NFC en Guinée. Modernisez votre networking avec
+                            la technologie.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-column">
+                            <h4>Navigation</h4>
+                            <ul class="footer-links">
+                                <li><a href="#avantages">Avantages</a></li>
+                                <li><a href="#cartes">Nos Cartes</a></li>
+                                <li><a href="#comment">Comment ça marche</a></li>
+                                <li><a href="#temoignages">Témoignages</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-column">
+                            <h4>Nos Services</h4>
+                            <ul class="footer-links">
+                                <li><a href="#">Cartes NFC Particuliers</a></li>
+                                <li><a href="#">Cartes NFC Entreprises</a></li>
+                                <li><a href="#">Design Personnalisé</a></li>
+                                <li><a href="#">Solutions Corporate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-column">
+                            <h4>Contact</h4>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Conakry, Guinée<br>Quartier Kaloum</span>
+                            </div>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-telephone-fill"></i>
+                                <span>+224 620 00 00 00</span>
+                            </div>
+                            <div class="footer-contact-item">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>contact@nfcguinee.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2024 NFC Guinée. Tous droits réservés.
+                </p>
+                <div class="footer-legal">
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
