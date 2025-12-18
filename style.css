@@ -12,7 +12,7 @@
 
  /* Navbar */
  .navbar {
-     font-size: 0.8rem;
+     font-size: 1.2rem;
      background-color: rgba(9, 9, 11, 0.95);
      backdrop-filter: blur(10px);
      padding: 1.2rem 0;
@@ -59,7 +59,7 @@
      color: rgb(218, 166, 34) !important;
  }
 
- .navbar .btn-commander {
+ .navbar .btn-commander, .contact-info-card .btn-commander {
      background-color: rgb(218, 166, 34);
      color: black;
      font-weight: 600;
@@ -69,7 +69,7 @@
      transition: all 0.3s ease;
  }
 
- .navbar .btn-commander:hover {
+ .navbar .btn-commander:hover, .contact-info-card .btn-commander:hover {
      transform: scale(1.05);
      box-shadow: 0 0 20px rgba(218, 166, 34, 0.4);
  }
@@ -1281,3 +1281,191 @@
          gap: 10px;
      }
  }
+
+
+.border-gold {
+    border: 2px solid rgba(218, 166, 34, 0.3);
+}
+
+/* --- Cartes d'Impact Modernes --- */
+.impact-card {
+    background: linear-gradient(145deg, rgba(30, 30, 35, 0.8), rgba(20, 20, 25, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    padding: 40px;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.impact-card:hover {
+    transform: translateY(-15px);
+    border-color: rgba(218, 166, 34, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.impact-card.featured {
+    border: 1px dashed rgba(218, 166, 34, 0.5);
+    background: linear-gradient(145deg, rgba(40, 35, 25, 0.8), rgba(20, 20, 25, 0.8));
+}
+
+.impact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.impact-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgb(218, 166, 34);
+    font-weight: 700;
+}
+
+.impact-header i {
+    font-size: 1.8rem;
+}
+
+.impact-main h3 {
+    margin-bottom: 15px;
+    letter-spacing: -2px;
+}
+
+.impact-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* page nos cartes */
+/* Fond sombre avec dégradé subtil */
+.bg-deep-dark {
+    background-color: rgb(9, 9, 11);
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(218, 166, 34, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(218, 166, 34, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* Espacement entre les produits */
+.mb-100 {
+    margin-bottom: 150px;
+}
+
+/* Styles des textes et titres */
+.product-header {
+    padding: 160px 0 60px;
+}
+
+.product-features-list {
+    list-style: none;
+    padding: 0;
+}
+
+.product-features-list li {
+    margin-bottom: 12px;
+    color: rgb(163, 163, 160);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-features-list li i {
+    color: rgb(218, 166, 34);
+}
+
+/* Ombre dorée sur les images */
+.shadow-gold {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(218, 166, 34, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Boutons */
+.btn-gold-outline {
+    border: 1px solid rgb(218, 166, 34);
+    color: rgb(218, 166, 34);
+    background: transparent;
+    padding: 12px 35px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-gold-outline:hover {
+    background: rgba(218, 166, 34, 0.1);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* page comment.html */
+/* --- Styles pour la Timeline --- */
+.timeline-container {
+    position: relative;
+    padding: 40px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 90%;
+    background: linear-gradient(180deg, rgb(218, 166, 34) 0%, rgba(218, 166, 34, 0.1) 100%);
+    top: 50px;
+    z-index: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: rgb(218, 166, 34);
+    border: 4px solid rgb(9, 9, 11);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: 800;
+    z-index: 2;
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.step-card-mini {
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.timeline-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* --- Adaptabilité Mobile --- */
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 20px;
+    }
+    .timeline-dot {
+        left: 20px;
+    }
+    .timeline-content {
+        text-align: left !important;
+        padding-left: 60px;
+    }
+    .step-card-mini {
+        padding-left: 60px;
+        text-align: left !important;
+    }
+}
