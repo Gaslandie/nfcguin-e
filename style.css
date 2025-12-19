@@ -59,10 +59,8 @@
      color: rgb(218, 166, 34) !important;
  }
 
- .navbar .btn-commander,
- .contact-info-card .btn-commander,
- .contact-card .btn-commander,
- .cta-box-premium .btn-commander {
+
+ .btn-commander {
      background-color: rgb(218, 166, 34);
      color: black;
      font-weight: 600;
@@ -72,9 +70,8 @@
      transition: all 0.3s ease;
  }
 
- .navbar .btn-commander:hover,
- .contact-info-card .btn-commander:hover,
- .cta-box-premium .btn-commander:hover {
+
+ .btn-commander:hover {
      transform: scale(1.05);
      box-shadow: 0 0 20px rgba(218, 166, 34, 0.4);
  }
@@ -1663,24 +1660,20 @@
      line-height: 1.6;
      margin: 0;
  }
- .page-header {
-    position: relative;
-    padding: 120px 0 100px;
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(218, 166, 34, 0.12),
-            transparent 45%
-        ),
-        linear-gradient(
-            180deg,
-            #0b0d14 0%,
-            #09090b 60%,
-            #070709 100%
-        );
-    overflow: hidden;
-}
 
+ .page-header {
+     position: relative;
+     padding: 120px 0 100px;
+     background:
+         radial-gradient(circle at top,
+             rgba(218, 166, 34, 0.12),
+             transparent 45%),
+         linear-gradient(180deg,
+             #0b0d14 0%,
+             #09090b 60%,
+             #070709 100%);
+     overflow: hidden;
+ }
 
  /* Mobile */
  @media (max-width: 768px) {
@@ -1761,26 +1754,24 @@
  }
 
  .faq-preview {
-    background: radial-gradient(
-        ellipse at top,
-        rgba(255, 255, 255, 0.03),
-        transparent 70%
-    );
-}
+     background: radial-gradient(ellipse at top,
+             rgba(255, 255, 255, 0.03),
+             transparent 70%);
+ }
 
-.faq-link {
-    display: inline-block;
-    margin-top: 10px;
-    color: rgb(218, 166, 34);
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-}
+ .faq-link {
+     display: inline-block;
+     margin-top: 10px;
+     color: rgb(218, 166, 34);
+     font-weight: 600;
+     text-decoration: none;
+     transition: opacity 0.3s ease;
+ }
 
-.faq-link:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-}
+ .faq-link:hover {
+     opacity: 0.8;
+     text-decoration: underline;
+ }
 
 
 
@@ -1814,6 +1805,31 @@
          text-align: left !important;
      }
  }
+
+ .cta-final {
+     position: relative;
+     padding: 120px 0;
+     overflow: hidden;
+ }
+
+ .cta-title {
+     font-size: 2.4rem;
+     font-weight: 700;
+     color: #ffffff;
+ }
+
+ .cta-subtitle {
+     max-width: 600px;
+     margin: 0 auto;
+     color: rgba(255, 255, 255, 0.7);
+     font-size: 1.05rem;
+ }
+
+
+
+
+
+
 
  /* --- Styles Pages Témoignages --- */
  .testimonial-card {
@@ -2015,4 +2031,89 @@
  .custom-faq .accordion-button:focus {
      border-color: rgba(218, 166, 34, 0.5);
      box-shadow: 0 0 0 0.25rem rgba(218, 166, 34, 0.1);
+ }
+
+
+
+
+ /* page entreprise */
+ /* --- Page Entreprise --- */
+ /* --- Page Entreprise --- */
+ .bg-black-opacity {
+     background: rgba(255, 255, 255, 0.02);
+ }
+
+ .text-gold {
+     color: rgb(218, 166, 34) !important;
+ }
+
+ /* Style des 3 cartes (Tech, Conseil, Startups) */
+ .use-case-card {
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.1);
+     border-radius: 20px;
+     transition: all 0.3s ease;
+ }
+
+ .use-case-card:hover {
+     transform: translateY(-10px);
+     border-color: rgb(218, 166, 34);
+     background: rgba(218, 166, 34, 0.05);
+ }
+
+ /* NOUVEAU STYLE : Liste des fonctionnalités en 2 colonnes */
+ .feature-list-corporate {
+     list-style: none;
+     padding: 0;
+ }
+
+ .feature-list-corporate li {
+     display: flex;
+     align-items: flex-start;
+     margin-bottom: 25px;
+     padding: 15px;
+     background: rgba(255, 255, 255, 0.02);
+     border-radius: 12px;
+     border: 1px solid rgba(218, 166, 34, 0.05);
+     transition: all 0.3s ease;
+ }
+
+ .feature-list-corporate li:hover {
+     background: rgba(218, 166, 34, 0.08);
+     border-color: rgba(218, 166, 34, 0.4);
+     transform: scale(1.02);
+     /* Petit effet de zoom au survol */
+ }
+
+ .feature-list-corporate .icon-box {
+     min-width: 45px;
+     height: 45px;
+     background: rgba(218, 166, 34, 0.1);
+     border-radius: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-right: 15px;
+     color: rgb(218, 166, 34);
+     font-size: 1.3rem;
+ }
+
+ .feature-list-corporate h5 {
+     color: white;
+     margin-bottom: 3px;
+     font-size: 1.05rem;
+     font-weight: 600;
+ }
+
+ .feature-list-corporate p {
+     color: rgba(255, 255, 255, 0.6);
+     font-size: 0.85rem;
+     margin-bottom: 0;
+ }
+
+ /* Section CTA Final */
+ .call-to-action-card {
+     background: linear-gradient(145deg, rgba(25, 25, 28, 0.8), rgba(218, 166, 34, 0.05));
+     border: 1px solid rgba(218, 166, 34, 0.2);
+     border-radius: 40px;
  }
