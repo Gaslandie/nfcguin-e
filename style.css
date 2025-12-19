@@ -1623,42 +1623,166 @@
 
  /* page comment.html */
  /* --- Styles pour la Timeline --- */
- .timeline-container {
-     position: relative;
-     padding: 40px 0;
+ .how-it-works {
+     max-width: 900px;
+     margin: 0 auto;
  }
 
- .timeline-line {
-     position: absolute;
-     left: 50%;
-     transform: translateX(-50%);
-     width: 2px;
-     height: 90%;
-     background: linear-gradient(180deg, rgb(218, 166, 34) 0%, rgba(218, 166, 34, 0.1) 100%);
-     top: 50px;
-     z-index: 0;
+ .how-step {
+     display: flex;
+     gap: 25px;
+     align-items: flex-start;
+     margin-bottom: 50px;
  }
 
- .timeline-dot {
-     position: absolute;
-     left: 50%;
-     transform: translateX(-50%);
-     width: 40px;
-     height: 40px;
-     background: rgb(218, 166, 34);
-     border: 4px solid rgb(9, 9, 11);
+ .how-icon {
+     width: 56px;
+     height: 56px;
+     min-width: 56px;
+     background: rgba(218, 166, 34, 0.15);
+     border: 2px solid rgb(218, 166, 34);
      border-radius: 50%;
      display: flex;
      align-items: center;
      justify-content: center;
-     color: black;
-     font-weight: 800;
-     z-index: 2;
  }
 
- .timeline-item {
-     position: relative;
+ .how-icon i {
+     font-size: 24px;
+     color: rgb(218, 166, 34);
  }
+
+ .how-content h3 {
+     font-size: 1.6rem;
+     font-weight: 700;
+     margin-bottom: 8px;
+ }
+
+ .how-content p {
+     color: rgba(255, 255, 255, 0.7);
+     line-height: 1.6;
+     margin: 0;
+ }
+ .page-header {
+    position: relative;
+    padding: 120px 0 100px;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(218, 166, 34, 0.12),
+            transparent 45%
+        ),
+        linear-gradient(
+            180deg,
+            #0b0d14 0%,
+            #09090b 60%,
+            #070709 100%
+        );
+    overflow: hidden;
+}
+
+
+ /* Mobile */
+ @media (max-width: 768px) {
+     .how-step {
+         gap: 18px;
+     }
+
+     .how-content h3 {
+         font-size: 1.4rem;
+     }
+ }
+
+ .bankai-tech {
+     background: radial-gradient(ellipse at center,
+             rgba(255, 255, 255, 0.03),
+             transparent 70%);
+ }
+
+ .section-title {
+     font-size: 2.4rem;
+     font-weight: 800;
+ }
+
+ .section-subtitle {
+     color: rgba(255, 255, 255, 0.6);
+     max-width: 600px;
+     margin: 0 auto;
+ }
+
+ .tech-card {
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.12);
+     border-radius: 18px;
+     padding: 35px 25px;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
+
+ .tech-card:hover {
+     transform: translateY(-6px);
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+ }
+
+ .tech-icon {
+     width: 60px;
+     height: 60px;
+     margin: 0 auto 20px;
+     border-radius: 50%;
+     background: rgba(218, 166, 34, 0.15);
+     border: 2px solid rgb(218, 166, 34);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .tech-icon i {
+     font-size: 26px;
+     color: rgb(218, 166, 34);
+ }
+
+ .tech-card h3 {
+     font-size: 1.4rem;
+     font-weight: 700;
+     margin-bottom: 10px;
+ }
+
+ .tech-card p {
+     font-size: 0.95rem;
+     line-height: 1.6;
+     color: rgba(255, 255, 255, 0.7);
+     margin: 0;
+ }
+
+ /* Mobile */
+ @media (max-width: 768px) {
+     .section-title {
+         font-size: 2rem;
+     }
+ }
+
+ .faq-preview {
+    background: radial-gradient(
+        ellipse at top,
+        rgba(255, 255, 255, 0.03),
+        transparent 70%
+    );
+}
+
+.faq-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: rgb(218, 166, 34);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.faq-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+
 
  .step-card-mini {
      padding: 20px;
@@ -1857,38 +1981,38 @@
  }
 
  /* --- Style FAQ --- */
-.custom-faq .accordion-item {
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(218, 166, 34, 0.1);
-    border-radius: 15px !important;
-    overflow: hidden;
-}
+ .custom-faq .accordion-item {
+     background-color: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.1);
+     border-radius: 15px !important;
+     overflow: hidden;
+ }
 
-.custom-faq .accordion-button {
-    background-color: transparent;
-    color: white;
-    font-weight: 600;
-    padding: 20px;
-    box-shadow: none;
-}
+ .custom-faq .accordion-button {
+     background-color: transparent;
+     color: white;
+     font-weight: 600;
+     padding: 20px;
+     box-shadow: none;
+ }
 
-.custom-faq .accordion-button:not(.collapsed) {
-    color: rgb(218, 166, 34);
-    background-color: rgba(218, 166, 34, 0.05);
-}
+ .custom-faq .accordion-button:not(.collapsed) {
+     color: rgb(218, 166, 34);
+     background-color: rgba(218, 166, 34, 0.05);
+ }
 
-.custom-faq .accordion-button::after {
-    filter: invert(1);
-}
+ .custom-faq .accordion-button::after {
+     filter: invert(1);
+ }
 
-.custom-faq .accordion-body {
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    border-top: 1px solid rgba(218, 166, 34, 0.1);
-}
+ .custom-faq .accordion-body {
+     background-color: transparent;
+     color: rgba(255, 255, 255, 0.7);
+     line-height: 1.6;
+     border-top: 1px solid rgba(218, 166, 34, 0.1);
+ }
 
-.custom-faq .accordion-button:focus {
-    border-color: rgba(218, 166, 34, 0.5);
-    box-shadow: 0 0 0 0.25rem rgba(218, 166, 34, 0.1);
-}
+ .custom-faq .accordion-button:focus {
+     border-color: rgba(218, 166, 34, 0.5);
+     box-shadow: 0 0 0 0.25rem rgba(218, 166, 34, 0.1);
+ }
