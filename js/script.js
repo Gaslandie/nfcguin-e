@@ -85,19 +85,27 @@ document.querySelectorAll('input[name="deliveryMethod"]').forEach(radio => {
   });
 });
 
-// écoute du clic sur  bouton de confirmation
+// Écoute du clic sur le bouton de confirmation
 document.getElementById('btn-submit').addEventListener('click', function(e) {
-    e.preventDefault(); // blocage du rechargement de la page
+    const form = document.getElementById('orderForm');
 
-    // recuperation des infos saisies pour personnaliser le message
-    const customerName = document.getElementById('inputName').value || "Cher client";
-    const cardType = document.getElementById('sum-model').innerText;
+    // Vérification si le formulaire est valide (champs required remplis)
+    if (form.checkValidity()) {
+        e.preventDefault(); // Empêche le rechargement car on utilise une modale
 
-    // injection des données dans la modale
-    document.getElementById('modal-customer-name').innerText = customerName;
-    document.getElementById('modal-card-type').innerText = cardType;
+        // Récupération des infos saisies pour personnaliser le message
+        const customerName = document.getElementById('inputName').value;
+        const cardType = document.getElementById('sum-model').innerText;
 
-    // Je déclenche l'affichage de la modale via l'objet Bootstrap
-    const myModal = new bootstrap.Modal(document.getElementById('successModal'));
-    myModal.show();
+        // Injection des données dans la modale
+        document.getElementById('modal-customer-name').innerText = customerName;
+        document.getElementById('modal-card-type').innerText = cardType;
+
+        // Affichage de la modale de succès
+        const myModal = new bootstrap.Modal(document.getElementById('successModal'));
+        myModal.show();
+    } else {
+        // Si le formulaire est invalide, on laisse le navigateur afficher les messages d'erreur
+        form.reportValidity();
+    }
 });
