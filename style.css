@@ -9,6 +9,17 @@
      background-color: rgb(9, 9, 11);
      overflow-x: hidden;
  }
+ html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.container, .row {
+    max-width: 100%;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
 
  /* Navbar */
  .navbar {
