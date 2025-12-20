@@ -1499,48 +1499,144 @@
      background-attachment: fixed;
  }
 
- /* Espacement entre les produits */
- .mb-100 {
-     margin-bottom: 150px;
+ /* --- Cartes de Prix (Pricing) --- */
+ .pricing-card {
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.1);
+     border-radius: 25px;
+     padding: 30px;
+     transition: all 0.4s ease;
+     display: flex;
+     flex-direction: column;
+     position: relative;
  }
 
- /* Styles des textes et titres */
- .product-header {
-     padding: 160px 0 60px;
+ .pricing-card:hover {
+     transform: translateY(-15px);
+     border-color: rgba(218, 166, 34, 0.5);
+     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
  }
 
- .product-features-list {
+ /* Mise en avant de la Pro Métal */
+ .pricing-card.featured {
+     border: 2px solid rgb(218, 166, 34);
+     background: rgba(218, 166, 34, 0.05);
+ }
+
+ .popular-badge {
+     position: absolute;
+     top: -15px;
+     left: 50%;
+     transform: translateX(-50%);
+     background: rgb(218, 166, 34);
+     color: black;
+     padding: 5px 20px;
+     border-radius: 20px;
+     font-size: 0.8rem;
+     font-weight: 700;
+     text-transform: uppercase;
+ }
+
+ .pricing-header h3 {
+     font-size: 1.5rem;
+     font-weight: 700;
+ }
+
+ .pricing-features {
      list-style: none;
      padding: 0;
+     margin: 30px 0;
  }
 
- .product-features-list li {
-     margin-bottom: 12px;
-     color: rgb(163, 163, 160);
+ .pricing-features li {
+     margin-bottom: 15px;
+     font-size: 0.95rem;
      display: flex;
      align-items: center;
-     gap: 12px;
  }
 
- .product-features-list li i {
-     color: rgb(218, 166, 34);
+ .pricing-features li i {
+     margin-right: 12px;
+     font-size: 1.1rem;
  }
 
- /* Ombre dorée sur les images */
- .shadow-gold {
-     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(218, 166, 34, 0.05);
-     border: 1px solid rgba(255, 255, 255, 0.05);
+ .text-muted {
+     opacity: 0.4;
+     text-decoration: line-through;
  }
 
- /* Boutons */
- .btn-gold-outline {
-     border: 1px solid rgb(218, 166, 34);
-     color: rgb(218, 166, 34);
-     background: transparent;
-     padding: 12px 35px;
-     border-radius: 10px;
-     font-weight: 600;
+ /* --- Tableau Comparatif --- */
+ .custom-comparison-table {
+     border-collapse: separate;
+     border-spacing: 0 10px;
+     background: transparent !important;
+ }
+
+ .custom-comparison-table thead th {
+     border: none;
+     padding: 20px;
+     font-size: 1.1rem;
+     background: rgba(255, 255, 255, 0.05);
+ }
+
+ .custom-comparison-table tbody tr {
+     background: rgba(255, 255, 255, 0.02);
      transition: all 0.3s ease;
+ }
+
+ .custom-comparison-table tbody tr:hover {
+     background: rgba(218, 166, 34, 0.05) !important;
+ }
+
+ .custom-comparison-table td {
+     padding: 15px 20px;
+     border: none;
+     vertical-align: middle;
+ }
+
+ .text-gold {
+     color: rgb(218, 166, 34) !important;
+ }
+
+ /* --- Cartes "Pour Qui" --- */
+ .who-card {
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(218, 166, 34, 0.1);
+     border-radius: 20px;
+     height: 100%;
+     transition: all 0.3s ease;
+ }
+
+ .highlighted-who {
+     border-color: rgba(218, 166, 34, 0.5);
+     background: rgba(218, 166, 34, 0.03);
+ }
+
+ .who-icon {
+     width: 60px;
+     height: 60px;
+     background: rgba(218, 166, 34, 0.1);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto;
+     color: rgb(218, 166, 34);
+     font-size: 1.5rem;
+ }
+
+ .who-card h4 {
+     color: white;
+     margin-bottom: 15px;
+ }
+
+ .btn-gold-outline {
+     border: 2px solid rgb(218, 166, 34);
+     color: rgb(218, 166, 34);
+     padding: 12px 30px;
+     border-radius: 12px;
+     font-weight: 600;
+     transition: 0.3s;
  }
 
  .btn-gold-outline:hover {
@@ -1549,73 +1645,53 @@
      transform: translateY(-3px);
  }
 
- .bg-black-opacity {
-     background: rgba(0, 0, 0, 0.2);
- }
-
  .cta-call-box {
-     background: linear-gradient(145deg, rgba(25, 25, 28, 0.8), rgba(15, 15, 18, 0.9));
-     border: 1px solid rgba(218, 166, 34, 0.15);
+     background: linear-gradient(145deg, rgba(25, 25, 28, 0.9), rgba(218, 166, 34, 0.05));
+     border: 1px solid rgba(218, 166, 34, 0.2);
      border-radius: 40px;
-     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
  }
 
- .btn-click-to-call {
-     display: inline-flex;
-     align-items: center;
-     background: white;
-     padding: 15px 35px;
-     border-radius: 20px;
-     text-decoration: none;
-     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-     border: 2px solid transparent;
- }
-
- .btn-click-to-call:hover {
-     transform: scale(1.05);
-     background: transparent;
-     border-color: rgb(218, 166, 34);
- }
-
- .call-icon {
-     width: 50px;
-     height: 50px;
+ .call-icon-wrapper {
+     width: 80px;
+     height: 80px;
      background: rgb(218, 166, 34);
-     border-radius: 12px;
+     color: black;
+     border-radius: 50%;
      display: flex;
      align-items: center;
      justify-content: center;
-     font-size: 1.5rem;
-     color: black;
-     margin-right: 20px;
+     margin: 0 auto;
+     font-size: 2rem;
+     box-shadow: 0 0 20px rgba(218, 166, 34, 0.4);
+     animation: pulse-gold 2s infinite;
  }
 
- .call-details {
-     display: flex;
-     flex-direction: column;
-     text-align: left;
+ @keyframes pulse-gold {
+     0% {
+         transform: scale(1);
+         box-shadow: 0 0 0 0 rgba(218, 166, 34, 0.4);
+     }
+
+     70% {
+         transform: scale(1.05);
+         box-shadow: 0 0 0 15px rgba(218, 166, 34, 0);
+     }
+
+     100% {
+         transform: scale(1);
+         box-shadow: 0 0 0 0 rgba(218, 166, 34, 0);
+     }
  }
 
- .call-label {
-     font-size: 0.8rem;
-     color: #666;
-     text-transform: uppercase;
+ .cta-call-box h2 {
+     letter-spacing: -1px;
+ }
+
+ .cta-call-box .btn {
      font-weight: 700;
+     text-transform: uppercase;
      letter-spacing: 1px;
- }
-
- .call-number {
-     font-size: 1.4rem;
-     color: #000;
-     font-weight: 800;
- }
-
- .btn-click-to-call:hover .call-number {
-     color: white;
- }
-
- .btn-click-to-call:hover .call-label {
-     color: rgb(218, 166, 34);
  }
 
  /* page comment.html */
