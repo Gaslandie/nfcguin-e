@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commander - BANKAÏ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="text-white bg-deep-dark">
+
+    <!-- Barre de navigation -->
+    <div id="navbar-placeholder"></div>
+
+
+    <header class="page-header">
+        <div class="container text-center" data-aos="zoom-out">
+            <span class="section-subtitle">CONFIGURATEUR</span>
+            <h1 class="section-title text-white">Créez votre <span class="highlight">Carte Unique</span></h1>
+            <p class="section-description mx-auto">
+                Personnalisez votre support physique et configurez votre identité numérique en quelques clics.
+                Rejoignez l'élite du networking en Guinée.
+            </p>
+        </div>
+    </header>
+
+
+    <section class="py-5 mt-5">
+        <div class="container">
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8">
+                    <div class="progress-container">
+                        <div class="progress-step active" id="step1-indicator">
+                            <span class="step-number">1</span>
+                            <span class="step-text">Modèle</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step" id="step2-indicator">
+                            <span class="step-number">2</span>
+                            <span class="step-text">Design</span>
+                        </div>
+                        <div class="progress-line"></div>
+                        <div class="progress-step" id="step3-indicator">
+                            <span class="step-number">3</span>
+                            <span class="step-text">Livraison</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <form id="orderForm">
+
+                        <div class="form-step-section mb-5" id="step1">
+                            <h3 class="fw-bold mb-4 text-white">Quel est votre choix ?</h3>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="cardType" id="typeStandard"
+                                        value="150000" checked>
+                                    <label class="card-select-btn" for="typeStandard">
+                                        <span class="d-block fw-bold">Standard</span>
+                                        <span class="price">150 000 GNF</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="cardType" id="typePremium"
+                                        value="250000">
+                                    <label class="card-select-btn" for="typePremium">
+                                        <span class="d-block fw-bold">Premium</span>
+                                        <span class="price">250 000 GNF</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="cardType" id="typeEntreprise"
+                                        value="Devis">
+                                    <label class="card-select-btn" for="typeEntreprise">
+                                        <span class="d-block fw-bold">Entreprise</span>
+                                        <span class="price">Sur Devis</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-step-section mb-5" id="step2">
+                            <h3 class="fw-bold mb-4 text-white">Personnalisation visuelle</h3>
+                            <div class="mb-4">
+                                <label class="form-label small text-secondary">Couleur de la carte</label>
+                                <div class="d-flex gap-3">
+                                    <div class="color-option active" style="background: #000;" data-color="Noir"></div>
+                                    <div class="color-option" style="background: #fff;" data-color="Blanc"></div>
+                                    <div class="color-option" style="background: #198754;" data-color="Vert"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small text-secondary">Nom sur la carte</label>
+                                <input type="text" class="form-control custom-input" id="inputName"
+                                    placeholder="Ex: Mamady Keïta">
+                            </div>
+                            <div id="logoUploadArea" class="mb-3 d-none">
+                                <label class="form-label small text-secondary">Logo de l'entreprise</label>
+                                <div class="upload-box">
+                                    <i class="bi bi-image"></i>
+                                    <p class="small mb-0">Logo PNG/SVG recommandé</p>
+                                    <input type="file" class="file-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-step-section" id="step3">
+                            <h3 class="fw-bold mb-4 text-white">Informations de livraison</h3>
+
+                            <div class="mb-4">
+                                <label class="form-label small text-secondary">Mode de livraison</label>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <input type="radio" class="btn-check" name="deliveryMethod" id="delStandard"
+                                            value="0" checked>
+                                        <label class="card-select-btn py-3" for="delStandard">
+                                            <i class="bi bi-truck me-2"></i> Standard (Gratuit)
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="radio" class="btn-check" name="deliveryMethod" id="delExpress"
+                                            value="25000">
+                                        <label class="card-select-btn py-3" for="delExpress">
+                                            <i class="bi bi-lightning-charge me-2"></i> Express 24h (+25k)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control custom-input"
+                                        placeholder="Ville (Ex: Conakry)">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control custom-input" placeholder="Quartier">
+                                </div>
+                                <div class="col-12">
+                                    <select class="form-select custom-input">
+                                        <option selected disabled>Méthode de paiement</option>
+                                        <option>Orange Money</option>
+                                        <option>Mobile Money (MTN)</option>
+                                        <option>Cash à la livraison</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="order-summary-card sticky-top" style="top: 120px;">
+                        <h4 class="fw-bold mb-4">Récapitulatif</h4>
+                        <div class="summary-item">
+                            <span>Modèle</span>
+                            <span id="sum-model" class="fw-bold">Bankaï Standard</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Couleur</span>
+                            <span id="sum-color" class="fw-bold">Noir</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Nom</span>
+                            <span id="sum-name" class="fw-bold">—</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Livraison</span>
+                            <span id="sum-delivery" class="fw-bold">Gratuit</span>
+                        </div>
+                        <hr class="border-secondary">
+                        <div class="summary-item fs-5">
+                            <span>Total</span>
+                            <span id="sum-total" class="text-gold fw-bold">150 000 GNF</span>
+                        </div>
+                        <button class="btn btn-commander w-100 py-3 mt-4" id="btn-submit">
+                            CONFIRMER LA COMMANDE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-deep-dark border-gold p-4">
+            <div class="modal-body text-center">
+                <div class="success-icon-wrapper mb-4">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <h2 class="fw-bold text-white mb-3">Commande Reçue !</h2>
+                <p class="text-secondary">
+                    Merci <span id="modal-customer-name" class="text-gold fw-bold"></span> ! 
+                    Votre commande pour une <span id="modal-card-type" class="text-white"></span> a bien été simulée.
+                </p>
+                <button onclick="window.location.href='commander.html';" type="button" class="btn btn-gold-outline w-100" data-bs-dismiss="modal">Retour au site</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/include.js"></script>
+</body>
+
+</html>

@@ -9,17 +9,6 @@
      background-color: rgb(9, 9, 11);
      overflow-x: hidden;
  }
- html, body {
-    overflow-x: hidden;
-    width: 100%;
-    position: relative;
-}
-
-.container, .row {
-    max-width: 100%;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
 
  /* Navbar */
  .navbar {
@@ -71,7 +60,7 @@
  }
 
 
- .btn-commander {
+ .btn-commander , .navbar-collapse .btn-commander{
      background-color: rgb(218, 166, 34);
      color: black;
      font-weight: 600;
@@ -84,7 +73,7 @@
 
  .btn-commander:hover {
      transform: scale(1.05);
-     box-shadow: 0 0 20px rgba(218, 166, 34, 0.4);
+     box-shadow: 0 0 20px rgba(218, 166, 34, 0.4) !important;
  }
 
  /* Hero Section */
@@ -429,7 +418,7 @@
      color: white;
  }
 
- .section-subtitle {
+ /* .section-subtitle {
      color: rgb(218, 166, 34);
      font-size: 0.9rem;
      font-weight: 600;
@@ -437,7 +426,7 @@
      letter-spacing: 2px;
      text-align: center;
      margin-bottom: 15px;
- }
+ } */
 
  .section-title {
      font-size: 3rem;
@@ -2204,3 +2193,195 @@
      border: 1px solid rgba(218, 166, 34, 0.2);
      border-radius: 40px;
  }
+
+ /* page commander */
+ /* --- Formulaire de Commande --- */
+ .form-label-custom {
+     display: block;
+     font-size: 1.25rem;
+     font-weight: 700;
+     margin-bottom: 20px;
+     color: white;
+ }
+
+ /* Style global pour tous les champs de saisie et listes */
+ .custom-input,
+ .form-control.custom-input,
+ .form-select.custom-input {
+     background-color: rgba(255, 255, 255, 0.05) !important;
+     border: 1px solid rgba(218, 166, 34, 0.2) !important;
+     color: white !important;
+     padding: 12px 20px;
+     border-radius: 10px;
+     transition: all 0.3s ease;
+ }
+
+ .form-select.custom-input option {
+     background-color: #121212;
+     color: white;
+ }
+
+ .custom-input:focus,
+ .form-select.custom-input:focus {
+     background-color: rgba(218, 166, 34, 0.08) !important;
+     border-color: rgb(218, 166, 34) !important;
+     box-shadow: 0 0 10px rgba(218, 166, 34, 0.2) !important;
+     outline: none;
+ }
+
+ .custom-input::placeholder {
+     color: rgba(255, 255, 255, 0.4) !important;
+ }
+
+ .form-select.custom-input {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23daa622' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+ }
+
+ .card-select-btn {
+     display: block;
+     padding: 20px;
+     background: rgba(255, 255, 255, 0.03);
+     border: 1px solid rgba(255, 255, 255, 0.1);
+     border-radius: 15px;
+     text-align: center;
+     cursor: pointer;
+     transition: all 0.3s ease;
+ }
+
+ .btn-check:checked+.card-select-btn {
+     border-color: rgb(218, 166, 34);
+     background: rgba(218, 166, 34, 0.1);
+     box-shadow: 0 0 15px rgba(218, 166, 34, 0.2);
+ }
+
+ .color-option {
+     width: 35px;
+     height: 35px;
+     border-radius: 50%;
+     cursor: pointer;
+     border: 2px solid transparent;
+     transition: 0.2s;
+ }
+
+ .color-option:hover {
+     transform: scale(1.1);
+     border-color: white;
+ }
+
+ .upload-box {
+     border: 2px dashed rgba(218, 166, 34, 0.3);
+     border-radius: 15px;
+     padding: 30px;
+     text-align: center;
+     color: rgba(255, 255, 255, 0.5);
+     position: relative;
+     cursor: pointer;
+ }
+
+ .file-input {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     opacity: 0;
+     cursor: pointer;
+ }
+
+ .order-summary-card {
+     background: rgba(25, 25, 28, 1);
+     border: 1px solid rgba(218, 166, 34, 0.3);
+     padding: 30px;
+     border-radius: 25px;
+ }
+
+ /* Barre de progression */
+ .progress-container {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     position: relative;
+     padding: 0 10px;
+ }
+
+ .progress-step {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     z-index: 1;
+ }
+
+ .step-number {
+     width: 40px;
+     height: 40px;
+     background: rgba(255, 255, 255, 0.1);
+     border: 2px solid rgba(255, 255, 255, 0.2);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: white;
+     font-weight: bold;
+     margin-bottom: 8px;
+     transition: 0.3s;
+ }
+
+ .step-text {
+     font-size: 0.8rem;
+     color: rgba(255, 255, 255, 0.5);
+     text-transform: uppercase;
+     font-weight: 600;
+ }
+
+ .progress-line {
+     flex-grow: 1;
+     height: 2px;
+     background: rgba(255, 255, 255, 0.1);
+     margin-bottom: 25px;
+     /* Aligner avec les cercles */
+ }
+
+ /* État Actif */
+ .progress-step.active .step-number {
+     background: rgb(218, 166, 34);
+     border-color: rgb(218, 166, 34);
+     color: black;
+     box-shadow: 0 0 15px rgba(218, 166, 34, 0.4);
+ }
+
+ .progress-step.active .step-text {
+     color: rgb(218, 166, 34);
+ }
+
+ /* Résumé Item */
+ .summary-item {
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 15px;
+     font-size: 0.95rem;
+ }
+
+ .color-option.active {
+     border: 3px solid rgb(218, 166, 34);
+     transform: scale(1.1);
+ }
+
+ /* Mon style pour la modale de succès */
+.border-gold {
+    border: 1px solid rgba(218, 166, 34, 0.5) !important;
+    border-radius: 25px;
+}
+
+.success-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: rgb(218, 166, 34);
+    color: black;
+    font-size: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(218, 166, 34, 0.4);
+}
