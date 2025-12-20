@@ -8,11 +8,13 @@ AOS.init({
 let orderState = {
   cardPrice: 150000,
   deliveryPrice: 0,
+  quantity: 1,
   isDevis: false
 };
 
 const inputs = {
   name: document.getElementById('inputName'),
+  qty: document.getElementById('inputQty'),
   summaryName: document.getElementById('sum-name'),
   summaryModel: document.getElementById('sum-model'),
   summaryTotal: document.getElementById('sum-total'),
@@ -20,92 +22,154 @@ const inputs = {
   summaryDelivery: document.getElementById('sum-delivery')
 };
 
+// Fonction pour mettre à jour l'interface selon les choix (Quantité / Type)
+function updateUI() {
+  const nameGroup = document.getElementById('nameInputGroup');
+  const nameInput = document.getElementById('inputName');
+  const nameLabel = document.getElementById('nameLabel');
+  const logoArea = document.getElementById('logoUploadArea');
+  const logoInput = logoArea.querySelector('input');
+
+  const selectedType = document.querySelector('input[name="cardType"]:checked');
+  const isEntreprise = selectedType.value === "Devis";
+  const isPro = selectedType.id === "typePro";
+
+  // 1. Gestion du champ Nom / Entreprise
+  if (isEntreprise) {
+    nameGroup.classList.remove('d-none');
+    nameLabel.innerText = "Nom de l'entreprise";
+    nameInput.placeholder = "Ex: Bankaï Sarl";
+    nameInput.required = true;
+  } else if (orderState.quantity > 1) {
+    nameGroup.classList.add('d-none'); // On cache si multi-personnes
+    nameInput.required = false;
+    inputs.summaryName.innerText = "Multiples (À définir)";
+  } else {
+    nameGroup.classList.remove('d-none');
+    nameLabel.innerText = "Nom sur la carte";
+    nameInput.placeholder = "Ex: Mamady Keïta";
+    nameInput.required = true;
+  }
+
+  // 2. Gestion du Logo
+  if (isEntreprise || isPro) {
+    logoArea.classList.remove('d-none');
+    logoInput.required = true;
+  } else {
+    logoArea.classList.add('d-none');
+    logoInput.required = false;
+  }
+
+  updateTotal();
+}
+
 // Fonction de calcul globale
 function updateTotal() {
+  const selectedRadio = document.querySelector('input[name="cardType"]:checked');
+
   if (orderState.isDevis) {
     inputs.summaryTotal.innerText = "Sur Devis";
+    inputs.summaryModel.innerText = "Bankaï Entreprise";
   } else {
-    const total = orderState.cardPrice + orderState.deliveryPrice;
+    const total = (orderState.cardPrice * orderState.quantity) + orderState.deliveryPrice;
     inputs.summaryTotal.innerText = total.toLocaleString() + " GNF";
+
+    const baseModelName = selectedRadio.id === "typePro" ? "Bankaï Pro" : "Bankaï Essentiel";
+    inputs.summaryModel.innerText = orderState.quantity > 1 ? `${orderState.quantity}x ${baseModelName}` : baseModelName;
   }
 }
 
-// 1. Gestion du Nom + Activation Étape 2
+// 1. Gestion du Nom (Input manuel)
 inputs.name.addEventListener('input', (e) => {
   inputs.summaryName.innerText = e.target.value || "—";
   if (e.target.value.length > 2) {
     document.getElementById('step2-indicator').classList.add('active');
-  } else {
-    document.getElementById('step2-indicator').classList.remove('active');
   }
 });
 
 // 2. Gestion du Modèle
 document.querySelectorAll('input[name="cardType"]').forEach(radio => {
   radio.addEventListener('change', (e) => {
-    const logoArea = document.getElementById('logoUploadArea');
     const btn = document.getElementById('btn-submit');
-
     if (e.target.value === "Devis") {
       orderState.isDevis = true;
-      inputs.summaryModel.innerText = "Bankaï Entreprise";
       btn.innerText = "DEMANDER UN DEVIS";
-      logoArea.classList.remove('d-none');
     } else {
       orderState.isDevis = false;
       orderState.cardPrice = parseInt(e.target.value);
-      inputs.summaryModel.innerText = e.target.id === "typePremium" ? "Bankaï Premium" : "Bankaï Standard";
       btn.innerText = "CONFIRMER LA COMMANDE";
-
-      // Affichage logo si Premium
-      e.target.id === "typePremium" ? logoArea.classList.remove('d-none') : logoArea.classList.add('d-none');
     }
-    updateTotal();
+    updateUI();
   });
 });
 
-// 3. Gestion des Couleurs
+// 3. Gestion de la Quantité
+document.getElementById('btnPlus').addEventListener('click', () => {
+  inputs.qty.value = parseInt(inputs.qty.value) + 1;
+  orderState.quantity = parseInt(inputs.qty.value);
+  updateUI();
+});
+
+document.getElementById('btnMinus').addEventListener('click', () => {
+  if (parseInt(inputs.qty.value) > 1) {
+    inputs.qty.value = parseInt(inputs.qty.value) - 1;
+    orderState.quantity = parseInt(inputs.qty.value);
+    updateUI();
+  }
+});
+
+inputs.qty.addEventListener('input', (e) => {
+  let val = parseInt(e.target.value);
+  if (isNaN(val) || val < 1) val = 1;
+  orderState.quantity = val;
+  updateUI();
+});
+
+// 4. Gestion des Couleurs
 document.querySelectorAll('.color-option').forEach(opt => {
   opt.addEventListener('click', function () {
-    document.querySelector('.color-option.active').classList.remove('active');
+    const activeOption = document.querySelector('.color-option.active');
+    if (activeOption) activeOption.classList.remove('active');
     this.classList.add('active');
     inputs.summaryColor.innerText = this.dataset.color;
   });
 });
 
-// 4. Gestion de la Livraison + Activation Étape 3
+// 5. Gestion de la Livraison
 document.querySelectorAll('input[name="deliveryMethod"]').forEach(radio => {
   radio.addEventListener('change', (e) => {
     orderState.deliveryPrice = parseInt(e.target.value);
     inputs.summaryDelivery.innerText = orderState.deliveryPrice === 0 ? "Gratuit" : orderState.deliveryPrice.toLocaleString() + " GNF";
-
-    // Active l'étape 3 de la barre de progression
     document.getElementById('step3-indicator').classList.add('active');
     updateTotal();
   });
 });
 
-// Écoute du clic sur le bouton de confirmation
-document.getElementById('btn-submit').addEventListener('click', function(e) {
-    const form = document.getElementById('orderForm');
+// 6. Validation et Message de Succès Personnalisé
+document.getElementById('btn-submit').addEventListener('click', function (e) {
+  const form = document.getElementById('orderForm');
 
-    // Vérification si le formulaire est valide (champs required remplis)
-    if (form.checkValidity()) {
-        e.preventDefault(); // Empêche le rechargement car on utilise une modale
+  if (form.checkValidity()) {
+    e.preventDefault();
 
-        // Récupération des infos saisies pour personnaliser le message
-        const customerName = document.getElementById('inputName').value;
-        const cardType = document.getElementById('sum-model').innerText;
+    const isEntreprise = document.getElementById('typeEntreprise').checked;
+    const customerName = inputs.name.value;
+    const modalText = document.querySelector('#successModal .modal-body p.text-secondary');
 
-        // Injection des données dans la modale
-        document.getElementById('modal-customer-name').innerText = customerName;
-        document.getElementById('modal-card-type').innerText = cardType;
+    let confirmMessage = "";
 
-        // Affichage de la modale de succès
-        const myModal = new bootstrap.Modal(document.getElementById('successModal'));
-        myModal.show();
+    if (isEntreprise) {
+      confirmMessage = `Merci <strong>${customerName}</strong> ! Votre demande de devis entreprise a été reçue. Notre équipe commerciale vous contactera sous peu pour finaliser l'offre.`;
+    } else if (orderState.quantity > 1) {
+      confirmMessage = `Félicitations ! Votre commande de <strong>${orderState.quantity} cartes</strong> est enregistrée. Notre équipe vous contactera pour finaliser votre commande`;
     } else {
-        // Si le formulaire est invalide, on laisse le navigateur afficher les messages d'erreur
-        form.reportValidity();
+      confirmMessage = `Merci <strong>${customerName}</strong> ! Votre carte Bankaï est en cours de création. Notre service client vous appellera pour confirmer la livraison.`;
     }
+
+    modalText.innerHTML = confirmMessage;
+    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    successModal.show();
+  } else {
+    form.reportValidity();
+  }
 });
