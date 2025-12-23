@@ -60,7 +60,8 @@
  }
 
 
- .btn-commander , .navbar-collapse .btn-commander{
+ .btn-commander,
+ .navbar-collapse .btn-commander {
      background-color: rgb(218, 166, 34);
      color: black;
      font-weight: 600;
@@ -75,6 +76,43 @@
      transform: scale(1.05);
      box-shadow: 0 0 20px rgba(218, 166, 34, 0.4) !important;
  }
+
+ /* Style spécifique pour mon nouveau lien de connexion */
+ .btn-login {
+     color: white !important;
+     font-weight: 600;
+     transition: color 0.3s ease;
+     text-decoration: none;
+     padding: 0.5rem 1rem !important;
+ }
+
+ .btn-login:hover {
+     color: rgb(218, 166, 34) !important;
+ }
+
+ /* Adaptation pour les petits écrans (Mobile) */
+ @media (max-width: 991.98px) {
+     .navbar-collapse .d-flex {
+         padding: 1.5rem 0;
+         border-top: 1px solid rgba(255, 255, 255, 0.1);
+         margin-top: 1rem;
+         flex-direction: column;
+         align-items: stretch !important;
+     }
+
+     .btn-login {
+         padding: 10px 0 !important;
+         text-align: center;
+     }
+
+     .btn-commander,
+     .navbar-collapse .btn-commander {
+         width: 100%;
+         text-align: center;
+     }
+ }
+
+
 
  /* Hero Section */
  .hero {
@@ -2367,21 +2405,45 @@
  }
 
  /* Mon style pour la modale de succès */
-.border-gold {
-    border: 1px solid rgba(218, 166, 34, 0.5) !important;
-    border-radius: 25px;
+ .border-gold {
+     border: 1px solid rgba(218, 166, 34, 0.5) !important;
+     border-radius: 25px;
+ }
+
+ .success-icon-wrapper {
+     width: 80px;
+     height: 80px;
+     background: rgb(218, 166, 34);
+     color: black;
+     font-size: 2.5rem;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto;
+     box-shadow: 0 0 30px rgba(218, 166, 34, 0.4);
+ }
+
+
+
+ /* login page */
+ .login-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(218, 166, 34, 0.2);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
 }
 
-.success-icon-wrapper {
-    width: 80px;
-    height: 80px;
-    background: rgb(218, 166, 34);
-    color: black;
-    font-size: 2.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    box-shadow: 0 0 30px rgba(218, 166, 34, 0.4);
+.custom-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 12px !important;
+}
+
+.custom-input:focus {
+    border-color: rgb(218, 166, 34) !important;
+    box-shadow: none !important;
 }
