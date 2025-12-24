@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Chart.js pour les graphiques -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-gold: rgb(218, 166, 34);
@@ -19,6 +21,10 @@
             --border-color: rgba(255, 255, 255, 0.1);
             --sidebar-width: 250px;
             --text-secondary: #a1a1aa;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
         }
 
         body {
@@ -198,6 +204,19 @@
         .btn-gold-outline:hover {
             background: rgba(var(--primary-gold-rgb), 0.1) !important;
             transform: translateY(-2px) !important;
+        }
+
+        .btn-success {
+            background: var(--success) !important;
+        }
+
+        .btn-danger {
+            background: var(--danger) !important;
+        }
+
+        .btn-warning {
+            background: var(--warning) !important;
+            color: #000 !important;
         }
 
         .profile-mini {
@@ -505,12 +524,6 @@
             margin-top: 2rem;
         }
 
-        /* Modal de blocage */
-        .block-modal .modal-content {
-            background: #000;
-            border: 1px solid var(--primary-gold);
-        }
-
         /* Contacts améliorés */
         .contacts-grid {
             display: grid;
@@ -549,6 +562,69 @@
             font-weight: 600;
             color: #fff;
             word-break: break-all;
+        }
+
+        /* Classe pour le texte doré */
+        .text-gold {
+            color: var(--primary-gold) !important;
+        }
+
+        /* Form actions */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Card details view */
+        .card-details-view {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card-detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-detail-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .card-detail-value {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Alert personnalisé */
+        .bankai-alert {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            border: 1px solid var(--primary-gold);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid rgba(var(--primary-gold-rgb), 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive */
@@ -590,6 +666,10 @@
 
             .employee-stats {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-actions {
+                flex-direction: column;
             }
         }
 
@@ -662,6 +742,130 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #d4a935;
         }
+
+        /* Styles pour les cartes d'abonnement */
+        .subscription-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .subscription-plan {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .plan-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .renewal-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Progress bar */
+        .progress {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            background-color: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-action-btn {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(var(--primary-gold-rgb), 0.2);
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .quick-action-btn .icon {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-action-btn .label {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-gold);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary-gold);
+        }
+
+        .timeline-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content {
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -677,7 +881,7 @@
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="logo">
-            <a href="index.html">
+            <a href="#">
                 <span class="logo-b">B</span>
                 <span>BANKAÏ</span>
             </a>
@@ -687,6 +891,9 @@
         </a>
         <a href="#" class="nav-link" data-section="cards">
             <i class="bi bi-credit-card"></i> Mes cartes
+        </a>
+        <a href="#" class="nav-link" data-section="addCard">
+            <i class="bi bi-plus-circle"></i> Ajouter une carte
         </a>
         <a href="#" class="nav-link" data-section="employees">
             <i class="bi bi-people"></i> Employés
@@ -728,12 +935,36 @@
         <!-- Vue d'ensemble Section -->
         <section class="dashboard-section" id="overviewSection">
             <h4><i class="bi bi-speedometer2"></i> Vue d'ensemble</h4>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="quick-action-btn" onclick="showSection('addCard')">
+                    <div class="icon"><i class="bi bi-plus-circle"></i></div>
+                    <div class="label">Ajouter carte</div>
+                </div>
+                <div class="quick-action-btn" onclick="showSection('cards')">
+                    <div class="icon"><i class="bi bi-credit-card"></i></div>
+                    <div class="label">Voir cartes</div>
+                </div>
+                <div class="quick-action-btn" onclick="exportCards('csv')">
+                    <div class="icon"><i class="bi bi-download"></i></div>
+                    <div class="label">Exporter données</div>
+                </div>
+                <div class="quick-action-btn" onclick="showSection('analytics')">
+                    <div class="icon"><i class="bi bi-graph-up"></i></div>
+                    <div class="label">Analytics</div>
+                </div>
+            </div>
+
             <div class="stats-cards">
                 <div class="stats-card">
                     <div class="icon"><i class="bi bi-credit-card"></i></div>
                     <div class="stat-label">Cartes actives</div>
                     <div class="stat-value" id="statsActiveCards">0</div>
                     <div class="stat-subtext">sur <span id="statsTotalCards">0</span> total</div>
+                    <div class="progress">
+                        <div class="progress-bar" id="activeCardsProgress" style="width: 0%"></div>
+                    </div>
                 </div>
                 <div class="stats-card">
                     <div class="icon"><i class="bi bi-people"></i></div>
@@ -754,6 +985,14 @@
                     <div class="stat-subtext">ce mois-ci</div>
                 </div>
             </div>
+
+            <!-- Dernières activités -->
+            <div class="mt-4">
+                <h5 class="text-gold mb-3"><i class="bi bi-clock-history me-2"></i>Dernières activités</h5>
+                <div class="timeline" id="recentActivities">
+                    <!-- Activités chargées dynamiquement -->
+                </div>
+            </div>
         </section>
 
         <!-- Mes cartes Section -->
@@ -766,15 +1005,15 @@
                             <i class="bi bi-download me-2"></i> Exporter
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="exportData('csv')"><i
+                            <li><a class="dropdown-item" href="#" onclick="exportCards('csv')"><i
                                         class="bi bi-filetype-csv me-2"></i> CSV</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="exportData('excel')"><i
+                            <li><a class="dropdown-item" href="#" onclick="exportCards('excel')"><i
                                         class="bi bi-filetype-xlsx me-2"></i> Excel</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="exportData('json')"><i
-                                        class="bi bi-filetype-json me-2"></i> JSON</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportCards('pdf')"><i
+                                        class="bi bi-filetype-pdf me-2"></i> PDF</a></li>
                         </ul>
                     </div>
-                    <button class="btn btn-gold" id="addCardBtn">
+                    <button class="btn btn-gold" onclick="showSection('addCard')">
                         <i class="bi bi-plus-circle me-2"></i> Ajouter une carte
                     </button>
                 </div>
@@ -806,17 +1045,261 @@
                         <div class="input-group">
                             <input type="text" class="form-control bankai-form-control" id="searchCard"
                                 placeholder="Rechercher une carte ou un employé...">
-                            <button class="btn btn-gold" type="button">
+                            <button class="btn btn-gold" type="button" id="searchCardBtn">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
                     </div>
                     <div class="col-md-6 text-end">
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-gold-outline active" data-filter="all">Toutes</button>
-                            <button type="button" class="btn btn-gold-outline" data-filter="active">Actives</button>
-                            <button type="button" class="btn btn-gold-outline" data-filter="inactive">Inactives</button>
+                            <button type="button" class="btn btn-gold-outline active"
+                                onclick="filterCards('all')">Toutes</button>
+                            <button type="button" class="btn btn-gold-outline"
+                                onclick="filterCards('active')">Actives</button>
+                            <button type="button" class="btn btn-gold-outline"
+                                onclick="filterCards('inactive')">Inactives</button>
+                            <button type="button" class="btn btn-gold-outline"
+                                onclick="filterCards('blocked')">Bloquées</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ajouter une carte Section -->
+        <section class="dashboard-section d-none" id="addCardSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-plus-circle"></i> Ajouter une nouvelle carte</h4>
+                <button class="btn btn-gold-outline" onclick="showSection('cards')">
+                    <i class="bi bi-arrow-left me-2"></i> Retour aux cartes
+                </button>
+            </div>
+
+            <div class="bankai-alert">
+                <i class="bi bi-info-circle me-2"></i>
+                La carte sera créée avec un ID unique. L'employé recevra des instructions par email.
+            </div>
+
+            <form id="addCardForm">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Employé *</label>
+                        <input type="text" class="form-control bankai-form-control" id="newEmployee" required
+                            placeholder="Nom complet de l'employé">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Département *</label>
+                        <input type="text" class="form-control bankai-form-control" id="newDepartment" required
+                            placeholder="Ex: Commercial, IT, RH...">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fonction</label>
+                        <input type="text" class="form-control bankai-form-control" id="newFunction"
+                            placeholder="Ex: Manager, Développeur...">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control bankai-form-control" id="newEmail"
+                            placeholder="employe@entreprise.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Type de carte</label>
+                        <select class="form-control bankai-form-control" id="newCardType">
+                            <option value="essentiel">Bankaï Essentiel (PVC)</option>
+                            <option value="pro">Bankaï Pro (Métal)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Statut initial</label>
+                        <select class="form-control bankai-form-control" id="newStatus">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Notes (optionnel)</label>
+                        <textarea class="form-control bankai-form-control" id="newNotes" rows="3"
+                            placeholder="Informations supplémentaires..."></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-gold-outline" onclick="showSection('cards')">
+                        <i class="bi bi-x-circle me-2"></i> Annuler
+                    </button>
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-check-circle me-2"></i> Créer la carte
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Modifier une carte Section -->
+        <section class="dashboard-section d-none" id="editCardSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-pencil"></i> Modifier la carte <span id="editCardIdTitle" class="text-gold"></span>
+                </h4>
+                <button class="btn btn-gold-outline" onclick="showSection('cards')">
+                    <i class="bi bi-arrow-left me-2"></i> Retour aux cartes
+                </button>
+            </div>
+
+            <form id="editCardForm">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ID Carte</label>
+                        <input type="text" class="form-control bankai-form-control" id="editCardId" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date de création</label>
+                        <input type="text" class="form-control bankai-form-control" id="editCreatedDate" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Employé *</label>
+                        <input type="text" class="form-control bankai-form-control" id="editEmployee" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Département *</label>
+                        <input type="text" class="form-control bankai-form-control" id="editDepartment" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fonction</label>
+                        <input type="text" class="form-control bankai-form-control" id="editFunction">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control bankai-form-control" id="editEmail">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Statut *</label>
+                        <select class="form-control bankai-form-control" id="editStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="blocked">Bloquée</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Type de carte</label>
+                        <select class="form-control bankai-form-control" id="editCardType">
+                            <option value="essentiel">Bankaï Essentiel (PVC)</option>
+                            <option value="pro">Bankaï Pro (Métal)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre de scans</label>
+                        <input type="number" class="form-control bankai-form-control" id="editScans" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Liens actifs</label>
+                        <input type="number" class="form-control bankai-form-control" id="editActiveLinks" min="0"
+                            max="20">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Dernier scan</label>
+                        <input type="datetime-local" class="form-control bankai-form-control" id="editLastScan">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control bankai-form-control" id="editNotes" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" id="deleteCardBtn">
+                        <i class="bi bi-trash me-2"></i> Supprimer la carte
+                    </button>
+                    <button type="button" class="btn btn-gold-outline" onclick="showSection('cards')">
+                        <i class="bi bi-x-circle me-2"></i> Annuler
+                    </button>
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-save me-2"></i> Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Détails d'une carte Section -->
+        <section class="dashboard-section d-none" id="cardDetailsSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-eye"></i> Détails de la carte <span id="detailCardId" class="text-gold"></span></h4>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-gold-outline" onclick="showSection('cards')">
+                        <i class="bi bi-arrow-left me-2"></i> Retour
+                    </button>
+                    <button class="btn btn-gold" id="editFromDetailsBtn">
+                        <i class="bi bi-pencil me-2"></i> Modifier
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-details-view">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card-detail-item">
+                            <div class="card-detail-label">Statut:</div>
+                            <div class="card-detail-value">
+                                <span id="detailStatus" class="badge-status"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-detail-item">
+                            <div class="card-detail-label">Type:</div>
+                            <div class="card-detail-value" id="detailCardType"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Employé:</div>
+                    <div class="card-detail-value" id="detailEmployee"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Département:</div>
+                    <div class="card-detail-value" id="detailDepartment"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Fonction:</div>
+                    <div class="card-detail-value" id="detailFunction"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Email:</div>
+                    <div class="card-detail-value" id="detailEmail"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Date de création:</div>
+                    <div class="card-detail-value" id="detailCreated"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Nombre de scans:</div>
+                    <div class="card-detail-value" id="detailScans"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Liens actifs:</div>
+                    <div class="card-detail-value" id="detailActiveLinks"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Dernier scan:</div>
+                    <div class="card-detail-value" id="detailLastScan"></div>
+                </div>
+                <div class="card-detail-item">
+                    <div class="card-detail-label">Notes:</div>
+                    <div class="card-detail-value" id="detailNotes"></div>
+                </div>
+
+                <div class="mt-5">
+                    <h5 class="text-gold mb-3"><i class="bi bi-activity me-2"></i>Actions rapides</h5>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-warning" id="blockFromDetailsBtn">
+                            <i class="bi bi-slash-circle me-2"></i> Bloquer la carte
+                        </button>
+                        <button class="btn btn-success d-none" id="unblockFromDetailsBtn">
+                            <i class="bi bi-check-circle me-2"></i> Débloquer la carte
+                        </button>
+                        <button class="btn btn-info" onclick="generateQRCode()">
+                            <i class="bi bi-qr-code me-2"></i> Générer QR Code
+                        </button>
+                        <button class="btn btn-gold-outline" onclick="resetCardScans()">
+                            <i class="bi bi-arrow-clockwise me-2"></i> Réinitialiser scans
+                        </button>
                     </div>
                 </div>
             </div>
@@ -833,7 +1316,8 @@
         <!-- Analytics Section -->
         <section class="dashboard-section d-none" id="analyticsSection">
             <h4><i class="bi bi-graph-up"></i> Analytics & Rapports</h4>
-            <div class="row">
+
+            <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="card bg-dark border border-secondary">
                         <div class="card-body">
@@ -867,12 +1351,36 @@
                 </div>
             </div>
 
+            <!-- Graphiques -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="card bg-dark border border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-gold">Scans par jour (30 derniers jours)</h5>
+                            <div class="chart-container">
+                                <canvas id="scansChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-gold">Répartition par statut</h5>
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-4">
-                <button class="btn btn-gold-outline" onclick="generateReport()">
-                    <i class="bi bi-file-earmark-text me-2"></i> Générer rapport complet
+                <button class="btn btn-gold" onclick="generateFullReport()">
+                    <i class="bi bi-file-earmark-text me-2"></i> Générer rapport complet (PDF)
                 </button>
-                <button class="btn btn-gold-outline ms-2" onclick="exportAnalytics()">
-                    <i class="bi bi-download me-2"></i> Exporter données
+                <button class="btn btn-gold-outline ms-2" onclick="exportAnalyticsData()">
+                    <i class="bi bi-database me-2"></i> Exporter données analytiques
                 </button>
             </div>
         </section>
@@ -880,6 +1388,7 @@
         <!-- Achats & Factures Section -->
         <section class="dashboard-section d-none" id="ordersSection">
             <h4><i class="bi bi-bag"></i> Achats & Factures</h4>
+
             <div class="table-responsive">
                 <table class="table enterprise-table">
                     <thead>
@@ -891,6 +1400,7 @@
                             <th>Montant</th>
                             <th>Statut</th>
                             <th>Reçu</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="ordersTableBody">
@@ -898,11 +1408,21 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="mt-4">
+                <button class="btn btn-gold" onclick="generateNewInvoice()">
+                    <i class="bi bi-plus-circle me-2"></i> Nouvelle facture
+                </button>
+                <button class="btn btn-gold-outline ms-2" onclick="downloadAllInvoices()">
+                    <i class="bi bi-download me-2"></i> Télécharger toutes les factures
+                </button>
+            </div>
         </section>
 
         <!-- Abonnement Section -->
         <section class="dashboard-section d-none" id="subscriptionSection">
             <h4><i class="bi bi-credit-card-2-front"></i> Abonnement Entreprise</h4>
+
             <div class="subscription-card">
                 <div class="subscription-plan">
                     <div>
@@ -910,14 +1430,23 @@
                         <div class="renewal-date mt-2">
                             Prochain renouvellement: <span id="nextRenewal">25/01/2024</span>
                         </div>
+                        <div class="mt-2">
+                            <span class="text-gold">Statut: </span>
+                            <span class="badge-status badge-active" id="subscriptionStatus">Actif</span>
+                        </div>
                     </div>
                     <div class="plan-price" id="subscriptionPrice">400 000 GNF/an</div>
                 </div>
+
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Cartes incluses</label>
                             <div class="text-white" id="includedCards">50 cartes</div>
+                            <div class="progress">
+                                <div class="progress-bar" id="cardsUsageProgress" style="width: 60%"></div>
+                            </div>
+                            <small class="text-secondary" id="cardsUsageText">30/50 cartes utilisées</small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -927,12 +1456,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex gap-2 mt-3">
-                    <button class="btn btn-gold" onclick="upgradePlan()">
-                        <i class="bi bi-arrow-up me-2"></i> Augmenter le quota
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Date de début</label>
+                            <div class="text-white" id="subscriptionStart">01/01/2024</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Date de fin</label>
+                            <div class="text-white" id="subscriptionEnd">31/12/2024</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button class="btn btn-gold" onclick="upgradeSubscription()">
+                        <i class="bi bi-arrow-up me-2"></i> Mettre à niveau
                     </button>
-                    <button class="btn btn-gold-outline" onclick="viewInvoice()">
+                    <button class="btn btn-gold-outline" onclick="showSection('orders')">
                         <i class="bi bi-receipt me-2"></i> Voir factures
+                    </button>
+                    <button class="btn btn-gold-outline" onclick="cancelSubscription()">
+                        <i class="bi bi-x-circle me-2"></i> Annuler abonnement
+                    </button>
+                    <button class="btn btn-gold-outline" onclick="renewSubscription()">
+                        <i class="bi bi-arrow-clockwise me-2"></i> Renouveler maintenant
                     </button>
                 </div>
             </div>
@@ -941,7 +1492,8 @@
         <!-- Profil Entreprise Section -->
         <section class="dashboard-section d-none" id="profileSection">
             <h4><i class="bi bi-building"></i> Profil Entreprise</h4>
-            <form id="companyForm" autocomplete="off">
+
+            <form id="companyForm">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Nom de l'entreprise *</label>
@@ -971,6 +1523,8 @@
                             <option value="finance">Finance</option>
                             <option value="consulting">Consulting</option>
                             <option value="retail">Commerce</option>
+                            <option value="manufacturing">Industrie</option>
+                            <option value="services">Services</option>
                             <option value="other">Autre</option>
                         </select>
                     </div>
@@ -978,13 +1532,39 @@
                         <label class="form-label">Adresse</label>
                         <textarea class="form-control bankai-form-control" id="companyAddress" rows="2"></textarea>
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Ville</label>
+                        <input type="text" class="form-control bankai-form-control" id="companyCity">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Code postal</label>
+                        <input type="text" class="form-control bankai-form-control" id="companyZipCode">
+                    </div>
                     <div class="col-12">
                         <label class="form-label">Site web</label>
                         <input type="url" class="form-control bankai-form-control" id="companyWebsite"
                             placeholder="https://">
                     </div>
+                    <div class="col-12">
+                        <label class="form-label">Description de l'entreprise</label>
+                        <textarea class="form-control bankai-form-control" id="companyDescription" rows="3"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Logo de l'entreprise (URL)</label>
+                        <input type="url" class="form-control bankai-form-control" id="companyLogo"
+                            placeholder="https://">
+                        <small class="text-secondary">URL vers l'image du logo</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre d'employés</label>
+                        <input type="number" class="form-control bankai-form-control" id="companyEmployeeCount" min="1">
+                    </div>
                 </div>
-                <div class="mt-4">
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-gold-outline" onclick="resetCompanyForm()">
+                        <i class="bi bi-arrow-clockwise me-2"></i> Réinitialiser
+                    </button>
                     <button type="submit" class="btn btn-gold">
                         <i class="bi bi-save me-2"></i> Mettre à jour le profil
                     </button>
@@ -995,320 +1575,376 @@
         <!-- Paramètres Section -->
         <section class="dashboard-section d-none" id="settingsSection">
             <h4><i class="bi bi-gear"></i> Paramètres Entreprise</h4>
-            <form id="settingsForm" autocomplete="off">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Notifications par email</label>
-                        <select class="form-select bankai-form-control" id="notifEmail" name="notifEmail">
-                            <option value="on">Activées</option>
-                            <option value="off">Désactivées</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Notifications par SMS</label>
-                        <select class="form-select bankai-form-control" id="notifSms" name="notifSms">
-                            <option value="on">Activées</option>
-                            <option value="off">Désactivées</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="autoRenewal">
-                            <label class="form-check-label" for="autoRenewal">
-                                Renouvellement automatique de l'abonnement
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="newCardNotification">
-                            <label class="form-check-label" for="newCardNotification">
-                                Notifier à chaque nouvelle carte activée
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="monthlyReport">
-                            <label class="form-check-label" for="monthlyReport">
-                                Envoyer un rapport mensuel par email
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-gold">
-                        <i class="bi bi-save me-2"></i> Enregistrer les paramètres
-                    </button>
-                </div>
-            </form>
-        </section>
-        <!-- Modal de modification de carte -->
-        <div class="modal fade" id="editCardModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content" style="background: #000; border: 1px solid var(--primary-gold);">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-gold">Modifier la carte</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editCardForm">
-                            <div class="mb-3">
-                                <label class="form-label">ID Carte</label>
-                                <input type="text" class="form-control bankai-form-control" id="editCardId" readonly>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <form id="settingsForm">
+                        <h5 class="text-gold mb-3"><i class="bi bi-bell me-2"></i>Notifications</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifNewCard" checked>
+                                    <label class="form-check-label" for="notifNewCard">
+                                        Nouvelles cartes activées
+                                    </label>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Employé *</label>
-                                <input type="text" class="form-control bankai-form-control" id="editEmployee" required>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifCardBlocked" checked>
+                                    <label class="form-check-label" for="notifCardBlocked">
+                                        Cartes bloquées
+                                    </label>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Département *</label>
-                                <input type="text" class="form-control bankai-form-control" id="editDepartment"
-                                    required>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifMonthlyReport" checked>
+                                    <label class="form-check-label" for="notifMonthlyReport">
+                                        Rapport mensuel
+                                    </label>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Statut *</label>
-                                <select class="form-control bankai-form-control" id="editStatus" required>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                    <option value="blocked">Bloquée</option>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notifPayment" checked>
+                                    <label class="form-check-label" for="notifPayment">
+                                        Paiements et factures
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="text-gold mb-3"><i class="bi bi-envelope me-2"></i>Préférences de communication</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Notifications par email</label>
+                                <select class="form-select bankai-form-control" id="emailFrequency">
+                                    <option value="immediate">Immédiates</option>
+                                    <option value="daily" selected>Quotidien (résumé)</option>
+                                    <option value="weekly">Hebdomadaire</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nombre de scans</label>
-                                <input type="number" class="form-control bankai-form-control" id="editScans" min="0">
+                            <div class="col-md-6">
+                                <label class="form-label">Notifications par SMS</label>
+                                <select class="form-select bankai-form-control" id="smsNotifications">
+                                    <option value="all">Toutes les notifications</option>
+                                    <option value="important" selected>Seulement importantes</option>
+                                    <option value="none">Aucune</option>
+                                </select>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Liens actifs</label>
-                                <input type="number" class="form-control bankai-form-control" id="editActiveLinks"
-                                    min="0" max="20">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Dernier scan</label>
-                                <input type="datetime-local" class="form-control bankai-form-control" id="editLastScan">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-gold-outline" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-gold" id="saveCardChanges">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </div>
 
-        <!-- Modal d'ajout de carte -->
-        <div class="modal fade" id="addCardModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="background: #000; border: 1px solid var(--primary-gold);">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-gold">Ajouter une nouvelle carte</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addCardForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Employé *</label>
-                                    <input type="text" class="form-control bankai-form-control" id="newEmployee"
-                                        required placeholder="Nom complet de l'employé">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Département *</label>
-                                    <input type="text" class="form-control bankai-form-control" id="newDepartment"
-                                        required placeholder="Ex: Commercial, IT, RH...">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Fonction</label>
-                                    <input type="text" class="form-control bankai-form-control" id="newFunction"
-                                        placeholder="Ex: Manager, Développeur...">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control bankai-form-control" id="newEmail"
-                                        placeholder="employe@entreprise.com">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Type de carte</label>
-                                    <select class="form-control bankai-form-control" id="newCardType">
-                                        <option value="essentiel">Bankaï Essentiel (PVC)</option>
-                                        <option value="pro">Bankaï Pro (Métal)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Statut initial</label>
-                                    <select class="form-control bankai-form-control" id="newStatus">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <label class="form-label">Notes (optionnel)</label>
-                                    <textarea class="form-control bankai-form-control" id="newNotes" rows="2"
-                                        placeholder="Informations supplémentaires..."></textarea>
+                        <h5 class="text-gold mb-3"><i class="bi bi-shield me-2"></i>Sécurité</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="autoLogout" checked>
+                                    <label class="form-check-label" for="autoLogout">
+                                        Déconnexion automatique (30 min)
+                                    </label>
                                 </div>
                             </div>
-                        </form>
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>
-                            La carte sera créée avec un ID unique. L'employé recevra des instructions par email.
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                    <label class="form-check-label" for="twoFactorAuth">
+                                        Authentification à deux facteurs
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Session timeout (minutes)</label>
+                                <input type="number" class="form-control bankai-form-control" id="sessionTimeout"
+                                    min="5" max="480" value="30">
+                            </div>
+                        </div>
+
+                        <h5 class="text-gold mb-3"><i class="bi bi-credit-card me-2"></i>Abonnement</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="autoRenewal" checked>
+                                    <label class="form-check-label" for="autoRenewal">
+                                        Renouvellement automatique
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="invoiceAutoPay" checked>
+                                    <label class="form-check-label" for="invoiceAutoPay">
+                                        Paiement automatique des factures
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-gold">
+                                <i class="bi bi-save me-2"></i> Enregistrer les paramètres
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-gold"><i class="bi bi-download me-2"></i>Export de données</h5>
+                            <p class="text-secondary">Téléchargez toutes vos données en un clic</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-gold-outline" onclick="exportAllData('csv')">
+                                    <i class="bi bi-filetype-csv me-2"></i> Exporter en CSV
+                                </button>
+                                <button class="btn btn-gold-outline" onclick="exportAllData('json')">
+                                    <i class="bi bi-filetype-json me-2"></i> Exporter en JSON
+                                </button>
+                                <button class="btn btn-gold-outline" onclick="backupData()">
+                                    <i class="bi bi-database me-2"></i> Sauvegarde complète
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-gold-outline" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-gold" id="createNewCard">Créer la carte</button>
+
+                    <div class="card bg-dark border border-danger mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Zone
+                                dangereuse</h5>
+                            <p class="text-secondary">Ces actions sont irréversibles</p>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-danger" onclick="resetAllData()">
+                                    <i class="bi bi-arrow-clockwise me-2"></i> Réinitialiser toutes les données
+                                </button>
+                                <button class="btn btn-outline-danger" onclick="deleteAccount()">
+                                    <i class="bi bi-trash me-2"></i> Supprimer le compte
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Données de démonstration pour l'entreprise
-        const enterpriseData = {
+        // ==================== DONNÉES COMPLÈTES ====================
+        let enterpriseData = {
             company: {
+                id: "ENT-001",
                 name: "Konaté & Fils SARL",
                 taxId: "NIF-123456789",
                 contact: "Mohamed Konaté",
-                email: "entreprise@bankai.com",
+                email: "contact@konate-fils.com",
                 phone: "+224644123456",
                 sector: "consulting",
                 address: "Cité des Nations, Conakry, Guinée",
+                city: "Conakry",
+                zipCode: "001",
                 website: "https://konate-fils.com",
-                employees: 25,
-                subscription: "Bankaï Entreprise",
-                subscriptionPrice: 400000,
-                cardsIncluded: 50,
-                extraCards: 5
+                description: "Entreprise leader dans le consulting en Afrique de l'Ouest",
+                logo: "https://api.dicebear.com/7.x/shapes/svg?seed=Konaté&backgroundType=solid&backgroundColor=000000",
+                employeeCount: 25,
+                subscription: {
+                    plan: "Bankaï Entreprise",
+                    price: 400000,
+                    currency: "GNF",
+                    period: "yearly",
+                    startDate: "2024-01-01",
+                    endDate: "2024-12-31",
+                    status: "active",
+                    cardsIncluded: 50,
+                    extraCards: 5,
+                    autoRenew: true
+                },
+                settings: {
+                    notifications: {
+                        newCard: true,
+                        cardBlocked: true,
+                        monthlyReport: true,
+                        payment: true,
+                        emailFrequency: "daily",
+                        smsNotifications: "important"
+                    },
+                    security: {
+                        autoLogout: true,
+                        twoFactorAuth: false,
+                        sessionTimeout: 30
+                    },
+                    subscription: {
+                        autoRenewal: true,
+                        invoiceAutoPay: true
+                    }
+                }
             },
-            cards: [
-                {
-                    id: "BKA-001001",
-                    employee: "Mohamed Konaté",
-                    department: "Direction",
-                    status: "active",
-                    scans: 156,
-                    activeLinks: 8,
-                    lastScan: "2024-01-15 14:30",
-                    created: "2024-01-01"
-                },
-                {
-                    id: "BKA-001002",
-                    employee: "Fatoumata Diallo",
-                    department: "Commercial",
-                    status: "active",
-                    scans: 89,
-                    activeLinks: 6,
-                    lastScan: "2024-01-14 11:20",
-                    created: "2024-01-01"
-                },
-                {
-                    id: "BKA-001003",
-                    employee: "Ibrahima Traoré",
-                    department: "Marketing",
-                    status: "inactive",
-                    scans: 45,
-                    activeLinks: 5,
-                    lastScan: "2024-01-10 09:15",
-                    created: "2024-01-01"
-                },
-                {
-                    id: "BKA-001004",
-                    employee: "Aïcha Bah",
-                    department: "RH",
-                    status: "active",
-                    scans: 67,
-                    activeLinks: 7,
-                    lastScan: "2024-01-15 16:45",
-                    created: "2024-01-01"
-                },
-                {
-                    id: "BKA-001005",
-                    employee: "Moussa Camara",
-                    department: "IT",
-                    status: "blocked",
-                    scans: 23,
-                    activeLinks: 3,
-                    lastScan: "2024-01-05 10:30",
-                    created: "2024-01-01"
-                },
-                {
-                    id: "BKA-001006",
-                    employee: "Kadiatou Sow",
-                    department: "Finance",
-                    status: "active",
-                    scans: 112,
-                    activeLinks: 6,
-                    lastScan: "2024-01-15 15:20",
-                    created: "2024-01-01"
-                }
-            ],
-            orders: [
-                {
-                    date: "15/01/2024",
-                    invoice: "FAC-2024-001",
-                    description: "Abonnement Entreprise - Janvier 2024",
-                    quantity: 1,
-                    amount: 400000,
-                    status: "payé",
-                    receipt: true
-                },
-                {
-                    date: "05/01/2024",
-                    invoice: "FAC-2024-002",
-                    description: "5 cartes supplémentaires",
-                    quantity: 5,
-                    amount: 100000,
-                    status: "payé",
-                    receipt: true
-                },
-                {
-                    date: "20/12/2023",
-                    invoice: "FAC-2023-045",
-                    description: "Renouvellement abonnement",
-                    quantity: 1,
-                    amount: 400000,
-                    status: "payé",
-                    receipt: true
-                }
-            ],
+            cards: [],
+            orders: [],
             analytics: {
-                todayScans: 42,
-                weekScans: 287,
-                monthScans: 1123,
-                topEmployees: [
-                    { name: "Mohamed Konaté", scans: 156, department: "Direction" },
-                    { name: "Kadiatou Sow", scans: 112, department: "Finance" },
-                    { name: "Fatoumata Diallo", scans: 89, department: "Commercial" }
-                ]
-            },
-            settings: {
-                notifEmail: "on",
-                notifSms: "off",
-                autoRenewal: true,
-                newCardNotification: true,
-                monthlyReport: true
+                scans: {
+                    today: 42,
+                    week: 287,
+                    month: 1123,
+                    total: 4892,
+                    dailyData: Array.from({ length: 30 }, (_, i) => ({
+                        date: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                        count: Math.floor(Math.random() * 50) + 20
+                    }))
+                },
+                topEmployees: [],
+                recentActivities: []
             }
         };
 
-        // Initialisation du dashboard
+        // ==================== INITIALISATION ====================
         document.addEventListener('DOMContentLoaded', function () {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            // Initialiser un utilisateur de test
+            const testUser = {
+                id: "USR-001",
+                type: 'enterprise',
+                company: enterpriseData.company.name,
+                email: enterpriseData.company.email,
+                role: 'Administrateur',
+                lastLogin: new Date().toISOString()
+            };
 
-            if (!currentUser || currentUser.type !== 'enterprise') {
-                window.location.href = 'login.html';
-                return;
+            // Sauvegarder l'utilisateur
+            localStorage.setItem('currentUser', JSON.stringify(testUser));
+
+            // Charger ou générer les données
+            const savedData = localStorage.getItem('enterpriseData');
+            if (savedData) {
+                enterpriseData = JSON.parse(savedData);
+            } else {
+                generateDemoData();
+                saveData();
             }
 
-            initializeEnterpriseDashboard(currentUser);
+            // Initialiser le dashboard
+            initializeDashboard(testUser);
+
+            // Initialiser les graphiques
+            setTimeout(() => {
+                initializeCharts();
+            }, 100);
         });
 
-        function initializeEnterpriseDashboard(user) {
+        function generateDemoData() {
+            // Employés de démo
+            const employees = [
+                { firstName: "Mohamed", lastName: "Konaté", department: "Direction", function: "PDG" },
+                { firstName: "Fatoumata", lastName: "Diallo", department: "Commercial", function: "Responsable Commercial" },
+                { firstName: "Ibrahima", lastName: "Traoré", department: "Marketing", function: "Chef Marketing" },
+                { firstName: "Aïcha", lastName: "Bah", department: "RH", function: "Responsable RH" },
+                { firstName: "Moussa", lastName: "Camara", department: "IT", function: "Administrateur Système" },
+                { firstName: "Kadiatou", lastName: "Sow", department: "Finance", function: "Contrôleur Financier" },
+                { firstName: "Oumar", lastName: "Cissé", department: "Commercial", function: "Commercial" },
+                { firstName: "Mariam", lastName: "Keita", department: "Marketing", function: "Graphiste" },
+                { firstName: "Sékou", lastName: "Touré", department: "IT", function: "Développeur" },
+                { firstName: "Bintou", lastName: "Diarra", department: "RH", function: "Recruteuse" }
+            ];
+
+            // Générer les cartes
+            enterpriseData.cards = employees.map((emp, index) => {
+                const cardId = `BKA-${String(1001 + index).padStart(6, '0')}`;
+                const statuses = ['active', 'active', 'active', 'active', 'inactive', 'blocked'];
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+                // Générer des scans aléatoires
+                const scans = status === 'active' ? Math.floor(Math.random() * 200) + 50 :
+                    status === 'inactive' ? Math.floor(Math.random() * 30) : 0;
+
+                // Générer une date de dernier scan aléatoire
+                const lastScan = status === 'active' ?
+                    new Date(Date.now() - Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000).toISOString() :
+                    null;
+
+                return {
+                    id: cardId,
+                    employee: `${emp.firstName} ${emp.lastName}`,
+                    firstName: emp.firstName,
+                    lastName: emp.lastName,
+                    department: emp.department,
+                    function: emp.function,
+                    email: `${emp.firstName.toLowerCase()}.${emp.lastName.toLowerCase()}@konate-fils.com`,
+                    cardType: Math.random() > 0.5 ? 'pro' : 'essentiel',
+                    status: status,
+                    scans: scans,
+                    activeLinks: status === 'active' ? Math.floor(Math.random() * 8) + 2 : 0,
+                    lastScan: lastScan,
+                    created: new Date(Date.now() - Math.floor(Math.random() * 365) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    notes: status === 'blocked' ? 'Carte perdue - Remplacement demandé' :
+                        status === 'inactive' ? 'Employé en congé' : '',
+                    qrCode: `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BANKA%C3%8F:${cardId}`
+                };
+            });
+
+            // Générer les commandes/factures
+            const invoiceTypes = [
+                { desc: "Abonnement Entreprise", amount: 400000 },
+                { desc: "Cartes supplémentaires", amount: 100000 },
+                { desc: "Renouvellement abonnement", amount: 400000 },
+                { desc: "Frais de service", amount: 50000 },
+                { desc: "Carte de remplacement", amount: 20000 }
+            ];
+
+            enterpriseData.orders = Array.from({ length: 8 }, (_, i) => {
+                const type = invoiceTypes[Math.floor(Math.random() * invoiceTypes.length)];
+                const date = new Date(Date.now() - i * 30 * 24 * 60 * 60 * 1000);
+                return {
+                    id: `INV-${date.getFullYear()}-${String(100 + i).padStart(3, '0')}`,
+                    date: date.toLocaleDateString('fr-FR'),
+                    description: type.desc + (type.desc.includes("abonnement") ? ` - ${date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}` : ''),
+                    quantity: type.desc.includes("Cartes") ? Math.floor(Math.random() * 5) + 1 : 1,
+                    amount: type.amount * (type.desc.includes("Cartes") ? Math.floor(Math.random() * 5) + 1 : 1),
+                    status: Math.random() > 0.2 ? 'payé' : 'en attente',
+                    receipt: Math.random() > 0.3,
+                    pdfUrl: `#`
+                };
+            });
+
+            // Générer le top des employés
+            enterpriseData.analytics.topEmployees = enterpriseData.cards
+                .filter(card => card.status === 'active')
+                .sort((a, b) => b.scans - a.scans)
+                .slice(0, 5)
+                .map(card => ({
+                    name: card.employee,
+                    scans: card.scans,
+                    department: card.department
+                }));
+
+            // Générer les activités récentes
+            enterpriseData.analytics.recentActivities = Array.from({ length: 10 }, (_, i) => {
+                const types = [
+                    "Nouvelle carte créée",
+                    "Carte scannée",
+                    "Carte bloquée",
+                    "Carte débloquée",
+                    "Statut modifié",
+                    "Scans réinitialisés",
+                    "QR Code généré",
+                    "Email envoyé à l'employé"
+                ];
+                const card = enterpriseData.cards[Math.floor(Math.random() * enterpriseData.cards.length)];
+                const type = types[Math.floor(Math.random() * types.length)];
+                const date = new Date(Date.now() - i * 2 * 60 * 60 * 1000);
+
+                return {
+                    id: `ACT-${Date.now()}-${i}`,
+                    type: type,
+                    cardId: card.id,
+                    employee: card.employee,
+                    timestamp: date.toISOString(),
+                    description: `${type} - ${card.employee} (${card.id})`
+                };
+            });
+        }
+
+        function initializeDashboard(user) {
             // Mettre à jour l'affichage utilisateur
             updateUserDisplay(user);
 
-            // Charger les données de l'entreprise
+            // Charger toutes les données
             loadCompanyData();
             loadCardsData();
             loadOrdersData();
@@ -1325,35 +1961,63 @@
 
         function updateUserDisplay(user) {
             document.getElementById('miniName').textContent = user.company || "Entreprise";
-            document.getElementById('userRole').textContent = 'Compte Entreprise';
+            document.getElementById('userRole').textContent = user.role || 'Administrateur';
 
             const avatarSeed = user.company || user.email || 'entreprise';
             document.getElementById('miniAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(avatarSeed)}`;
         }
 
+        // ==================== FONCTIONS DE CHARGEMENT ====================
         function loadCompanyData() {
             const company = enterpriseData.company;
 
-            // Mettre à jour les stats
+            // Stats
             const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+            const totalCards = enterpriseData.cards.length;
+            const activePercentage = totalCards > 0 ? Math.round((activeCards / totalCards) * 100) : 0;
+
             document.getElementById('statsActiveCards').textContent = activeCards;
-            document.getElementById('statsTotalCards').textContent = enterpriseData.cards.length;
-            document.getElementById('statsEmployees').textContent = company.employees;
-            document.getElementById('statsTotalScans').textContent = enterpriseData.analytics.monthScans.toLocaleString();
-            document.getElementById('statsSpent').textContent = (company.subscriptionPrice + (company.extraCards * 20000)).toLocaleString('fr-FR') + ' GNF';
+            document.getElementById('statsTotalCards').textContent = totalCards;
+            document.getElementById('activeCardsProgress').style.width = `${activePercentage}%`;
 
-            // Mettre à jour l'abonnement
-            document.getElementById('subscriptionPlan').textContent = company.subscription;
-            document.getElementById('subscriptionPrice').textContent = company.subscriptionPrice.toLocaleString('fr-FR') + ' GNF/an';
-            document.getElementById('includedCards').textContent = company.cardsIncluded + ' cartes';
-            document.getElementById('extraCards').textContent = company.extraCards + ' cartes (20 000 GNF/unité)';
+            document.getElementById('statsEmployees').textContent = company.employeeCount;
+            document.getElementById('statsTotalScans').textContent = enterpriseData.analytics.scans.month.toLocaleString();
 
-            // Calculer la date de renouvellement
-            const renewalDate = new Date();
-            renewalDate.setMonth(renewalDate.getMonth() + 1);
+            // Calculer les dépenses
+            const totalSpent = enterpriseData.orders
+                .filter(o => o.status === 'payé')
+                .reduce((sum, o) => sum + o.amount, 0);
+            document.getElementById('statsSpent').textContent = totalSpent.toLocaleString('fr-FR') + ' GNF';
+
+            // Abonnement
+            document.getElementById('subscriptionPlan').textContent = company.subscription.plan;
+            document.getElementById('subscriptionPrice').textContent =
+                company.subscription.price.toLocaleString('fr-FR') + ' ' + company.subscription.currency +
+                '/' + (company.subscription.period === 'yearly' ? 'an' : 'mois');
+
+            const cardsUsed = enterpriseData.cards.length;
+            const cardsIncluded = company.subscription.cardsIncluded;
+            const usagePercentage = Math.min(100, Math.round((cardsUsed / cardsIncluded) * 100));
+
+            document.getElementById('includedCards').textContent = `${cardsIncluded} cartes`;
+            document.getElementById('cardsUsageProgress').style.width = `${usagePercentage}%`;
+            document.getElementById('cardsUsageText').textContent = `${cardsUsed}/${cardsIncluded} cartes utilisées`;
+            document.getElementById('extraCards').textContent = `${company.subscription.extraCards} cartes (20 000 GNF/unité)`;
+
+            // Dates d'abonnement
+            const startDate = new Date(company.subscription.startDate);
+            const endDate = new Date(company.subscription.endDate);
+            const renewalDate = new Date(endDate);
+            renewalDate.setDate(renewalDate.getDate() + 1);
+
+            document.getElementById('subscriptionStart').textContent = startDate.toLocaleDateString('fr-FR');
+            document.getElementById('subscriptionEnd').textContent = endDate.toLocaleDateString('fr-FR');
             document.getElementById('nextRenewal').textContent = renewalDate.toLocaleDateString('fr-FR');
+            document.getElementById('subscriptionStatus').textContent =
+                company.subscription.status === 'active' ? 'Actif' :
+                    company.subscription.status === 'expired' ? 'Expiré' : 'Suspendu';
 
-            // Mettre à jour le formulaire profil
+            // Formulaire profil
             document.getElementById('companyName').value = company.name;
             document.getElementById('companyTaxId').value = company.taxId;
             document.getElementById('companyContact').value = company.contact;
@@ -1361,8 +2025,52 @@
             document.getElementById('companyPhone').value = company.phone;
             document.getElementById('companySector').value = company.sector;
             document.getElementById('companyAddress').value = company.address;
+            document.getElementById('companyCity').value = company.city || '';
+            document.getElementById('companyZipCode').value = company.zipCode || '';
             document.getElementById('companyWebsite').value = company.website;
+            document.getElementById('companyDescription').value = company.description || '';
+            document.getElementById('companyLogo').value = company.logo || '';
+            document.getElementById('companyEmployeeCount').value = company.employeeCount || '';
+
+            // Charger les activités récentes
+            loadRecentActivities();
         }
+
+        function loadRecentActivities() {
+            const container = document.getElementById('recentActivities');
+            container.innerHTML = '';
+
+            enterpriseData.analytics.recentActivities.slice(0, 5).forEach(activity => {
+                const date = new Date(activity.timestamp);
+                const timeAgo = getTimeAgo(date);
+
+                const activityDiv = document.createElement('div');
+                activityDiv.className = 'timeline-item';
+                activityDiv.innerHTML = `
+                    <div class="timeline-date">${timeAgo}</div>
+                    <div class="timeline-content">${activity.description}</div>
+                `;
+                container.appendChild(activityDiv);
+            });
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diff = now - date;
+
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (minutes < 60) {
+                return `Il y a ${minutes} minute${minutes > 1 ? 's' : ''}`;
+            } else if (hours < 24) {
+                return `Il y a ${hours} heure${hours > 1 ? 's' : ''}`;
+            } else {
+                return `Il y a ${days} jour${days > 1 ? 's' : ''}`;
+            }
+        }
+
         function loadCardsData() {
             const cards = enterpriseData.cards;
             const tbody = document.getElementById('cardsTableBody');
@@ -1380,41 +2088,42 @@
                     statusText = 'Bloquée';
                 }
 
-                const lastScan = new Date(card.lastScan).toLocaleDateString('fr-FR') + ' ' +
-                    new Date(card.lastScan).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                const lastScan = card.lastScan ?
+                    new Date(card.lastScan).toLocaleDateString('fr-FR') + ' ' +
+                    new Date(card.lastScan).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) :
+                    'Jamais';
 
-                const row = `
-    <tr data-status="${card.status}">
-        <td><strong class="text-gold">${card.id}</strong></td>
-        <td>${card.employee}</td>
-        <td>${card.department}</td>
-        <td><span class="badge-status ${statusClass}">${statusText}</span></td>
-        <td><strong>${card.scans}</strong></td>
-        <td>${card.activeLinks} liens</td>
-        <td>${lastScan}</td>
-        <td>
-            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')" title="Voir détails">
-                <i class="bi bi-eye"></i>
-            </button>
-            <button class="btn btn-sm btn-gold-outline ms-1" onclick="editCard('${card.id}')" title="Modifier">
-                <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status === 'blocked' ? 'd-none' : ''}" 
-                    onclick="blockCard('${card.id}', '${card.employee}')" title="Bloquer">
-                <i class="bi bi-slash-circle"></i>
-            </button>
-            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status !== 'blocked' ? 'd-none' : ''}" 
-                    onclick="unblockCard('${card.id}')" title="Débloquer">
-                <i class="bi bi-check-circle"></i>
-            </button>
-        </td>
-    </tr>
-`;
-                tbody.innerHTML += row;
+                const row = document.createElement('tr');
+                row.setAttribute('data-status', card.status);
+                row.innerHTML = `
+                    <td><strong class="text-gold">${card.id}</strong></td>
+                    <td>${card.employee}</td>
+                    <td>${card.department}</td>
+                    <td><span class="badge-status ${statusClass}">${statusText}</span></td>
+                    <td><strong>${card.scans}</strong></td>
+                    <td>${card.activeLinks} liens</td>
+                    <td>${lastScan}</td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')" title="Voir détails">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-gold-outline" onclick="editCard('${card.id}')" title="Modifier">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning ${card.status === 'blocked' ? 'd-none' : ''}" 
+                                    onclick="blockCard('${card.id}', '${card.employee}')" title="Bloquer">
+                                <i class="bi bi-slash-circle"></i>
+                            </button>
+                            <button class="btn btn-sm btn-success ${card.status !== 'blocked' ? 'd-none' : ''}" 
+                                    onclick="unblockCard('${card.id}')" title="Débloquer">
+                                <i class="bi bi-check-circle"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
             });
-
-            // Configurer les filtres
-            setupCardFilters();
         }
 
         function loadOrdersData() {
@@ -1422,55 +2131,64 @@
             const tbody = document.getElementById('ordersTableBody');
             tbody.innerHTML = '';
 
+            orders.sort((a, b) => new Date(b.date.split('/').reverse().join('-')) - new Date(a.date.split('/').reverse().join('-')));
+
             orders.forEach(order => {
-                const row = `
-                    <tr>
-                        <td>${order.date}</td>
-                        <td><strong class="text-gold">${order.invoice}</strong></td>
-                        <td>${order.description}</td>
-                        <td>${order.quantity}</td>
-                        <td>${order.amount.toLocaleString('fr-FR')} GNF</td>
-                        <td><span class="badge-status badge-active">${order.status}</span></td>
-                        <td>
-                            ${order.receipt ?
-                        `<button class="btn btn-sm btn-gold" onclick="downloadInvoice('${order.invoice}')">
-                                    <i class="bi bi-download me-1"></i> PDF
-                                </button>` :
+                const statusClass = order.status === 'payé' ? 'badge-active' : 'badge-pending';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.date}</td>
+                    <td><strong class="text-gold">${order.id}</strong></td>
+                    <td>${order.description}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.amount.toLocaleString('fr-FR')} GNF</td>
+                    <td><span class="badge-status ${statusClass}">${order.status}</span></td>
+                    <td>
+                        ${order.receipt ?
+                        `<button class="btn btn-sm btn-gold" onclick="downloadInvoice('${order.id}')">
+                                <i class="bi bi-download me-1"></i> PDF
+                            </button>` :
                         `<span class="text-secondary">En attente</span>`
                     }
-                        </td>
-                    </tr>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-gold-outline" onclick="viewInvoiceDetails('${order.id}')">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
                 `;
-                tbody.innerHTML += row;
+                tbody.appendChild(row);
             });
         }
 
         function loadAnalyticsData() {
             const analytics = enterpriseData.analytics;
 
-            // Mettre à jour les stats
-            document.getElementById('todayScans').textContent = analytics.todayScans;
-            document.getElementById('weekScans').textContent = analytics.weekScans;
-            document.getElementById('monthScans').textContent = analytics.monthScans.toLocaleString();
+            // Stats de base
+            document.getElementById('todayScans').textContent = analytics.scans.today;
+            document.getElementById('weekScans').textContent = analytics.scans.week;
+            document.getElementById('monthScans').textContent = analytics.scans.month.toLocaleString();
 
-            // Charger le top des employés
+            // Top employés
             const topEmployeesDiv = document.getElementById('topEmployees');
             topEmployeesDiv.innerHTML = '';
 
-            analytics.topEmployees.forEach(employee => {
-                const employeeDiv = `
-                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
-                        <div>
-                            <div class="fw-bold">${employee.name}</div>
-                            <div class="small text-secondary">${employee.department}</div>
-                        </div>
-                        <div class="fw-bold text-gold">${employee.scans} scans</div>
+            analytics.topEmployees.forEach((employee, index) => {
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '•';
+                const employeeDiv = document.createElement('div');
+                employeeDiv.className = 'd-flex justify-content-between align-items-center py-2 border-bottom border-secondary';
+                employeeDiv.innerHTML = `
+                    <div>
+                        <div class="fw-bold">${medal} ${employee.name}</div>
+                        <div class="small text-secondary">${employee.department}</div>
                     </div>
+                    <div class="fw-bold text-gold">${employee.scans} scans</div>
                 `;
-                topEmployeesDiv.innerHTML += employeeDiv;
+                topEmployeesDiv.appendChild(employeeDiv);
             });
 
-            // Charger les cartes employés
+            // Cartes employés
             loadEmployeesCards();
         }
 
@@ -1479,141 +2197,77 @@
             container.innerHTML = '';
 
             enterpriseData.cards.forEach(card => {
-                const cardDiv = `
-                    <div class="employee-card">
-                        <div class="employee-card-header">
-                            <div>
-                                <div class="employee-name">${card.employee}</div>
-                                <div class="employee-department">${card.department} • ${card.id}</div>
-                            </div>
-                            <span class="badge-status ${card.status === 'active' ? 'badge-active' : card.status === 'blocked' ? 'badge-blocked' : 'badge-inactive'}">
-                                ${card.status === 'active' ? 'Active' : card.status === 'blocked' ? 'Bloquée' : 'Inactive'}
-                            </span>
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'employee-card';
+                cardDiv.innerHTML = `
+                    <div class="employee-card-header">
+                        <div>
+                            <div class="employee-name">${card.employee}</div>
+                            <div class="employee-department">${card.department} • ${card.function || 'Non spécifié'}</div>
                         </div>
-                        <div class="employee-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">${card.scans}</div>
-                                <div class="stat-label">Scans totaux</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">${card.activeLinks}</div>
-                                <div class="stat-label">Liens actifs</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">${card.status === 'active' ? 'Oui' : 'Non'}</div>
-                                <div class="stat-label">Carte active</div>
-                            </div>
+                        <span class="badge-status ${card.status === 'active' ? 'badge-active' : card.status === 'blocked' ? 'badge-blocked' : 'badge-inactive'}">
+                            ${card.status === 'active' ? 'Active' : card.status === 'blocked' ? 'Bloquée' : 'Inactive'}
+                        </span>
+                    </div>
+                    <div class="employee-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${card.scans}</div>
+                            <div class="stat-label">Scans totaux</div>
                         </div>
-                        <div class="mt-3 d-flex gap-2">
-                            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')">
-                                <i class="bi bi-eye me-1"></i> Détails
-                            </button>
-                            ${card.status !== 'blocked' ?
-                        `<button class="btn btn-sm btn-gold-outline" onclick="blockCard('${card.id}', '${card.employee}')">
-                                    <i class="bi bi-slash-circle me-1"></i> Bloquer
-                                </button>` :
-                        `<button class="btn btn-sm btn-gold-outline" onclick="unblockCard('${card.id}')">
-                                    <i class="bi bi-check-circle me-1"></i> Débloquer
-                                </button>`
-                    }
+                        <div class="stat-item">
+                            <div class="stat-value">${card.activeLinks}</div>
+                            <div class="stat-label">Liens actifs</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${card.status === 'active' ? 'Oui' : 'Non'}</div>
+                            <div class="stat-label">Carte active</div>
                         </div>
                     </div>
+                    <div class="mt-3 d-flex gap-2">
+                        <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')">
+                            <i class="bi bi-eye me-1"></i> Détails
+                        </button>
+                        ${card.status !== 'blocked' ?
+                        `<button class="btn btn-sm btn-warning" onclick="blockCard('${card.id}', '${card.employee}')">
+                                <i class="bi bi-slash-circle me-1"></i> Bloquer
+                            </button>` :
+                        `<button class="btn btn-sm btn-success" onclick="unblockCard('${card.id}')">
+                                <i class="bi bi-check-circle me-1"></i> Débloquer
+                            </button>`
+                    }
+                        <button class="btn btn-sm btn-gold-outline" onclick="sendCardEmail('${card.id}')">
+                            <i class="bi bi-envelope me-1"></i> Email
+                        </button>
+                    </div>
                 `;
-                container.innerHTML += cardDiv;
+                container.appendChild(cardDiv);
             });
         }
 
         function loadSettingsData() {
-            const settings = enterpriseData.settings;
+            const settings = enterpriseData.company.settings;
 
-            document.getElementById('notifEmail').value = settings.notifEmail;
-            document.getElementById('notifSms').value = settings.notifSms;
-            document.getElementById('autoRenewal').checked = settings.autoRenewal;
-            document.getElementById('newCardNotification').checked = settings.newCardNotification;
-            document.getElementById('monthlyReport').checked = settings.monthlyReport;
+            // Notifications
+            document.getElementById('notifNewCard').checked = settings.notifications.newCard;
+            document.getElementById('notifCardBlocked').checked = settings.notifications.cardBlocked;
+            document.getElementById('notifMonthlyReport').checked = settings.notifications.monthlyReport;
+            document.getElementById('notifPayment').checked = settings.notifications.payment;
+
+            // Communication
+            document.getElementById('emailFrequency').value = settings.notifications.emailFrequency;
+            document.getElementById('smsNotifications').value = settings.notifications.smsNotifications;
+
+            // Sécurité
+            document.getElementById('autoLogout').checked = settings.security.autoLogout;
+            document.getElementById('twoFactorAuth').checked = settings.security.twoFactorAuth;
+            document.getElementById('sessionTimeout').value = settings.security.sessionTimeout;
+
+            // Abonnement
+            document.getElementById('autoRenewal').checked = settings.subscription.autoRenewal;
+            document.getElementById('invoiceAutoPay').checked = settings.subscription.invoiceAutoPay;
         }
 
-        // === FONCTIONS GLOBALES POUR LES CARTES ===
-
-        // Modifier une carte
-        function editCard(cardId) {
-            const card = enterpriseData.cards.find(c => c.id === cardId);
-            if (!card) {
-                alert('Carte non trouvée');
-                return;
-            }
-
-            // Remplir le formulaire
-            document.getElementById('editCardId').value = card.id;
-            document.getElementById('editEmployee').value = card.employee;
-            document.getElementById('editDepartment').value = card.department;
-            document.getElementById('editStatus').value = card.status;
-            document.getElementById('editScans').value = card.scans;
-            document.getElementById('editActiveLinks').value = card.activeLinks;
-
-            // Convertir la date pour l'input datetime-local
-            const lastScanDate = new Date(card.lastScan);
-            const formattedDate = lastScanDate.toISOString().slice(0, 16);
-            document.getElementById('editLastScan').value = formattedDate;
-
-            // Afficher le modal
-            const modal = new bootstrap.Modal(document.getElementById('editCardModal'));
-            modal.show();
-        }
-
-        // Bloquer une carte (avec prompt)
-        function blockCard(cardId, employeeName) {
-            const reason = prompt(`Bloquer la carte ${cardId} (${employeeName}) ?\n\nRaison (optionnel):`);
-
-            if (reason !== null) { // L'utilisateur n'a pas cliqué sur Annuler
-                // Trouver et bloquer la carte
-                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex].status = 'blocked';
-                    loadCardsData();
-                    loadEmployeesCards();
-
-                    // Mettre à jour les stats
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
-
-                    alert(`✅ Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
-                }
-            }
-        }
-
-        // Débloquer une carte
-        function unblockCard(cardId) {
-            if (confirm(`Voulez-vous vraiment débloquer la carte ${cardId} ?`)) {
-                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex].status = 'active';
-                    loadCardsData();
-                    loadEmployeesCards();
-
-                    // Mettre à jour les stats
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
-
-                    alert(`✅ Carte ${cardId} débloquée avec succès !`);
-                }
-            }
-        }
-
-        // Voir les détails d'une carte
-        function viewCardDetails(cardId) {
-            const card = enterpriseData.cards.find(c => c.id === cardId);
-            if (card) {
-                alert(`Détails de la carte ${cardId}:\n\n` +
-                    `Employé: ${card.employee}\n` +
-                    `Département: ${card.department}\n` +
-                    `Statut: ${card.status}\n` +
-                    `Scans totaux: ${card.scans}\n` +
-                    `Liens actifs: ${card.activeLinks}\n` +
-                    `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
-                    `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
-            }
-        }
+        // ==================== GESTION DES ÉVÉNEMENTS ====================
         function setupEventListeners() {
             // Navigation
             const navLinks = document.querySelectorAll('.sidebar .nav-link');
@@ -1631,159 +2285,62 @@
                 });
             });
 
+            // Formulaire d'ajout de carte
+            document.getElementById('addCardForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                addNewCard();
+            });
+
+            // Formulaire de modification de carte
+            document.getElementById('editCardForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                saveCardChanges();
+            });
+
+            // Suppression de carte
+            document.getElementById('deleteCardBtn').addEventListener('click', function () {
+                const cardId = document.getElementById('editCardId').value;
+                deleteCard(cardId);
+            });
+
             // Formulaire entreprise
             document.getElementById('companyForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-
-                enterpriseData.company.name = document.getElementById('companyName').value;
-                enterpriseData.company.taxId = document.getElementById('companyTaxId').value;
-                enterpriseData.company.contact = document.getElementById('companyContact').value;
-                enterpriseData.company.email = document.getElementById('companyEmail').value;
-                enterpriseData.company.phone = document.getElementById('companyPhone').value;
-                enterpriseData.company.sector = document.getElementById('companySector').value;
-                enterpriseData.company.address = document.getElementById('companyAddress').value;
-                enterpriseData.company.website = document.getElementById('companyWebsite').value;
-
-                updateUserDisplay({ company: enterpriseData.company.name });
-                loadCompanyData();
-
-                alert('Profil entreprise mis à jour avec succès !');
-            });
-
-            // Ouvrir le modal d'ajout
-            document.getElementById('addCardBtn').addEventListener('click', function () {
-                document.getElementById('addCardForm').reset();
-                const modal = new bootstrap.Modal(document.getElementById('addCardModal'));
-                modal.show();
-            });
-
-            // Créer une nouvelle carte
-            document.getElementById('createNewCard').addEventListener('click', function () {
-                const employee = document.getElementById('newEmployee').value.trim();
-                const department = document.getElementById('newDepartment').value.trim();
-
-                if (!employee || !department) {
-                    alert('Veuillez remplir les champs obligatoires (Employé et Département)');
-                    return;
-                }
-
-                const lastCardId = Math.max(...enterpriseData.cards.map(c => parseInt(c.id.split('-')[1])));
-                const newCardId = `BKA-${String(lastCardId + 1).padStart(6, '0')}`;
-
-                const newCard = {
-                    id: newCardId,
-                    employee: employee,
-                    department: department,
-                    function: document.getElementById('newFunction').value.trim() || null,
-                    email: document.getElementById('newEmail').value.trim() || null,
-                    cardType: document.getElementById('newCardType').value,
-                    status: document.getElementById('newStatus').value,
-                    scans: 0,
-                    activeLinks: 0,
-                    lastScan: new Date().toISOString(),
-                    created: new Date().toISOString(),
-                    notes: document.getElementById('newNotes').value.trim() || null
-                };
-
-                enterpriseData.cards.push(newCard);
-                loadCardsData();
-                loadEmployeesCards();
-
-                const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                const totalCards = enterpriseData.cards.length;
-                document.getElementById('statsActiveCards').textContent = activeCards;
-                document.getElementById('statsTotalCards').textContent = totalCards;
-
-                const modal = bootstrap.Modal.getInstance(document.getElementById('addCardModal'));
-                modal.hide();
-
-                alert(`✅ Carte ${newCardId} créée avec succès !\n\nEmployé: ${employee}\nDépartement: ${department}`);
-            });
-
-            // Sauvegarder les modifications d'une carte
-            document.getElementById('saveCardChanges').addEventListener('click', function () {
-                const cardId = document.getElementById('editCardId').value;
-                const cardIndex = enterpriseData.cards.findIndex(c => c.id === cardId);
-
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex] = {
-                        ...enterpriseData.cards[cardIndex],
-                        employee: document.getElementById('editEmployee').value,
-                        department: document.getElementById('editDepartment').value,
-                        status: document.getElementById('editStatus').value,
-                        scans: parseInt(document.getElementById('editScans').value) || 0,
-                        activeLinks: parseInt(document.getElementById('editActiveLinks').value) || 0,
-                        lastScan: document.getElementById('editLastScan').value || enterpriseData.cards[cardIndex].lastScan
-                    };
-
-                    loadCardsData();
-                    loadEmployeesCards();
-
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
-
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
-                    modal.hide();
-
-                    alert(`✅ Carte ${cardId} modifiée avec succès !`);
-                }
+                saveCompanyProfile();
             });
 
             // Formulaire paramètres
             document.getElementById('settingsForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-
-                enterpriseData.settings.notifEmail = document.getElementById('notifEmail').value;
-                enterpriseData.settings.notifSms = document.getElementById('notifSms').value;
-                enterpriseData.settings.autoRenewal = document.getElementById('autoRenewal').checked;
-                enterpriseData.settings.newCardNotification = document.getElementById('newCardNotification').checked;
-                enterpriseData.settings.monthlyReport = document.getElementById('monthlyReport').checked;
-
-                alert('Paramètres enregistrés avec succès !');
+                saveSettings();
             });
 
             // Recherche de cartes
-            document.getElementById('searchCard').addEventListener('input', function (e) {
-                const searchTerm = e.target.value.toLowerCase();
-                const rows = document.querySelectorAll('#cardsTableBody tr');
+            document.getElementById('searchCardBtn').addEventListener('click', searchCards);
+            document.getElementById('searchCard').addEventListener('keyup', function (e) {
+                if (e.key === 'Enter') searchCards();
+            });
 
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
+            // Éditer depuis les détails
+            document.getElementById('editFromDetailsBtn').addEventListener('click', function () {
+                const cardId = document.getElementById('detailCardId').textContent;
+                editCard(cardId);
+            });
+
+            // Bloquer/débloquer depuis les détails
+            document.getElementById('blockFromDetailsBtn').addEventListener('click', function () {
+                const cardId = document.getElementById('detailCardId').textContent;
+                const employee = document.getElementById('detailEmployee').textContent;
+                blockCard(cardId, employee);
+            });
+
+            document.getElementById('unblockFromDetailsBtn').addEventListener('click', function () {
+                const cardId = document.getElementById('detailCardId').textContent;
+                unblockCard(cardId);
             });
 
             // Déconnexion
-            document.getElementById('logoutBtn').addEventListener('click', function () {
-                if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
-                    localStorage.removeItem('currentUser');
-                    window.location.href = 'login.html';
-                }
-            });
-        }
-        function setupCardFilters() {
-            const filterButtons = document.querySelectorAll('[data-filter]');
-            const rows = document.querySelectorAll('#cardsTableBody tr');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Retirer la classe active de tous les boutons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Ajouter la classe active au bouton cliqué
-                    this.classList.add('active');
-
-                    const filter = this.getAttribute('data-filter');
-
-                    rows.forEach(row => {
-                        if (filter === 'all') {
-                            row.style.display = '';
-                        } else {
-                            const status = row.getAttribute('data-status');
-                            row.style.display = status === filter ? '' : 'none';
-                        }
-                    });
-                });
-            });
+            document.getElementById('logoutBtn').addEventListener('click', logout);
         }
 
         function setupMobileMenu() {
@@ -1796,11 +2353,8 @@
                 overlay.classList.add('show');
             });
 
-            overlay.addEventListener('click', function () {
-                closeMobileMenu();
-            });
+            overlay.addEventListener('click', closeMobileMenu);
 
-            // Fermer le menu quand on clique sur un lien
             document.querySelectorAll('.sidebar .nav-link').forEach(link => {
                 link.addEventListener('click', closeMobileMenu);
             });
@@ -1813,6 +2367,7 @@
             document.getElementById('sidebarOverlay').classList.remove('show');
         }
 
+        // ==================== FONCTIONS PRINCIPALES ====================
         function showSection(section) {
             // Cacher toutes les sections
             document.querySelectorAll('.dashboard-section').forEach(sec => {
@@ -1824,12 +2379,28 @@
 
             // Mettre à jour le titre
             updateDashboardTitle(section);
+
+            // Mettre à jour la navigation
+            updateNavigation(section);
+
+            // Recharger les données si nécessaire
+            if (section === 'cards') {
+                loadCardsData();
+            } else if (section === 'analytics') {
+                loadAnalyticsData();
+                setTimeout(() => {
+                    initializeCharts();
+                }, 100);
+            }
         }
 
         function updateDashboardTitle(section) {
             const titles = {
                 overview: 'Vue d\'ensemble',
                 cards: 'Gestion des cartes',
+                addCard: 'Ajouter une carte',
+                editCard: 'Modifier une carte',
+                cardDetails: 'Détails de la carte',
                 employees: 'Employés',
                 analytics: 'Analytics & Rapports',
                 orders: 'Achats & Factures',
@@ -1841,48 +2412,598 @@
             document.getElementById('dashboardTitle').textContent = titles[section] || 'Tableau de bord Entreprise';
         }
 
-        // Fonctions export
-        function exportData(format) {
-            const data = {
-                company: enterpriseData.company,
-                cards: enterpriseData.cards,
-                analytics: enterpriseData.analytics,
-                exportDate: new Date().toISOString()
+        function updateNavigation(section) {
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === section) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // ==================== GESTION DES CARTES ====================
+        function addNewCard() {
+            const employee = document.getElementById('newEmployee').value.trim();
+            const department = document.getElementById('newDepartment').value.trim();
+
+            if (!employee || !department) {
+                alert('Veuillez remplir les champs obligatoires (Employé et Département)');
+                return;
+            }
+
+            // Générer un nouvel ID
+            const lastCardId = enterpriseData.cards.length > 0 ?
+                Math.max(...enterpriseData.cards.map(c => parseInt(c.id.split('-')[1]))) : 1000;
+            const newCardId = `BKA-${String(lastCardId + 1).padStart(6, '0')}`;
+
+            // Séparer prénom et nom
+            const nameParts = employee.split(' ');
+            const firstName = nameParts[0];
+            const lastName = nameParts.slice(1).join(' ');
+
+            const newCard = {
+                id: newCardId,
+                employee: employee,
+                firstName: firstName,
+                lastName: lastName,
+                department: department,
+                function: document.getElementById('newFunction').value.trim() || '',
+                email: document.getElementById('newEmail').value.trim() ||
+                    generateEmail(firstName, lastName),
+                cardType: document.getElementById('newCardType').value,
+                status: document.getElementById('newStatus').value,
+                scans: 0,
+                activeLinks: 0,
+                lastScan: null,
+                created: new Date().toISOString().split('T')[0],
+                notes: document.getElementById('newNotes').value.trim() || '',
+                qrCode: `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BANKA%C3%8F:${newCardId}`
             };
 
-            let content, mimeType, filename;
+            enterpriseData.cards.push(newCard);
+
+            // Ajouter une activité
+            addActivity('Nouvelle carte créée', newCardId, employee);
+
+            // Sauvegarder
+            saveData();
+
+            // Recharger
+            loadCompanyData();
+            loadCardsData();
+
+            // Retourner aux cartes
+            showSection('cards');
+
+            // Notification
+            showNotification(`✅ Carte ${newCardId} créée avec succès !`, 'success');
+        }
+
+        function editCard(cardId) {
+            const card = enterpriseData.cards.find(c => c.id === cardId);
+            if (!card) {
+                showNotification('Carte non trouvée', 'error');
+                return;
+            }
+
+            // Remplir le formulaire
+            document.getElementById('editCardId').value = card.id;
+            document.getElementById('editCardIdTitle').textContent = card.id;
+            document.getElementById('editEmployee').value = card.employee;
+            document.getElementById('editDepartment').value = card.department;
+            document.getElementById('editFunction').value = card.function || '';
+            document.getElementById('editEmail').value = card.email || '';
+            document.getElementById('editCardType').value = card.cardType || 'essentiel';
+            document.getElementById('editStatus').value = card.status;
+            document.getElementById('editScans').value = card.scans;
+            document.getElementById('editActiveLinks').value = card.activeLinks;
+            document.getElementById('editNotes').value = card.notes || '';
+            document.getElementById('editCreatedDate').value = new Date(card.created).toLocaleDateString('fr-FR');
+
+            // Date du dernier scan
+            if (card.lastScan) {
+                const lastScanDate = new Date(card.lastScan);
+                const formattedDate = lastScanDate.toISOString().slice(0, 16);
+                document.getElementById('editLastScan').value = formattedDate;
+            } else {
+                document.getElementById('editLastScan').value = '';
+            }
+
+            showSection('editCard');
+        }
+
+        function saveCardChanges() {
+            const cardId = document.getElementById('editCardId').value;
+            const cardIndex = enterpriseData.cards.findIndex(c => c.id === cardId);
+
+            if (cardIndex === -1) {
+                showNotification('Carte non trouvée', 'error');
+                return;
+            }
+
+            const originalCard = enterpriseData.cards[cardIndex];
+            const newStatus = document.getElementById('editStatus').value;
+
+            // Mettre à jour la carte
+            enterpriseData.cards[cardIndex] = {
+                ...originalCard,
+                employee: document.getElementById('editEmployee').value,
+                department: document.getElementById('editDepartment').value,
+                function: document.getElementById('editFunction').value.trim() || '',
+                email: document.getElementById('editEmail').value.trim() || originalCard.email,
+                cardType: document.getElementById('editCardType').value,
+                status: newStatus,
+                scans: parseInt(document.getElementById('editScans').value) || 0,
+                activeLinks: parseInt(document.getElementById('editActiveLinks').value) || 0,
+                lastScan: document.getElementById('editLastScan').value || originalCard.lastScan,
+                notes: document.getElementById('editNotes').value.trim() || ''
+            };
+
+            // Ajouter une activité si le statut a changé
+            if (originalCard.status !== newStatus) {
+                addActivity(`Statut modifié: ${originalCard.status} → ${newStatus}`, cardId, originalCard.employee);
+            }
+
+            // Sauvegarder
+            saveData();
+
+            // Recharger
+            loadCompanyData();
+            loadCardsData();
+            loadAnalyticsData();
+
+            // Retourner aux cartes
+            showSection('cards');
+
+            // Notification
+            showNotification(`✅ Carte ${cardId} modifiée avec succès !`, 'success');
+        }
+
+        function viewCardDetails(cardId) {
+            const card = enterpriseData.cards.find(c => c.id === cardId);
+            if (!card) {
+                showNotification('Carte non trouvée', 'error');
+                return;
+            }
+
+            // Remplir les détails
+            document.getElementById('detailCardId').textContent = card.id;
+            document.getElementById('detailEmployee').textContent = card.employee;
+            document.getElementById('detailDepartment').textContent = card.department;
+            document.getElementById('detailFunction').textContent = card.function || 'Non spécifié';
+            document.getElementById('detailEmail').textContent = card.email || 'Non spécifié';
+            document.getElementById('detailCardType').textContent =
+                card.cardType === 'pro' ? 'Bankaï Pro (Métal)' : 'Bankaï Essentiel (PVC)';
+            document.getElementById('detailCreated').textContent = new Date(card.created).toLocaleDateString('fr-FR');
+            document.getElementById('detailScans').textContent = card.scans;
+            document.getElementById('detailActiveLinks').textContent = card.activeLinks;
+            document.getElementById('detailLastScan').textContent = card.lastScan ?
+                new Date(card.lastScan).toLocaleString('fr-FR') : 'Jamais';
+            document.getElementById('detailNotes').textContent = card.notes || 'Aucune note';
+
+            // Statut
+            const statusElement = document.getElementById('detailStatus');
+            let statusClass = 'badge-inactive';
+            let statusText = 'Inactive';
+
+            if (card.status === 'active') {
+                statusClass = 'badge-active';
+                statusText = 'Active';
+            } else if (card.status === 'blocked') {
+                statusClass = 'badge-blocked';
+                statusText = 'Bloquée';
+            }
+
+            statusElement.className = `badge-status ${statusClass}`;
+            statusElement.textContent = statusText;
+
+            // Boutons de blocage/déblocage
+            document.getElementById('blockFromDetailsBtn').classList.toggle('d-none', card.status === 'blocked');
+            document.getElementById('unblockFromDetailsBtn').classList.toggle('d-none', card.status !== 'blocked');
+
+            showSection('cardDetails');
+        }
+
+        function blockCard(cardId, employeeName) {
+            if (!confirm(`Bloquer la carte ${cardId} (${employeeName}) ?\n\nLa carte ne pourra plus être scannée.`)) {
+                return;
+            }
+
+            const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+            if (cardIndex !== -1) {
+                enterpriseData.cards[cardIndex].status = 'blocked';
+
+                // Ajouter une activité
+                addActivity('Carte bloquée', cardId, employeeName);
+
+                // Sauvegarder
+                saveData();
+
+                // Recharger
+                loadCompanyData();
+                loadCardsData();
+                loadAnalyticsData();
+
+                showNotification(`✅ Carte ${cardId} bloquée avec succès !`, 'success');
+            }
+        }
+
+        function unblockCard(cardId) {
+            if (!confirm(`Débloquer la carte ${cardId} ?`)) {
+                return;
+            }
+
+            const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+            if (cardIndex !== -1) {
+                enterpriseData.cards[cardIndex].status = 'active';
+
+                // Ajouter une activité
+                addActivity('Carte débloquée', cardId, enterpriseData.cards[cardIndex].employee);
+
+                // Sauvegarder
+                saveData();
+
+                // Recharger
+                loadCompanyData();
+                loadCardsData();
+                loadAnalyticsData();
+
+                showNotification(`✅ Carte ${cardId} débloquée avec succès !`, 'success');
+            }
+        }
+
+        function deleteCard(cardId) {
+            if (!confirm(`Supprimer définitivement la carte ${cardId} ?\n\nCette action est irréversible !`)) {
+                return;
+            }
+
+            const cardIndex = enterpriseData.cards.findIndex(c => c.id === cardId);
+            if (cardIndex !== -1) {
+                const card = enterpriseData.cards[cardIndex];
+
+                // Ajouter une activité
+                addActivity('Carte supprimée', cardId, card.employee);
+
+                // Supprimer
+                enterpriseData.cards.splice(cardIndex, 1);
+
+                // Sauvegarder
+                saveData();
+
+                // Recharger
+                loadCompanyData();
+                loadCardsData();
+
+                // Retourner aux cartes
+                showSection('cards');
+
+                showNotification(`✅ Carte ${cardId} supprimée avec succès !`, 'success');
+            }
+        }
+
+        function filterCards(status) {
+            const rows = document.querySelectorAll('#cardsTableBody tr');
+            const filterButtons = document.querySelectorAll('[onclick^="filterCards"]');
+
+            // Mettre à jour les boutons
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick') === `filterCards('${status}')`) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filtrer les lignes
+            rows.forEach(row => {
+                if (status === 'all') {
+                    row.style.display = '';
+                } else {
+                    const rowStatus = row.getAttribute('data-status');
+                    row.style.display = rowStatus === status ? '' : 'none';
+                }
+            });
+        }
+
+        function searchCards() {
+            const searchTerm = document.getElementById('searchCard').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('#cardsTableBody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // ==================== FONCTIONS UTILITAIRES ====================
+        function generateEmail(firstName, lastName) {
+            const normalizedFirstName = firstName
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z]/g, '');
+
+            const normalizedLastName = lastName
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z]/g, '');
+
+            return `${normalizedFirstName}.${normalizedLastName}@${enterpriseData.company.email.split('@')[1]}`;
+        }
+
+        function addActivity(type, cardId, employee) {
+            const activity = {
+                id: `ACT-${Date.now()}`,
+                type: type,
+                cardId: cardId,
+                employee: employee,
+                timestamp: new Date().toISOString(),
+                description: `${type} - ${employee} (${cardId})`
+            };
+
+            enterpriseData.analytics.recentActivities.unshift(activity);
+
+            // Garder seulement les 50 dernières activités
+            if (enterpriseData.analytics.recentActivities.length > 50) {
+                enterpriseData.analytics.recentActivities = enterpriseData.analytics.recentActivities.slice(0, 50);
+            }
+
+            // Sauvegarder
+            saveData();
+        }
+
+        function saveData() {
+            localStorage.setItem('enterpriseData', JSON.stringify(enterpriseData));
+        }
+
+        function showNotification(message, type = 'info') {
+            // Créer la notification
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 300px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>${message}</span>
+                    <button type="button" class="btn-close" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Supprimer automatiquement après 5 secondes
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // ==================== GRAPHIQUES ====================
+        function initializeCharts() {
+            // Graphique des scans
+            const scansCtx = document.getElementById('scansChart');
+            if (scansCtx) {
+                const scansData = enterpriseData.analytics.scans.dailyData;
+
+                new Chart(scansCtx, {
+                    type: 'line',
+                    data: {
+                        labels: scansData.map(d => new Date(d.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })),
+                        datasets: [{
+                            label: 'Nombre de scans',
+                            data: scansData.map(d => d.count),
+                            borderColor: 'rgb(218, 166, 34)',
+                            backgroundColor: 'rgba(218, 166, 34, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: '#a1a1aa'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: '#a1a1aa'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique des statuts
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                const statusCounts = {
+                    active: enterpriseData.cards.filter(c => c.status === 'active').length,
+                    inactive: enterpriseData.cards.filter(c => c.status === 'inactive').length,
+                    blocked: enterpriseData.cards.filter(c => c.status === 'blocked').length
+                };
+
+                new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Actives', 'Inactives', 'Bloquées'],
+                        datasets: [{
+                            data: [statusCounts.active, statusCounts.inactive, statusCounts.blocked],
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.8)',
+                                'rgba(108, 117, 125, 0.8)',
+                                'rgba(220, 53, 69, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgb(40, 167, 69)',
+                                'rgb(108, 117, 125)',
+                                'rgb(220, 53, 69)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#fff',
+                                    padding: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // ==================== FONCTIONS PROFIL ENTREPRISE ====================
+        function saveCompanyProfile() {
+            const company = enterpriseData.company;
+
+            company.name = document.getElementById('companyName').value;
+            company.taxId = document.getElementById('companyTaxId').value;
+            company.contact = document.getElementById('companyContact').value;
+            company.email = document.getElementById('companyEmail').value;
+            company.phone = document.getElementById('companyPhone').value;
+            company.sector = document.getElementById('companySector').value;
+            company.address = document.getElementById('companyAddress').value;
+            company.city = document.getElementById('companyCity').value;
+            company.zipCode = document.getElementById('companyZipCode').value;
+            company.website = document.getElementById('companyWebsite').value;
+            company.description = document.getElementById('companyDescription').value;
+            company.logo = document.getElementById('companyLogo').value;
+            company.employeeCount = parseInt(document.getElementById('companyEmployeeCount').value) || 0;
+
+            // Mettre à jour l'affichage utilisateur
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            user.company = company.name;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            updateUserDisplay(user);
+
+            // Sauvegarder
+            saveData();
+
+            showNotification('✅ Profil entreprise mis à jour avec succès !', 'success');
+        }
+
+        function resetCompanyForm() {
+            if (confirm('Réinitialiser le formulaire ? Toutes les modifications non sauvegardées seront perdues.')) {
+                loadCompanyData();
+            }
+        }
+
+        // ==================== FONCTIONS PARAMÈTRES ====================
+        function saveSettings() {
+            const settings = enterpriseData.company.settings;
+
+            // Notifications
+            settings.notifications.newCard = document.getElementById('notifNewCard').checked;
+            settings.notifications.cardBlocked = document.getElementById('notifCardBlocked').checked;
+            settings.notifications.monthlyReport = document.getElementById('notifMonthlyReport').checked;
+            settings.notifications.payment = document.getElementById('notifPayment').checked;
+            settings.notifications.emailFrequency = document.getElementById('emailFrequency').value;
+            settings.notifications.smsNotifications = document.getElementById('smsNotifications').value;
+
+            // Sécurité
+            settings.security.autoLogout = document.getElementById('autoLogout').checked;
+            settings.security.twoFactorAuth = document.getElementById('twoFactorAuth').checked;
+            settings.security.sessionTimeout = parseInt(document.getElementById('sessionTimeout').value) || 30;
+
+            // Abonnement
+            settings.subscription.autoRenewal = document.getElementById('autoRenewal').checked;
+            settings.subscription.invoiceAutoPay = document.getElementById('invoiceAutoPay').checked;
+
+            // Mettre à jour l'abonnement principal
+            enterpriseData.company.subscription.autoRenew = settings.subscription.autoRenewal;
+
+            // Sauvegarder
+            saveData();
+
+            showNotification('✅ Paramètres enregistrés avec succès !', 'success');
+        }
+
+        // ==================== FONCTIONS D'EXPORT ====================
+        function exportCards(format) {
+            const cards = enterpriseData.cards;
 
             switch (format) {
                 case 'csv':
-                    // Convertir les cartes en CSV simple
-                    let csv = 'ID Carte,Employé,Département,Statut,Scans,Liens actifs,Dernier scan\n';
-                    data.cards.forEach(card => {
-                        csv += `${card.id},${card.employee},${card.department},${card.status},${card.scans},${card.activeLinks},${card.lastScan}\n`;
+                    // Créer un CSV simple
+                    let csv = 'ID Carte,Employé,Département,Fonction,Email,Type,Statut,Scans,Liens actifs,Dernier scan,Date création\n';
+                    cards.forEach(card => {
+                        csv += `"${card.id}","${card.employee}","${card.department}","${card.function || ''}","${card.email || ''}","${card.cardType === 'pro' ? 'Pro' : 'Essentiel'}","${card.status}",${card.scans},${card.activeLinks},"${card.lastScan ? new Date(card.lastScan).toLocaleString('fr-FR') : ''}","${new Date(card.created).toLocaleDateString('fr-FR')}"\n`;
                     });
-                    content = csv;
-                    mimeType = 'text/csv';
-                    filename = `bankai-cards-${new Date().toISOString().slice(0, 10)}.csv`;
+
+                    downloadFile(csv, 'bankai-cartes.csv', 'text/csv');
                     break;
 
                 case 'excel':
-                    // Pour Excel, on crée un CSV (Excel peut l'ouvrir)
-                    let excel = 'ID Carte\tEmployé\tDépartement\tStatut\tScans\tLiens actifs\tDernier scan\n';
-                    data.cards.forEach(card => {
-                        excel += `${card.id}\t${card.employee}\t${card.department}\t${card.status}\t${card.scans}\t${card.activeLinks}\t${card.lastScan}\n`;
+                    // Pour Excel, on utilise un CSV (Excel peut l'ouvrir)
+                    let excel = 'ID Carte\tEmployé\tDépartement\tFonction\tEmail\tType\tStatut\tScans\tLiens actifs\tDernier scan\tDate création\n';
+                    cards.forEach(card => {
+                        excel += `${card.id}\t${card.employee}\t${card.department}\t${card.function || ''}\t${card.email || ''}\t${card.cardType === 'pro' ? 'Pro' : 'Essentiel'}\t${card.status}\t${card.scans}\t${card.activeLinks}\t${card.lastScan ? new Date(card.lastScan).toLocaleString('fr-FR') : ''}\t${new Date(card.created).toLocaleDateString('fr-FR')}\n`;
                     });
-                    content = excel;
-                    mimeType = 'application/vnd.ms-excel';
-                    filename = `bankai-cards-${new Date().toISOString().slice(0, 10)}.xls`;
+
+                    downloadFile(excel, 'bankai-cartes.xls', 'application/vnd.ms-excel');
                     break;
 
-                case 'json':
-                    content = JSON.stringify(data, null, 2);
-                    mimeType = 'application/json';
-                    filename = `bankai-data-${new Date().toISOString().slice(0, 10)}.json`;
-                    break;
+                case 'pdf':
+                    // Ouvrir une fenêtre pour impression
+                    generatePDFReport();
+                    return;
             }
 
-            // Créer et télécharger le fichier
+            showNotification(`✅ Données exportées en ${format.toUpperCase()} avec succès !`, 'success');
+        }
+        function generatePDFReport() {
+            const printWindow = window.open('', '_blank');
+
+            // Version ultra simple sans HTML complexe
+            printWindow.document.write('<h1>Rapport Bankaï</h1><p>Fonctionnalité PDF en développement...</p>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+        // Fonction utilitaire pour échapper le HTML
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text
+                .toString()
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+        function downloadFile(content, filename, mimeType) {
             const blob = new Blob([content], { type: mimeType });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1892,111 +3013,239 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-
-            alert(`Données exportées en ${format.toUpperCase()} avec succès !`);
         }
 
-        // Fonctions d'action sur les cartes
-        function viewCardDetails(cardId) {
+        function exportAllData(format) {
+            const data = {
+                exportDate: new Date().toISOString(),
+                company: enterpriseData.company,
+                cards: enterpriseData.cards,
+                orders: enterpriseData.orders,
+                analytics: enterpriseData.analytics
+            };
+
+            if (format === 'json') {
+                const content = JSON.stringify(data, null, 2);
+                downloadFile(content, `bankai-backup-complete-${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+                showNotification('✅ Sauvegarde JSON complète réussie !', 'success');
+            } else if (format === 'csv') {
+                exportCards('csv');
+            }
+        }
+
+        function backupData() {
+            const backup = {
+                timestamp: new Date().toISOString(),
+                data: enterpriseData,
+                version: '1.0'
+            };
+
+            const content = JSON.stringify(backup, null, 2);
+            downloadFile(content, `bankai-backup-${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+            showNotification('✅ Sauvegarde complète effectuée avec succès !', 'success');
+        }
+
+        // ==================== FONCTIONS DIVERSES ====================
+        function generateQRCode() {
+            const cardId = document.getElementById('detailCardId').textContent;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BANKA%C3%8F:${cardId}`;
+
+            const qrWindow = window.open(qrUrl, '_blank');
+            qrWindow.focus();
+        }
+
+        function resetCardScans() {
+            const cardId = document.getElementById('detailCardId').textContent;
+
+            if (!confirm(`Réinitialiser les scans de la carte ${cardId} ?\n\nLe compteur sera remis à zéro.`)) {
+                return;
+            }
+
+            const cardIndex = enterpriseData.cards.findIndex(c => c.id === cardId);
+            if (cardIndex !== -1) {
+                enterpriseData.cards[cardIndex].scans = 0;
+
+                // Ajouter une activité
+                addActivity('Scans réinitialisés', cardId, enterpriseData.cards[cardIndex].employee);
+
+                // Sauvegarder
+                saveData();
+
+                // Recharger
+                loadCompanyData();
+                loadCardsData();
+                loadAnalyticsData();
+
+                showNotification(`✅ Scans de la carte ${cardId} réinitialisés !`, 'success');
+            }
+        }
+
+        function sendCardEmail(cardId) {
             const card = enterpriseData.cards.find(c => c.id === cardId);
-            if (card) {
-                alert(`Détails de la carte ${cardId}:\n\n` +
-                    `Employé: ${card.employee}\n` +
-                    `Département: ${card.department}\n` +
-                    `Statut: ${card.status}\n` +
-                    `Scans totaux: ${card.scans}\n` +
-                    `Liens actifs: ${card.activeLinks}\n` +
-                    `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
-                    `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
+            if (!card || !card.email) {
+                showNotification('Email non disponible pour cette carte', 'error');
+                return;
             }
-        }
 
-        function editCard(cardId) {
-            alert(`Modification de la carte ${cardId} - À implémenter`);
-        }
+            const subject = encodeURIComponent('Votre carte Bankaï - Informations importantes');
+            const body = encodeURIComponent(`Bonjour ${card.employee},
 
-        function blockCard(cardId, employeeName) {
-            const reason = prompt(`Bloquer la carte ${cardId} (${employeeName}) ?\n\nRaison (optionnel):`);
+Voici les informations concernant votre carte Bankaï :
 
-            if (reason !== null) { // L'utilisateur n'a pas cliqué sur Annuler
-                // Trouver et bloquer la carte
-                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex].status = 'blocked';
-                    loadCardsData();
-                    loadEmployeesCards();
+• ID Carte: ${card.id}
+• Statut: ${card.status === 'active' ? 'Active' : card.status === 'blocked' ? 'Bloquée' : 'Inactive'}
+• Département: ${card.department}
+• Scans totaux: ${card.scans}
+• Dernier scan: ${card.lastScan ? new Date(card.lastScan).toLocaleString('fr-FR') : 'Jamais'}
 
-                    // Mettre à jour les stats
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
+Vous pouvez scanner votre carte pour accéder à vos informations.
 
-                    alert(`Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
-                }
-            }
-        }
+Cordialement,
+${enterpriseData.company.name}`);
 
-        function unblockCard(cardId) {
-            if (confirm(`Voulez-vous vraiment débloquer la carte ${cardId} ?`)) {
-                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex].status = 'active';
-                    loadCardsData();
-                    loadEmployeesCards();
-
-                    // Mettre à jour les stats
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
-
-                    alert(`✅ Carte ${cardId} débloquée avec succès !`);
-                }
-            }
+            window.open(`mailto:${card.email}?subject=${subject}&body=${body}`);
         }
 
         function downloadInvoice(invoiceId) {
-            alert(`Téléchargement de la facture ${invoiceId}...`);
+            showNotification(`Téléchargement de la facture ${invoiceId}...`, 'info');
+            setTimeout(() => {
+                showNotification('✅ Facture téléchargée avec succès !', 'success');
+            }, 1500);
         }
 
-        function upgradePlan() {
-            alert('Augmentation du quota de cartes - Redirection vers la page de commande');
-            window.location.href = 'commander.html';
-        }
-
-        function viewInvoice() {
-            showSection('orders');
-        }
-
-        function generateReport() {
-            alert('Génération du rapport complet - À implémenter');
-        }
-
-        function exportAnalytics() {
-            alert('Export des données analytiques - À implémenter');
-        }
-
-        // Générer un email à partir du nom
-        function generateEmail(name) {
-            const normalized = name
-                .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/\s+/g, '.');
-            return `${normalized}@${enterpriseData.company.email.split('@')[1]}`;
-        }
-
-        // Pré-remplir l'email dans le formulaire d'ajout
-        document.getElementById('newEmployee').addEventListener('blur', function () {
-            const emailField = document.getElementById('newEmail');
-            if (!emailField.value && this.value) {
-                emailField.value = generateEmail(this.value);
+        function viewInvoiceDetails(invoiceId) {
+            const invoice = enterpriseData.orders.find(o => o.id === invoiceId);
+            if (!invoice) {
+                showNotification('Facture non trouvée', 'error');
+                return;
             }
-        });
 
-        // Gestion du responsive
-        window.addEventListener('resize', function () {
-            if (window.innerWidth > 768) {
-                closeMobileMenu();
+            alert(`Détails de la facture ${invoiceId}:\n\n` +
+                `Date: ${invoice.date}\n` +
+                `Description: ${invoice.description}\n` +
+                `Quantité: ${invoice.quantity}\n` +
+                `Montant: ${invoice.amount.toLocaleString('fr-FR')} GNF\n` +
+                `Statut: ${invoice.status}\n` +
+                `Reçu: ${invoice.receipt ? 'Disponible' : 'En attente'}`);
+        }
+
+        function generateNewInvoice() {
+            alert('Génération d\'une nouvelle facture - À implémenter avec l\'API de paiement');
+        }
+
+        function downloadAllInvoices() {
+            alert('Téléchargement de toutes les factures - À implémenter');
+        }
+
+        function upgradeSubscription() {
+            alert('Mise à niveau de l\'abonnement - Redirection vers la page de commande');
+        }
+
+        function cancelSubscription() {
+            if (!confirm('Êtes-vous sûr de vouloir annuler votre abonnement ?\n\nVos cartes seront désactivées à la fin de la période payée.')) {
+                return;
             }
-        });
+
+            enterpriseData.company.subscription.status = 'cancelled';
+            saveData();
+            loadCompanyData();
+
+            showNotification('Abonnement annulé avec succès', 'warning');
+        }
+
+        function renewSubscription() {
+            enterpriseData.company.subscription.status = 'active';
+            const newEndDate = new Date();
+            newEndDate.setFullYear(newEndDate.getFullYear() + 1);
+            enterpriseData.company.subscription.endDate = newEndDate.toISOString().split('T')[0];
+
+            // Ajouter une nouvelle facture
+            const newInvoice = {
+                id: `INV-${new Date().getFullYear()}-${String(enterpriseData.orders.length + 100).padStart(3, '0')}`,
+                date: new Date().toLocaleDateString('fr-FR'),
+                description: `Renouvellement abonnement - ${newEndDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}`,
+                quantity: 1,
+                amount: enterpriseData.company.subscription.price,
+                status: 'payé',
+                receipt: true,
+                pdfUrl: `#`
+            };
+
+            enterpriseData.orders.unshift(newInvoice);
+
+            saveData();
+            loadCompanyData();
+            loadOrdersData();
+
+            showNotification('✅ Abonnement renouvelé avec succès !', 'success');
+        }
+
+        function generateFullReport() {
+            generatePDFReport();
+        }
+
+        function exportAnalyticsData() {
+            exportAllData('json');
+        }
+
+        function resetAllData() {
+            if (!confirm('⚠️ ATTENTION : Cette action va réinitialiser TOUTES vos données !\n\nToutes les cartes, commandes et statistiques seront effacées.\n\nCette action est irréversible !')) {
+                return;
+            }
+
+            if (!confirm('Êtes-vous ABSOLUMENT SÛR ? Tapez "RESET" pour confirmer.')) {
+                return;
+            }
+
+            // Générer de nouvelles données de démo
+            generateDemoData();
+            saveData();
+
+            // Recharger tout
+            loadCompanyData();
+            loadCardsData();
+            loadOrdersData();
+            loadAnalyticsData();
+            loadSettingsData();
+
+            showNotification('✅ Toutes les données ont été réinitialisées !', 'success');
+        }
+
+        function deleteAccount() {
+            if (!confirm('⚠️ ATTENTION : Cette action va SUPPRIMER DÉFINITIVEMENT votre compte !\n\nToutes vos données seront effacées et cette action est irréversible.')) {
+                return;
+            }
+
+            if (prompt('Pour confirmer la suppression, tapez "SUPPRIMER MON COMPTE" :') === 'SUPPRIMER MON COMPTE') {
+                localStorage.removeItem('enterpriseData');
+                localStorage.removeItem('currentUser');
+                alert('Compte supprimé avec succès. Vous allez être redirigé.');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function logout() {
+            if (confirm('Voulez-vous vous déconnecter ?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // CSS pour les animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 
