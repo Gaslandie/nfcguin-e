@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Entreprise - BANKAÏ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: rgb(218, 166, 34);
+            --primary-gold-rgb: 218, 166, 34;
+            --deep-dark: #09090b;
+            --deep-dark-rgb: 9, 9, 11;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --sidebar-width: 250px;
+            --text-secondary: #a1a1aa;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--deep-dark) 80%, rgba(var(--primary-gold-rgb), 0.12) 100%);
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle at 80% 10%, rgba(var(--primary-gold-rgb), 0.18) 0, transparent 60%),
+                radial-gradient(circle at 10% 80%, rgba(var(--primary-gold-rgb), 0.10) 0, transparent 70%);
+            z-index: 0;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--deep-dark);
+            color: var(--primary-gold);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 2rem 1rem 1rem 1rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-right: 1.5px solid var(--border-color);
+            box-shadow: 2px 0 16px 0 rgba(var(--primary-gold-rgb), 0.04);
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .sidebar .logo a {
+            color: var(--primary-gold);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s, transform 0.18s cubic-bezier(.4, 1.3, .6, 1.0);
+        }
+
+        .sidebar .logo a:hover {
+            color: #b99309;
+            text-decoration: none;
+            transform: scale(1.08);
+        }
+
+        .logo-b {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-gold);
+            color: #000;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 6px;
+        }
+
+        .sidebar .nav-link {
+            color: var(--primary-gold);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            background: rgba(var(--primary-gold-rgb), 0.15);
+            color: var(--primary-gold);
+            font-weight: 600;
+            border-color: var(--primary-gold);
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(var(--primary-gold-rgb), 0.2);
+            box-shadow: 0 0 10px rgba(var(--primary-gold-rgb), 0.2);
+        }
+
+        .sidebar .logout {
+            margin-top: auto;
+            color: #ff6b6b;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .logout:hover {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem 2vw;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-header h2 {
+            font-weight: bold;
+            color: var(--primary-gold);
+            letter-spacing: 1px;
+            font-size: 1.8rem;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935) !important;
+            color: var(--deep-dark) !important;
+            font-weight: 700 !important;
+            border: none !important;
+            border-radius: 10px !important;
+            padding: 0.7rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-gold:hover,
+        .btn-gold:focus {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(var(--primary-gold-rgb), 0.4) !important;
+        }
+
+        .btn-gold-outline {
+            background: transparent !important;
+            color: var(--primary-gold) !important;
+            border: 2px solid var(--primary-gold) !important;
+            font-weight: 600 !important;
+            border-radius: 10px !important;
+            padding: 0.7rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-gold-outline:hover {
+            background: rgba(var(--primary-gold-rgb), 0.1) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .profile-mini {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-mini img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-gold);
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(var(--primary-gold-rgb), 0.3);
+        }
+
+        .profile-mini .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-mini .name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .profile-mini .role {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Cards améliorées */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border: 1.5px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-gold);
+        }
+
+        .stats-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-card .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stats-card .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            line-height: 1;
+        }
+
+        .stats-card .stat-subtext {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        .dashboard-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1.5px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-section:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-section h4 {
+            color: var(--primary-gold);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(var(--primary-gold-rgb), 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .dashboard-section h4 i {
+            font-size: 1.3rem;
+        }
+
+        /* Table cartes entreprise */
+        .enterprise-table {
+            background: #000 !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .enterprise-table thead th {
+            background: #000 !important;
+            color: var(--primary-gold) !important;
+            border-bottom: 2px solid var(--primary-gold) !important;
+            font-weight: 700 !important;
+            padding: 1rem !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .enterprise-table tbody td {
+            color: #fff !important;
+            border-color: var(--border-color) !important;
+            padding: 1rem !important;
+            vertical-align: middle;
+            background: #000 !important;
+        }
+
+        .enterprise-table tbody tr {
+            transition: all 0.3s ease;
+            background: #000 !important;
+        }
+
+        .enterprise-table tbody tr:hover {
+            background: rgba(var(--primary-gold-rgb), 0.15) !important;
+        }
+
+        /* Badges améliorés */
+        .badge-status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-active { background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid rgba(40, 167, 69, 0.3); }
+        .badge-inactive { background: rgba(108, 117, 125, 0.2); color: #6c757d; border: 1px solid rgba(108, 117, 125, 0.3); }
+        .badge-blocked { background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid rgba(220, 53, 69, 0.3); }
+        .badge-pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3); }
+
+        /* Formulaires améliorés */
+        .bankai-form-control {
+            background: #000 !important;
+            border: 1px solid var(--border-color) !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            padding: 0.8rem 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .bankai-form-control:focus {
+            background: #000 !important;
+            border-color: var(--primary-gold) !important;
+            box-shadow: 0 0 0 3px rgba(var(--primary-gold-rgb), 0.2) !important;
+            color: #fff !important;
+        }
+
+        .bankai-form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .bankai-form-control option {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        .form-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Boutons d'export */
+        .export-dropdown .dropdown-menu {
+            background: #000;
+            border: 1px solid var(--border-color);
+        }
+
+        .export-dropdown .dropdown-item {
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .export-dropdown .dropdown-item:hover {
+            background: rgba(var(--primary-gold-rgb), 0.2);
+            color: var(--primary-gold);
+        }
+
+        /* Carte employé */
+        .employee-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .employee-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .employee-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .employee-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .employee-department {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .employee-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 2rem;
+        }
+
+        /* Modal de blocage */
+        .block-modal .modal-content {
+            background: #000;
+            border: 1px solid var(--primary-gold);
+        }
+
+        /* Contacts améliorés */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .contact-card .icon {
+            font-size: 2.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card .contact-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card .contact-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            word-break: break-all;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 220px;
+            }
+            .main-content {
+                margin-left: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+            .sidebar.show {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .menu-toggle {
+                display: block !important;
+            }
+            .employee-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-section {
+                padding: 1.5rem;
+            }
+            .employee-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Menu toggle pour mobile */
+        .menu-toggle {
+            display: none;
+            background: var(--primary-gold);
+            color: var(--deep-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 999;
+        }
+
+        /* Overlay pour mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4a935;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu toggle pour mobile -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="bi bi-list"></i> Menu
+    </button>
+
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="logo-b">B</span>
+                <span>BANKAÏ</span>
+            </a>
+        </div>
+        <a href="#" class="nav-link" data-section="overview">
+            <i class="bi bi-speedometer2"></i> Vue d'ensemble
+        </a>
+        <a href="#" class="nav-link" data-section="cards">
+            <i class="bi bi-credit-card"></i> Mes cartes
+        </a>
+        <a href="#" class="nav-link" data-section="employees">
+            <i class="bi bi-people"></i> Employés
+        </a>
+        <a href="#" class="nav-link" data-section="analytics">
+            <i class="bi bi-graph-up"></i> Analytics
+        </a>
+        <a href="#" class="nav-link" data-section="orders">
+            <i class="bi bi-bag"></i> Achats & Factures
+        </a>
+        <a href="#" class="nav-link" data-section="subscription">
+            <i class="bi bi-credit-card-2-front"></i> Abonnement
+        </a>
+        <a href="#" class="nav-link" data-section="profile">
+            <i class="bi bi-building"></i> Profil Entreprise
+        </a>
+        <a href="#" class="nav-link" data-section="settings">
+            <i class="bi bi-gear"></i> Paramètres
+        </a>
+        <div class="logout" id="logoutBtn">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h2 id="dashboardTitle">Tableau de bord Entreprise</h2>
+            <div class="profile-mini">
+                <img id="miniAvatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=entreprise" alt="Avatar">
+                <div class="user-info">
+                    <span class="name" id="miniName">Chargement...</span>
+                    <span class="role" id="userRole">Entreprise</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vue d'ensemble Section -->
+        <section class="dashboard-section" id="overviewSection">
+            <h4><i class="bi bi-speedometer2"></i> Vue d'ensemble</h4>
+            <div class="stats-cards">
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-credit-card"></i></div>
+                    <div class="stat-label">Cartes actives</div>
+                    <div class="stat-value" id="statsActiveCards">0</div>
+                    <div class="stat-subtext">sur <span id="statsTotalCards">0</span> total</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-people"></i></div>
+                    <div class="stat-label">Employés</div>
+                    <div class="stat-value" id="statsEmployees">0</div>
+                    <div class="stat-subtext">cartes attribuées</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-tap"></i></div>
+                    <div class="stat-label">Scans totaux</div>
+                    <div class="stat-value" id="statsTotalScans">0</div>
+                    <div class="stat-subtext">30 derniers jours</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-cash-stack"></i></div>
+                    <div class="stat-label">Dépenses</div>
+                    <div class="stat-value" id="statsSpent">0 GNF</div>
+                    <div class="stat-subtext">ce mois-ci</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mes cartes Section -->
+        <section class="dashboard-section d-none" id="cardsSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-credit-card"></i> Gestion des cartes</h4>
+                <div class="d-flex gap-2">
+                    <div class="dropdown export-dropdown">
+                        <button class="btn btn-gold-outline dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-download me-2"></i> Exporter
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="exportData('csv')"><i class="bi bi-filetype-csv me-2"></i> CSV</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportData('excel')"><i class="bi bi-filetype-xlsx me-2"></i> Excel</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportData('json')"><i class="bi bi-filetype-json me-2"></i> JSON</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-gold" id="addCardBtn">
+                        <i class="bi bi-plus-circle me-2"></i> Ajouter une carte
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table enterprise-table">
+                    <thead>
+                        <tr>
+                            <th>ID Carte</th>
+                            <th>Employé</th>
+                            <th>Département</th>
+                            <th>Statut</th>
+                            <th>Scans</th>
+                            <th>Liens actifs</th>
+                            <th>Dernier scan</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cardsTableBody">
+                        <!-- Les cartes seront injectées ici -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control bankai-form-control" id="searchCard" placeholder="Rechercher une carte ou un employé...">
+                            <button class="btn btn-gold" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-gold-outline active" data-filter="all">Toutes</button>
+                            <button type="button" class="btn btn-gold-outline" data-filter="active">Actives</button>
+                            <button type="button" class="btn btn-gold-outline" data-filter="inactive">Inactives</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employés Section -->
+        <section class="dashboard-section d-none" id="employeesSection">
+            <h4><i class="bi bi-people"></i> Gestion des employés</h4>
+            <div id="employeesContainer">
+                <!-- Cartes employés injectées ici -->
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section class="dashboard-section d-none" id="analyticsSection">
+            <h4><i class="bi bi-graph-up"></i> Analytics & Rapports</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card bg-dark border border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-gold">Statistiques des scans</h5>
+                            <div class="employee-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="todayScans">0</div>
+                                    <div class="stat-label">Aujourd'hui</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="weekScans">0</div>
+                                    <div class="stat-label">Cette semaine</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="monthScans">0</div>
+                                    <div class="stat-label">Ce mois</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-dark border border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title text-gold">Top employés</h5>
+                            <div id="topEmployees">
+                                <!-- Top employés injectés ici -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <button class="btn btn-gold-outline" onclick="generateReport()">
+                    <i class="bi bi-file-earmark-text me-2"></i> Générer rapport complet
+                </button>
+                <button class="btn btn-gold-outline ms-2" onclick="exportAnalytics()">
+                    <i class="bi bi-download me-2"></i> Exporter données
+                </button>
+            </div>
+        </section>
+
+        <!-- Achats & Factures Section -->
+        <section class="dashboard-section d-none" id="ordersSection">
+            <h4><i class="bi bi-bag"></i> Achats & Factures</h4>
+            <div class="table-responsive">
+                <table class="table enterprise-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>N° Facture</th>
+                            <th>Description</th>
+                            <th>Quantité</th>
+                            <th>Montant</th>
+                            <th>Statut</th>
+                            <th>Reçu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Les commandes seront injectées ici -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Abonnement Section -->
+        <section class="dashboard-section d-none" id="subscriptionSection">
+            <h4><i class="bi bi-credit-card-2-front"></i> Abonnement Entreprise</h4>
+            <div class="subscription-card">
+                <div class="subscription-plan">
+                    <div>
+                        <div class="plan-name" id="subscriptionPlan">Bankaï Entreprise</div>
+                        <div class="renewal-date mt-2">
+                            Prochain renouvellement: <span id="nextRenewal">25/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="plan-price" id="subscriptionPrice">400 000 GNF/an</div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Cartes incluses</label>
+                            <div class="text-white" id="includedCards">50 cartes</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Cartes supplémentaires</label>
+                            <div class="text-white" id="extraCards">5 cartes (20 000 GNF/unité)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-gold" onclick="upgradePlan()">
+                        <i class="bi bi-arrow-up me-2"></i> Augmenter le quota
+                    </button>
+                    <button class="btn btn-gold-outline" onclick="viewInvoice()">
+                        <i class="bi bi-receipt me-2"></i> Voir factures
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil Entreprise Section -->
+        <section class="dashboard-section d-none" id="profileSection">
+            <h4><i class="bi bi-building"></i> Profil Entreprise</h4>
+            <form id="companyForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Nom de l'entreprise *</label>
+                        <input type="text" class="form-control bankai-form-control" id="companyName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">SIRET / NIF</label>
+                        <input type="text" class="form-control bankai-form-control" id="companyTaxId">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Responsable *</label>
+                        <input type="text" class="form-control bankai-form-control" id="companyContact" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email société *</label>
+                        <input type="email" class="form-control bankai-form-control" id="companyEmail" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Téléphone *</label>
+                        <input type="tel" class="form-control bankai-form-control" id="companyPhone" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Secteur d'activité</label>
+                        <select class="form-control bankai-form-control" id="companySector">
+                            <option value="">Sélectionner...</option>
+                            <option value="tech">Technologie</option>
+                            <option value="finance">Finance</option>
+                            <option value="consulting">Consulting</option>
+                            <option value="retail">Commerce</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Adresse</label>
+                        <textarea class="form-control bankai-form-control" id="companyAddress" rows="2"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Site web</label>
+                        <input type="url" class="form-control bankai-form-control" id="companyWebsite" placeholder="https://">
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-save me-2"></i> Mettre à jour le profil
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Paramètres Section -->
+        <section class="dashboard-section d-none" id="settingsSection">
+            <h4><i class="bi bi-gear"></i> Paramètres Entreprise</h4>
+            <form id="settingsForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Notifications par email</label>
+                        <select class="form-select bankai-form-control" id="notifEmail" name="notifEmail">
+                            <option value="on">Activées</option>
+                            <option value="off">Désactivées</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Notifications par SMS</label>
+                        <select class="form-select bankai-form-control" id="notifSms" name="notifSms">
+                            <option value="on">Activées</option>
+                            <option value="off">Désactivées</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoRenewal">
+                            <label class="form-check-label" for="autoRenewal">
+                                Renouvellement automatique de l'abonnement
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newCardNotification">
+                            <label class="form-check-label" for="newCardNotification">
+                                Notifier à chaque nouvelle carte activée
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="monthlyReport">
+                            <label class="form-check-label" for="monthlyReport">
+                                Envoyer un rapport mensuel par email
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-save me-2"></i> Enregistrer les paramètres
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Modal de blocage de carte -->
+        <div class="modal fade block-modal" id="blockCardModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-gold">Bloquer une carte</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Êtes-vous sûr de vouloir bloquer la carte <strong id="cardToBlock">#BKA-000000</strong> ?</p>
+                        <div class="mb-3">
+                            <label class="form-label">Raison du blocage (optionnel)</label>
+                            <textarea class="form-control bankai-form-control" id="blockReason" rows="2" placeholder="Ex: Employé parti, perte de carte..."></textarea>
+                        </div>
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            La carte sera immédiatement désactivée et ne pourra plus être utilisée.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-gold-outline" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-gold" id="confirmBlock">Bloquer la carte</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Données de démonstration pour l'entreprise
+        const enterpriseData = {
+            company: {
+                name: "Konaté & Fils SARL",
+                taxId: "NIF-123456789",
+                contact: "Mohamed Konaté",
+                email: "entreprise@bankai.com",
+                phone: "+224644123456",
+                sector: "consulting",
+                address: "Cité des Nations, Conakry, Guinée",
+                website: "https://konate-fils.com",
+                employees: 25,
+                subscription: "Bankaï Entreprise",
+                subscriptionPrice: 400000,
+                cardsIncluded: 50,
+                extraCards: 5
+            },
+            cards: [
+                {
+                    id: "BKA-001001",
+                    employee: "Mohamed Konaté",
+                    department: "Direction",
+                    status: "active",
+                    scans: 156,
+                    activeLinks: 8,
+                    lastScan: "2024-01-15 14:30",
+                    created: "2024-01-01"
+                },
+                {
+                    id: "BKA-001002",
+                    employee: "Fatoumata Diallo",
+                    department: "Commercial",
+                    status: "active",
+                    scans: 89,
+                    activeLinks: 6,
+                    lastScan: "2024-01-14 11:20",
+                    created: "2024-01-01"
+                },
+                {
+                    id: "BKA-001003",
+                    employee: "Ibrahima Traoré",
+                    department: "Marketing",
+                    status: "inactive",
+                    scans: 45,
+                    activeLinks: 5,
+                    lastScan: "2024-01-10 09:15",
+                    created: "2024-01-01"
+                },
+                {
+                    id: "BKA-001004",
+                    employee: "Aïcha Bah",
+                    department: "RH",
+                    status: "active",
+                    scans: 67,
+                    activeLinks: 7,
+                    lastScan: "2024-01-15 16:45",
+                    created: "2024-01-01"
+                },
+                {
+                    id: "BKA-001005",
+                    employee: "Moussa Camara",
+                    department: "IT",
+                    status: "blocked",
+                    scans: 23,
+                    activeLinks: 3,
+                    lastScan: "2024-01-05 10:30",
+                    created: "2024-01-01"
+                },
+                {
+                    id: "BKA-001006",
+                    employee: "Kadiatou Sow",
+                    department: "Finance",
+                    status: "active",
+                    scans: 112,
+                    activeLinks: 6,
+                    lastScan: "2024-01-15 15:20",
+                    created: "2024-01-01"
+                }
+            ],
+            orders: [
+                {
+                    date: "15/01/2024",
+                    invoice: "FAC-2024-001",
+                    description: "Abonnement Entreprise - Janvier 2024",
+                    quantity: 1,
+                    amount: 400000,
+                    status: "payé",
+                    receipt: true
+                },
+                {
+                    date: "05/01/2024",
+                    invoice: "FAC-2024-002",
+                    description: "5 cartes supplémentaires",
+                    quantity: 5,
+                    amount: 100000,
+                    status: "payé",
+                    receipt: true
+                },
+                {
+                    date: "20/12/2023",
+                    invoice: "FAC-2023-045",
+                    description: "Renouvellement abonnement",
+                    quantity: 1,
+                    amount: 400000,
+                    status: "payé",
+                    receipt: true
+                }
+            ],
+            analytics: {
+                todayScans: 42,
+                weekScans: 287,
+                monthScans: 1123,
+                topEmployees: [
+                    { name: "Mohamed Konaté", scans: 156, department: "Direction" },
+                    { name: "Kadiatou Sow", scans: 112, department: "Finance" },
+                    { name: "Fatoumata Diallo", scans: 89, department: "Commercial" }
+                ]
+            },
+            settings: {
+                notifEmail: "on",
+                notifSms: "off",
+                autoRenewal: true,
+                newCardNotification: true,
+                monthlyReport: true
+            }
+        };
+
+        // Initialisation du dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!currentUser || currentUser.type !== 'enterprise') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            initializeEnterpriseDashboard(currentUser);
+        });
+
+        function initializeEnterpriseDashboard(user) {
+            // Mettre à jour l'affichage utilisateur
+            updateUserDisplay(user);
+            
+            // Charger les données de l'entreprise
+            loadCompanyData();
+            loadCardsData();
+            loadOrdersData();
+            loadAnalyticsData();
+            loadSettingsData();
+            
+            // Configurer les événements
+            setupEventListeners();
+            setupMobileMenu();
+            
+            // Afficher la vue d'ensemble par défaut
+            showSection('overview');
+        }
+
+        function updateUserDisplay(user) {
+            document.getElementById('miniName').textContent = user.company || "Entreprise";
+            document.getElementById('userRole').textContent = 'Compte Entreprise';
+            
+            const avatarSeed = user.company || user.email || 'entreprise';
+            document.getElementById('miniAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(avatarSeed)}`;
+        }
+
+        function loadCompanyData() {
+            const company = enterpriseData.company;
+            
+            // Mettre à jour les stats
+            const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+            document.getElementById('statsActiveCards').textContent = activeCards;
+            document.getElementById('statsTotalCards').textContent = enterpriseData.cards.length;
+            document.getElementById('statsEmployees').textContent = company.employees;
+            document.getElementById('statsTotalScans').textContent = enterpriseData.analytics.monthScans.toLocaleString();
+            document.getElementById('statsSpent').textContent = (company.subscriptionPrice + (company.extraCards * 20000)).toLocaleString('fr-FR') + ' GNF';
+            
+            // Mettre à jour l'abonnement
+            document.getElementById('subscriptionPlan').textContent = company.subscription;
+            document.getElementById('subscriptionPrice').textContent = company.subscriptionPrice.toLocaleString('fr-FR') + ' GNF/an';
+            document.getElementById('includedCards').textContent = company.cardsIncluded + ' cartes';
+            document.getElementById('extraCards').textContent = company.extraCards + ' cartes (20 000 GNF/unité)';
+            
+            // Calculer la date de renouvellement
+            const renewalDate = new Date();
+            renewalDate.setMonth(renewalDate.getMonth() + 1);
+            document.getElementById('nextRenewal').textContent = renewalDate.toLocaleDateString('fr-FR');
+            
+            // Mettre à jour le formulaire profil
+            document.getElementById('companyName').value = company.name;
+            document.getElementById('companyTaxId').value = company.taxId;
+            document.getElementById('companyContact').value = company.contact;
+            document.getElementById('companyEmail').value = company.email;
+            document.getElementById('companyPhone').value = company.phone;
+            document.getElementById('companySector').value = company.sector;
+            document.getElementById('companyAddress').value = company.address;
+            document.getElementById('companyWebsite').value = company.website;
+        }
+
+        function loadCardsData() {
+            const cards = enterpriseData.cards;
+            const tbody = document.getElementById('cardsTableBody');
+            tbody.innerHTML = '';
+            
+            cards.forEach(card => {
+                let statusClass = 'badge-inactive';
+                let statusText = 'Inactive';
+                
+                if (card.status === 'active') {
+                    statusClass = 'badge-active';
+                    statusText = 'Active';
+                } else if (card.status === 'blocked') {
+                    statusClass = 'badge-blocked';
+                    statusText = 'Bloquée';
+                }
+                
+                const lastScan = new Date(card.lastScan).toLocaleDateString('fr-FR') + ' ' + 
+                                new Date(card.lastScan).toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
+                
+                const row = `
+                    <tr data-status="${card.status}">
+                        <td><strong class="text-gold">${card.id}</strong></td>
+                        <td>${card.employee}</td>
+                        <td>${card.department}</td>
+                        <td><span class="badge-status ${statusClass}">${statusText}</span></td>
+                        <td><strong>${card.scans}</strong></td>
+                        <td>${card.activeLinks} liens</td>
+                        <td>${lastScan}</td>
+                        <td>
+                            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')" title="Voir détails">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-gold-outline ms-1" onclick="editCard('${card.id}')" title="Modifier">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status === 'blocked' ? 'd-none' : ''}" 
+                                    onclick="blockCard('${card.id}', '${card.employee}')" title="Bloquer">
+                                <i class="bi bi-slash-circle"></i>
+                            </button>
+                            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status !== 'blocked' ? 'd-none' : ''}" 
+                                    onclick="unblockCard('${card.id}')" title="Débloquer">
+                                <i class="bi bi-check-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+            
+            // Configurer les filtres
+            setupCardFilters();
+        }
+
+        function loadOrdersData() {
+            const orders = enterpriseData.orders;
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '';
+            
+            orders.forEach(order => {
+                const row = `
+                    <tr>
+                        <td>${order.date}</td>
+                        <td><strong class="text-gold">${order.invoice}</strong></td>
+                        <td>${order.description}</td>
+                        <td>${order.quantity}</td>
+                        <td>${order.amount.toLocaleString('fr-FR')} GNF</td>
+                        <td><span class="badge-status badge-active">${order.status}</span></td>
+                        <td>
+                            ${order.receipt ? 
+                                `<button class="btn btn-sm btn-gold" onclick="downloadInvoice('${order.invoice}')">
+                                    <i class="bi bi-download me-1"></i> PDF
+                                </button>` :
+                                `<span class="text-secondary">En attente</span>`
+                            }
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function loadAnalyticsData() {
+            const analytics = enterpriseData.analytics;
+            
+            // Mettre à jour les stats
+            document.getElementById('todayScans').textContent = analytics.todayScans;
+            document.getElementById('weekScans').textContent = analytics.weekScans;
+            document.getElementById('monthScans').textContent = analytics.monthScans.toLocaleString();
+            
+            // Charger le top des employés
+            const topEmployeesDiv = document.getElementById('topEmployees');
+            topEmployeesDiv.innerHTML = '';
+            
+            analytics.topEmployees.forEach(employee => {
+                const employeeDiv = `
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                        <div>
+                            <div class="fw-bold">${employee.name}</div>
+                            <div class="small text-secondary">${employee.department}</div>
+                        </div>
+                        <div class="fw-bold text-gold">${employee.scans} scans</div>
+                    </div>
+                `;
+                topEmployeesDiv.innerHTML += employeeDiv;
+            });
+            
+            // Charger les cartes employés
+            loadEmployeesCards();
+        }
+
+        function loadEmployeesCards() {
+            const container = document.getElementById('employeesContainer');
+            container.innerHTML = '';
+            
+            enterpriseData.cards.forEach(card => {
+                const cardDiv = `
+                    <div class="employee-card">
+                        <div class="employee-card-header">
+                            <div>
+                                <div class="employee-name">${card.employee}</div>
+                                <div class="employee-department">${card.department} • ${card.id}</div>
+                            </div>
+                            <span class="badge-status ${card.status === 'active' ? 'badge-active' : card.status === 'blocked' ? 'badge-blocked' : 'badge-inactive'}">
+                                ${card.status === 'active' ? 'Active' : card.status === 'blocked' ? 'Bloquée' : 'Inactive'}
+                            </span>
+                        </div>
+                        <div class="employee-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">${card.scans}</div>
+                                <div class="stat-label">Scans totaux</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${card.activeLinks}</div>
+                                <div class="stat-label">Liens actifs</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${card.status === 'active' ? 'Oui' : 'Non'}</div>
+                                <div class="stat-label">Carte active</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex gap-2">
+                            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')">
+                                <i class="bi bi-eye me-1"></i> Détails
+                            </button>
+                            ${card.status !== 'blocked' ? 
+                                `<button class="btn btn-sm btn-gold-outline" onclick="blockCard('${card.id}', '${card.employee}')">
+                                    <i class="bi bi-slash-circle me-1"></i> Bloquer
+                                </button>` :
+                                `<button class="btn btn-sm btn-gold-outline" onclick="unblockCard('${card.id}')">
+                                    <i class="bi bi-check-circle me-1"></i> Débloquer
+                                </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardDiv;
+            });
+        }
+
+        function loadSettingsData() {
+            const settings = enterpriseData.settings;
+            
+            document.getElementById('notifEmail').value = settings.notifEmail;
+            document.getElementById('notifSms').value = settings.notifSms;
+            document.getElementById('autoRenewal').checked = settings.autoRenewal;
+            document.getElementById('newCardNotification').checked = settings.newCardNotification;
+            document.getElementById('monthlyReport').checked = settings.monthlyReport;
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Retirer la classe active de tous les liens
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Afficher la section correspondante
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Fermer le menu mobile si ouvert
+                    closeMobileMenu();
+                });
+            });
+
+            // Formulaire entreprise
+            document.getElementById('companyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Mettre à jour les données de l'entreprise
+                enterpriseData.company.name = document.getElementById('companyName').value;
+                enterpriseData.company.taxId = document.getElementById('companyTaxId').value;
+                enterpriseData.company.contact = document.getElementById('companyContact').value;
+                enterpriseData.company.email = document.getElementById('companyEmail').value;
+                enterpriseData.company.phone = document.getElementById('companyPhone').value;
+                enterpriseData.company.sector = document.getElementById('companySector').value;
+                enterpriseData.company.address = document.getElementById('companyAddress').value;
+                enterpriseData.company.website = document.getElementById('companyWebsite').value;
+                
+                // Mettre à jour l'affichage
+                updateUserDisplay({ company: enterpriseData.company.name });
+                loadCompanyData();
+                
+                alert('Profil entreprise mis à jour avec succès !');
+            });
+
+            // Formulaire paramètres
+            document.getElementById('settingsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                enterpriseData.settings.notifEmail = document.getElementById('notifEmail').value;
+                enterpriseData.settings.notifSms = document.getElementById('notifSms').value;
+                enterpriseData.settings.autoRenewal = document.getElementById('autoRenewal').checked;
+                enterpriseData.settings.newCardNotification = document.getElementById('newCardNotification').checked;
+                enterpriseData.settings.monthlyReport = document.getElementById('monthlyReport').checked;
+                
+                alert('Paramètres enregistrés avec succès !');
+            });
+
+            // Bouton ajouter carte
+            document.getElementById('addCardBtn').addEventListener('click', function() {
+                alert('Fonctionnalité d\'ajout de carte - À implémenter');
+            });
+
+            // Recherche de cartes
+            document.getElementById('searchCard').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#cardsTableBody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+
+            // Déconnexion
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Confirmation de blocage
+            document.getElementById('confirmBlock').addEventListener('click', function() {
+                const cardId = this.dataset.cardId;
+                const reason = document.getElementById('blockReason').value;
+                
+                // Trouver et bloquer la carte
+                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex].status = 'blocked';
+                    loadCardsData();
+                    loadEmployeesCards();
+                    
+                    // Mettre à jour les stats
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+                }
+                
+                // Fermer le modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('blockCardModal'));
+                modal.hide();
+                
+                alert(`Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
+            });
+        }
+
+        function setupCardFilters() {
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            const rows = document.querySelectorAll('#cardsTableBody tr');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    rows.forEach(row => {
+                        if (filter === 'all') {
+                            row.style.display = '';
+                        } else {
+                            const status = row.getAttribute('data-status');
+                            row.style.display = status === filter ? '' : 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.add('show');
+                overlay.classList.add('show');
+            });
+
+            overlay.addEventListener('click', function() {
+                closeMobileMenu();
+            });
+
+            // Fermer le menu quand on clique sur un lien
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', closeMobileMenu);
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('sidebar').classList.remove('show');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        function showSection(section) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.dashboard-section').forEach(sec => {
+                sec.classList.add('d-none');
+            });
+            
+            // Afficher la section demandée
+            document.getElementById(section + 'Section').classList.remove('d-none');
+            
+            // Mettre à jour le titre
+            updateDashboardTitle(section);
+        }
+
+        function updateDashboardTitle(section) {
+            const titles = {
+                overview: 'Vue d\'ensemble',
+                cards: 'Gestion des cartes',
+                employees: 'Employés',
+                analytics: 'Analytics & Rapports',
+                orders: 'Achats & Factures',
+                subscription: 'Abonnement Entreprise',
+                profile: 'Profil Entreprise',
+                settings: 'Paramètres Entreprise'
+            };
+            
+            document.getElementById('dashboardTitle').textContent = titles[section] || 'Tableau de bord Entreprise';
+        }
+
+        // Fonctions export
+        function exportData(format) {
+            const data = {
+                company: enterpriseData.company,
+                cards: enterpriseData.cards,
+                analytics: enterpriseData.analytics,
+                exportDate: new Date().toISOString()
+            };
+            
+            let content, mimeType, filename;
+            
+            switch(format) {
+                case 'csv':
+                    // Convertir les cartes en CSV simple
+                    let csv = 'ID Carte,Employé,Département,Statut,Scans,Liens actifs,Dernier scan\n';
+                    data.cards.forEach(card => {
+                        csv += `${card.id},${card.employee},${card.department},${card.status},${card.scans},${card.activeLinks},${card.lastScan}\n`;
+                    });
+                    content = csv;
+                    mimeType = 'text/csv';
+                    filename = `bankai-cards-${new Date().toISOString().slice(0,10)}.csv`;
+                    break;
+                    
+                case 'excel':
+                    // Pour Excel, on crée un CSV (Excel peut l'ouvrir)
+                    let excel = 'ID Carte\tEmployé\tDépartement\tStatut\tScans\tLiens actifs\tDernier scan\n';
+                    data.cards.forEach(card => {
+                        excel += `${card.id}\t${card.employee}\t${card.department}\t${card.status}\t${card.scans}\t${card.activeLinks}\t${card.lastScan}\n`;
+                    });
+                    content = excel;
+                    mimeType = 'application/vnd.ms-excel';
+                    filename = `bankai-cards-${new Date().toISOString().slice(0,10)}.xls`;
+                    break;
+                    
+                case 'json':
+                    content = JSON.stringify(data, null, 2);
+                    mimeType = 'application/json';
+                    filename = `bankai-data-${new Date().toISOString().slice(0,10)}.json`;
+                    break;
+            }
+            
+            // Créer et télécharger le fichier
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert(`Données exportées en ${format.toUpperCase()} avec succès !`);
+        }
+
+        // Fonctions d'action sur les cartes
+        function viewCardDetails(cardId) {
+            const card = enterpriseData.cards.find(c => c.id === cardId);
+            if (card) {
+                alert(`Détails de la carte ${cardId}:\n\n` +
+                      `Employé: ${card.employee}\n` +
+                      `Département: ${card.department}\n` +
+                      `Statut: ${card.status}\n` +
+                      `Scans totaux: ${card.scans}\n` +
+                      `Liens actifs: ${card.activeLinks}\n` +
+                      `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
+                      `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
+            }
+        }
+
+        function editCard(cardId) {
+            alert(`Modification de la carte ${cardId} - À implémenter`);
+        }
+
+        function blockCard(cardId, employeeName) {
+            document.getElementById('cardToBlock').textContent = cardId + ' (' + employeeName + ')';
+            document.getElementById('confirmBlock').dataset.cardId = cardId;
+            document.getElementById('blockReason').value = '';
+            
+            const modal = new bootstrap.Modal(document.getElementById('blockCardModal'));
+            modal.show();
+        }
+
+        function unblockCard(cardId) {
+            if (confirm(`Voulez-vous vraiment débloquer la carte ${cardId} ?`)) {
+                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex].status = 'active';
+                    loadCardsData();
+                    loadEmployeesCards();
+                    
+                    // Mettre à jour les stats
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+                    
+                    alert(`Carte ${cardId} débloquée avec succès !`);
+                }
+            }
+        }
+
+        function downloadInvoice(invoiceId) {
+            alert(`Téléchargement de la facture ${invoiceId}...`);
+        }
+
+        function upgradePlan() {
+            alert('Augmentation du quota de cartes - Redirection vers la page de commande');
+            window.location.href = 'commander.html';
+        }
+
+        function viewInvoice() {
+            showSection('orders');
+        }
+
+        function generateReport() {
+            alert('Génération du rapport complet - À implémenter');
+        }
+
+        function exportAnalytics() {
+            alert('Export des données analytiques - À implémenter');
+        }
+
+        // Gestion du responsive
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+    </script>
+</body>
+</html>
