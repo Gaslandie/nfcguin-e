@@ -7,14 +7,328 @@
     <title>Connexion - BANKAÏ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-gold: rgb(218, 166, 34);
+            --primary-gold-rgb: 218, 166, 34;
+            --deep-dark: #09090b;
+            --deep-dark-rgb: 9, 9, 11;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-secondary: #a1a1aa;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--deep-dark) 80%, rgba(var(--primary-gold-rgb), 0.12) 100%);
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle at 80% 10%, rgba(var(--primary-gold-rgb), 0.18) 0, transparent 60%),
+                radial-gradient(circle at 10% 80%, rgba(var(--primary-gold-rgb), 0.10) 0, transparent 70%);
+            z-index: 0;
+        }
+
+        .login-card-custom {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1.5px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 500px; /* Augmenté de 420px à 500px */
+            z-index: 1;
+            position: relative;
+        }
+
+        .user-icon-bankai {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(var(--primary-gold-rgb), 0.2), rgba(var(--primary-gold-rgb), 0.1));
+            border: 2px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-pill-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-pill-item {
+            flex: 1;
+            text-align: center;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .auth-pill-item.active {
+            background: var(--primary-gold);
+            color: var(--deep-dark);
+            box-shadow: 0 2px 8px rgba(var(--primary-gold-rgb), 0.3);
+        }
+
+        .auth-pill-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .bankai-input {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid var(--border-color) !important;
+            color: #fff !important;
+            border-radius: 12px !important;
+            padding: 0.8rem 1rem !important;
+            transition: all 0.3s ease !important;
+            font-size: 0.9rem !important;
+        }
+
+        .bankai-input:focus {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: var(--primary-gold) !important;
+            box-shadow: 0 0 0 3px rgba(var(--primary-gold-rgb), 0.2) !important;
+            color: #fff !important;
+        }
+
+        .bankai-input::placeholder {
+            color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .btn-bankai-submit {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935) !important;
+            color: var(--deep-dark) !important;
+            font-weight: 700 !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 0.9rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-bankai-submit:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(var(--primary-gold-rgb), 0.4) !important;
+        }
+
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.1) !important;
+            border: 1px solid rgba(220, 53, 69, 0.3) !important;
+            color: #ff6b6b !important;
+            border-radius: 10px !important;
+        }
+
+        .hover-gold {
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .hover-gold:hover {
+            color: var(--primary-gold) !important;
+        }
+
+        /* Type de compte - Version horizontale */
+        .account-type-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .account-type-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .account-type-btn:hover {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            border-color: rgba(var(--primary-gold-rgb), 0.5);
+        }
+
+        .account-type-btn.selected {
+            background: rgba(var(--primary-gold-rgb), 0.15);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 2px rgba(var(--primary-gold-rgb), 0.2);
+        }
+
+        .account-type-btn i {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary-gold);
+        }
+
+        .account-type-btn .type-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .account-type-btn .type-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.2;
+        }
+
+        /* Layout en grille pour les champs */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Mot de passe oublié */
+        .forgot-password {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animation d'erreur */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Password strength */
+        .password-strength {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .strength-weak { width: 25%; background: #ff6b6b; }
+        .strength-fair { width: 50%; background: #ffa500; }
+        .strength-good { width: 75%; background: #ffd700; }
+        .strength-strong { width: 100%; background: #4cd964; }
+
+        /* Modal de succès */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .success-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-modal-content {
+            background: var(--card-bg);
+            border: 1.5px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 400px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .success-modal.show .success-modal-content {
+            transform: translateY(0);
+        }
+
+        .success-icon {
+            font-size: 3.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .login-card-custom {
+                margin: 1rem;
+                padding: 1.5rem !important;
+                max-width: 100%;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .account-type-container {
+                flex-direction: column;
+            }
+            
+            .account-type-btn {
+                min-height: 70px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .login-card-custom {
+                max-width: 500px;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-deep-dark">
 
+    <!-- Barre de navigation -->
+    <div id="navbar-placeholder"></div>
+
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="login-card-custom p-4 p-md-5">
-
             <div class="text-center mb-4">
                 <div class="user-icon-bankai mx-auto mb-3">
                     <i class="bi bi-person-fill" id="headerIcon"></i>
@@ -28,45 +342,544 @@
                 <div class="auth-pill-item" id="btnTabRegister">Inscription</div>
             </div>
 
+            <!-- Formulaire Connexion -->
             <form id="loginForm">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary">Email</label>
-                    <input type="email" id="email" class="form-control bankai-input" placeholder="user@bankai.com"
-                        required>
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">Email ou Téléphone</label>
+                    <input type="text" id="loginIdentifier" class="form-control bankai-input" 
+                           placeholder="user@bankai.com ou +224..." required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Mot de passe</label>
-                    <input type="password" id="password" class="form-control bankai-input" placeholder="••••••••"
-                        required>
+                    <input type="password" id="loginPassword" class="form-control bankai-input" 
+                           placeholder="••••••••" required>
                 </div>
-                <div id="errorMessage" class="alert alert-danger d-none small py-2">Identifiants incorrects.</div>
-                <button type="submit" class="btn btn-bankai-submit w-100 mb-3">Se connecter</button>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label small text-secondary" for="rememberMe">Se souvenir de moi</label>
+                    </div>
+                    <a href="#" id="forgotPasswordLink" class="small hover-gold text-decoration-none">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+                
+                <div id="loginErrorMessage" class="alert alert-danger d-none small py-2 mb-3">
+                    Identifiants incorrects. Veuillez réessayer.
+                </div>
+                
+                <button type="submit" class="btn btn-bankai-submit w-100 mb-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
+                </button>
             </form>
 
+            <!-- Formulaire Inscription -->
             <form id="registerForm" class="d-none">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary">Nom complet</label>
-                    <input type="text" class="form-control bankai-input" placeholder="Ex: Mamady Keïta" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary">Email</label>
-                    <input type="email" class="form-control bankai-input" placeholder="votre@email.com" required>
-                </div>
+                <!-- Sélection du type de compte -->
                 <div class="mb-4">
-                    <label class="form-label small fw-bold text-secondary">Créer un mot de passe</label>
-                    <input type="password" class="form-control bankai-input" placeholder="••••••••" required>
+                    <label class="form-label small fw-bold text-secondary mb-2">Type de compte</label>
+                    <div class="account-type-container" id="accountTypeContainer">
+                        <div class="account-type-btn" data-type="individual">
+                            <i class="bi bi-person"></i>
+                            <div class="type-title">Particulier</div>
+                            <div class="type-desc">Usage personnel</div>
+                        </div>
+                        <div class="account-type-btn" data-type="enterprise">
+                            <i class="bi bi-building"></i>
+                            <div class="type-title">Entreprise</div>
+                            <div class="type-desc">Pour votre société</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="accountType" name="accountType" value="individual">
                 </div>
-                <button type="button" class="btn btn-bankai-submit w-100 mb-3"
-                    onclick="alert('Inscription réussie ! Connectez-vous maintenant.')">Créer mon compte</button>
+
+                <!-- Champ Entreprise (caché par défaut) -->
+                <div class="mb-4 d-none" id="companyField">
+                    <label class="form-label small fw-bold text-secondary">Nom de l'entreprise</label>
+                    <input type="text" class="form-control bankai-input" id="companyName" 
+                           placeholder="Nom de votre entreprise">
+                </div>
+
+                <!-- Grille pour les champs côte à côte -->
+                <div class="form-grid mb-4">
+                    <div>
+                        <label class="form-label small fw-bold text-secondary">Prénom</label>
+                        <input type="text" class="form-control bankai-input" id="firstName" 
+                               placeholder="Mamady" required>
+                    </div>
+                    <div>
+                        <label class="form-label small fw-bold text-secondary">Nom</label>
+                        <input type="text" class="form-control bankai-input" id="lastName" 
+                               placeholder="Keïta" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">Email</label>
+                    <input type="email" class="form-control bankai-input" id="registerEmail" 
+                           placeholder="votre@email.com" required>
+                </div>
+
+                <div class="form-grid mb-4">
+                    <div>
+                        <label class="form-label small fw-bold text-secondary">Téléphone</label>
+                        <div class="d-flex gap-1">
+                            <select class="form-control bankai-input" style="flex: 0 0 100px;">
+                                <option value="+224">+224</option>
+                                <option value="+221">+221</option>
+                                <option value="+223">+223</option>
+                            </select>
+                            <input type="tel" class="form-control bankai-input" id="registerPhone" 
+                                   placeholder="XX XX XX XX">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label small fw-bold text-secondary">Fonction (optionnel)</label>
+                        <input type="text" class="form-control bankai-input" id="function" 
+                               placeholder="Directeur, etc.">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">Mot de passe</label>
+                    <input type="password" class="form-control bankai-input" id="registerPassword" 
+                           placeholder="Minimum 8 caractères" required minlength="8">
+                    <div class="password-strength">
+                        <div class="strength-bar" id="passwordStrengthBar"></div>
+                    </div>
+                    <div class="small text-secondary mt-1">
+                        <i class="bi bi-info-circle me-1"></i> 8 caractères minimum, majuscule et chiffre
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">Confirmer le mot de passe</label>
+                    <input type="password" class="form-control bankai-input" id="confirmPassword" 
+                           placeholder="Répétez le mot de passe" required>
+                    <div id="passwordMatch" class="small mt-1 d-none"></div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+                    <label class="form-check-label small text-secondary" for="acceptTerms">
+                        J'accepte les <a href="#" class="hover-gold">conditions</a>
+                    </label>
+                </div>
+
+                <div id="registerErrorMessage" class="alert alert-danger d-none small py-2 mb-3"></div>
+
+                <button type="submit" class="btn btn-bankai-submit w-100 mb-3">
+                    <i class="bi bi-person-plus me-2"></i> Créer mon compte
+                </button>
             </form>
 
-            <div class="text-center">
-                <a href="#" class="text-secondary small text-decoration-none hover-gold">Besoin d'aide ?</a>
+            <!-- Mot de passe oublié -->
+            <form id="forgotPasswordForm" class="d-none">
+                <div class="text-center mb-4">
+                    <i class="bi bi-key fs-1 text-primary mb-3" style="color: var(--primary-gold);"></i>
+                    <h5 class="text-white">Réinitialisation du mot de passe</h5>
+                    <p class="text-secondary small">Entrez votre email pour recevoir un lien de réinitialisation</p>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-secondary">Email</label>
+                    <input type="email" class="form-control bankai-input" id="resetEmail" 
+                           placeholder="votre@email.com" required>
+                </div>
+
+                <div id="resetMessage" class="alert d-none small py-2 mb-3"></div>
+
+                <button type="submit" class="btn btn-bankai-submit w-100 mb-3">
+                    <i class="bi bi-envelope me-2"></i> Envoyer le lien
+                </button>
+
+                <button type="button" id="backToLoginFromReset" class="btn btn-outline-light w-100">
+                    <i class="bi bi-arrow-left me-2"></i> Retour à la connexion
+                </button>
+            </form>
+
+            <div class="text-center mt-4 pt-3 border-top border-secondary">
+                <a href="index.html" class="text-secondary small text-decoration-none hover-gold">
+                    <i class="bi bi-arrow-left me-1"></i> Retour à l'accueil
+                </a>
             </div>
         </div>
     </div>
 
-    <script src="login-auth.js"></script>
+    <!-- Modal de succès après inscription -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <h4 class="text-white mb-3">Inscription réussie !</h4>
+            <p class="text-secondary mb-4" id="successMessage">
+                Votre compte a été créé avec succès.
+            </p>
+            <button id="continueToDashboard" class="btn btn-bankai-submit w-100">
+                <i class="bi bi-speedometer2 me-2"></i> Accéder à mon dashboard
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Éléments DOM
+        const btnLogin = document.getElementById('btnTabLogin');
+        const btnRegister = document.getElementById('btnTabRegister');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const mainTitle = document.getElementById('mainTitle');
+        const subTitle = document.getElementById('subTitle');
+        const headerIcon = document.getElementById('headerIcon');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToLoginFromReset = document.getElementById('backToLoginFromReset');
+        const accountTypeBtns = document.querySelectorAll('.account-type-btn');
+        const accountTypeInput = document.getElementById('accountType');
+        const companyField = document.getElementById('companyField');
+        const registerPassword = document.getElementById('registerPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+        const successModal = document.getElementById('successModal');
+        const continueToDashboardBtn = document.getElementById('continueToDashboard');
+        const successMessage = document.getElementById('successMessage');
+
+        // Données de test
+        const mockUsers = [
+            {
+                id: 1,
+                email: 'user@bankai.com',
+                phone: '+224622123456',
+                password: 'user123',
+                firstName: 'Alpha',
+                lastName: 'Diallo',
+                fullName: 'Alpha Diallo',
+                type: 'individual',
+                company: null,
+                function: 'Manager'
+            },
+            {
+                id: 2,
+                email: 'admin@bankai.com',
+                phone: '+224633123456',
+                password: 'admin123',
+                firstName: 'Admin',
+                lastName: 'Bankaï',
+                fullName: 'Admin Bankaï',
+                type: 'admin',
+                company: null,
+                function: 'Administrateur'
+            },
+            {
+                id: 3,
+                email: 'entreprise@bankai.com',
+                phone: '+224644123456',
+                password: 'entreprise123',
+                firstName: 'Mohamed',
+                lastName: 'Konaté',
+                fullName: 'Mohamed Konaté',
+                type: 'enterprise',
+                company: 'Konaté & Fils SARL',
+                function: 'Directeur Général'
+            }
+        ];
+
+        // Variables pour stocker l'utilisateur nouvellement inscrit
+        let newlyRegisteredUser = null;
+
+        // Gestion des tabs
+        function setActiveTab(tab) {
+            loginForm.classList.add('d-none');
+            registerForm.classList.add('d-none');
+            forgotPasswordForm.classList.add('d-none');
+            
+            btnLogin.classList.remove('active');
+            btnRegister.classList.remove('active');
+            
+            document.getElementById('loginErrorMessage').classList.add('d-none');
+            document.getElementById('registerErrorMessage').classList.add('d-none');
+            document.getElementById('resetMessage').classList.add('d-none');
+            
+            if (tab === 'login') {
+                btnLogin.classList.add('active');
+                loginForm.classList.remove('d-none');
+                mainTitle.innerText = "Mon compte";
+                subTitle.innerText = "Accédez à votre espace client Bankaï";
+                headerIcon.className = 'bi bi-person-fill';
+            } else if (tab === 'register') {
+                btnRegister.classList.add('active');
+                registerForm.classList.remove('d-none');
+                mainTitle.innerText = "Créer un compte";
+                subTitle.innerText = "Rejoignez l'univers Bankaï";
+                headerIcon.className = 'bi bi-person-plus';
+                accountTypeBtns[0].click();
+            } else if (tab === 'forgotPassword') {
+                forgotPasswordForm.classList.remove('d-none');
+                mainTitle.innerText = "Mot de passe oublié";
+                subTitle.innerText = "Réinitialisez votre accès";
+                headerIcon.className = 'bi bi-key';
+            }
+        }
+
+        // Sélection type de compte
+        accountTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                accountTypeBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                
+                const type = btn.dataset.type;
+                accountTypeInput.value = type;
+                
+                if (type === 'enterprise') {
+                    companyField.classList.remove('d-none');
+                } else {
+                    companyField.classList.add('d-none');
+                }
+            });
+        });
+
+        // Force password
+        registerPassword.addEventListener('input', updatePasswordStrength);
+        confirmPassword.addEventListener('input', checkPasswordMatch);
+
+        function updatePasswordStrength() {
+            const password = registerPassword.value;
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            const classes = ['strength-weak', 'strength-fair', 'strength-good', 'strength-strong'];
+            passwordStrengthBar.className = 'strength-bar ' + (classes[strength - 1] || '');
+        }
+
+        function checkPasswordMatch() {
+            const matchDiv = document.getElementById('passwordMatch');
+            if (confirmPassword.value && registerPassword.value) {
+                if (confirmPassword.value === registerPassword.value) {
+                    matchDiv.textContent = "✓ Les mots de passe correspondent";
+                    matchDiv.className = 'small mt-1 text-success';
+                    matchDiv.classList.remove('d-none');
+                } else {
+                    matchDiv.textContent = "✗ Les mots de passe ne correspondent pas";
+                    matchDiv.className = 'small mt-1 text-danger';
+                    matchDiv.classList.remove('d-none');
+                }
+            } else {
+                matchDiv.classList.add('d-none');
+            }
+        }
+
+        // Événements
+        btnRegister.addEventListener('click', () => setActiveTab('register'));
+        btnLogin.addEventListener('click', () => setActiveTab('login'));
+        
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setActiveTab('forgotPassword');
+        });
+        
+        backToLoginFromReset.addEventListener('click', () => setActiveTab('login'));
+
+        // Connexion
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const identifier = document.getElementById('loginIdentifier').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginErrorMessage');
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            errorDiv.classList.add('d-none');
+            
+            // Chercher l'utilisateur
+            const user = mockUsers.find(u => 
+                u.email === identifier || u.phone === identifier
+            ) || newlyRegisteredUser; // Vérifie aussi l'utilisateur nouvellement inscrit
+            
+            if (user && user.password === password) {
+                // Stocker en localStorage
+                const userData = {
+                    id: user.id,
+                    email: user.email,
+                    phone: user.phone,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    fullName: user.fullName,
+                    type: user.type,
+                    company: user.company,
+                    function: user.function,
+                    isNew: user === newlyRegisteredUser
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                if (rememberMe) {
+                    localStorage.setItem('rememberedUser', identifier);
+                }
+                
+                // Redirection
+                redirectToDashboard(user.type);
+            } else {
+                errorDiv.classList.remove('d-none');
+                loginForm.classList.add('shake');
+                setTimeout(() => loginForm.classList.remove('shake'), 500);
+            }
+        });
+
+        // Inscription
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value;
+            const password = registerPassword.value;
+            const confirmPass = confirmPassword.value;
+            const accountType = accountTypeInput.value;
+            const companyName = document.getElementById('companyName').value;
+            const userFunction = document.getElementById('function').value;
+            const errorDiv = document.getElementById('registerErrorMessage');
+            
+            errorDiv.classList.add('d-none');
+            
+            // Validations
+            if (password !== confirmPass) {
+                errorDiv.textContent = "Les mots de passe ne correspondent pas.";
+                errorDiv.classList.remove('d-none');
+                return;
+            }
+            
+            if (password.length < 8) {
+                errorDiv.textContent = "Le mot de passe doit contenir au moins 8 caractères.";
+                errorDiv.classList.remove('d-none');
+                return;
+            }
+            
+            // Vérifier si l'email existe déjà
+            const emailExists = mockUsers.some(u => u.email === email) || 
+                               (newlyRegisteredUser && newlyRegisteredUser.email === email);
+            
+            if (emailExists) {
+                errorDiv.textContent = "Cet email est déjà utilisé.";
+                errorDiv.classList.remove('d-none');
+                return;
+            }
+            
+            // Créer nouvel utilisateur
+            newlyRegisteredUser = {
+                id: Date.now(), // ID unique
+                email: email,
+                phone: phone ? `+224${phone.replace(/\s/g, '')}` : null,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                fullName: `${firstName} ${lastName}`,
+                type: accountType,
+                company: accountType === 'enterprise' ? companyName : null,
+                function: userFunction || null
+            };
+            
+            // Message personnalisé
+            const accountTypeText = accountType === 'enterprise' ? 'entreprise' : 'particulier';
+            successMessage.innerHTML = `
+                Bienvenue <strong>${firstName} ${lastName}</strong> !<br>
+                Votre compte ${accountTypeText} a été créé avec succès.
+                ${accountType === 'enterprise' ? `<br><small class="text-gold">${companyName}</small>` : ''}
+            `;
+            
+            // Afficher le modal de succès
+            successModal.classList.add('show');
+        });
+
+        // Continuer vers le dashboard après inscription
+        continueToDashboardBtn.addEventListener('click', function() {
+            if (newlyRegisteredUser) {
+                // Stocker l'utilisateur
+                const userData = {
+                    id: newlyRegisteredUser.id,
+                    email: newlyRegisteredUser.email,
+                    phone: newlyRegisteredUser.phone,
+                    firstName: newlyRegisteredUser.firstName,
+                    lastName: newlyRegisteredUser.lastName,
+                    fullName: newlyRegisteredUser.fullName,
+                    type: newlyRegisteredUser.type,
+                    company: newlyRegisteredUser.company,
+                    function: newlyRegisteredUser.function,
+                    isNew: true
+                };
+                
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                // Fermer le modal
+                successModal.classList.remove('show');
+                
+                // Rediriger
+                redirectToDashboard(newlyRegisteredUser.type);
+            }
+        });
+
+        // Fermer le modal en cliquant à l'extérieur
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                successModal.classList.remove('show');
+            }
+        });
+
+        // Mot de passe oublié
+        forgotPasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('resetEmail').value;
+            const messageDiv = document.getElementById('resetMessage');
+            
+            const userExists = mockUsers.some(u => u.email === email) || 
+                              (newlyRegisteredUser && newlyRegisteredUser.email === email);
+            
+            if (userExists) {
+                messageDiv.textContent = "Un lien de réinitialisation a été envoyé à votre email.";
+                messageDiv.className = 'alert alert-success small py-2 mb-3';
+                messageDiv.classList.remove('d-none');
+                
+                setTimeout(() => setActiveTab('login'), 3000);
+            } else {
+                messageDiv.textContent = "Aucun compte n'est associé à cet email.";
+                messageDiv.className = 'alert alert-danger small py-2 mb-3';
+                messageDiv.classList.remove('d-none');
+            }
+        });
+
+        // Fonction de redirection
+        function redirectToDashboard(userType) {
+            switch(userType) {
+                case 'admin':
+                    window.location.href = 'dashboard-admin.html';
+                    break;
+                case 'enterprise':
+                    window.location.href = 'dashboard-enterprise.html';
+                    break;
+                default:
+                    window.location.href = 'dashboard-user.html';
+            }
+        }
+
+        // Remplir l'identifiant si mémorisé
+        window.addEventListener('load', function() {
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                document.getElementById('loginIdentifier').value = rememberedUser;
+                document.getElementById('rememberMe').checked = true;
+            }
+        });
+    </script>
 </body>
 
 </html>

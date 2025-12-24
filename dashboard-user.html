@@ -1,139 +1,1301 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Espace - BANKAÏ</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Dashboard Utilisateur - BANKAÏ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Styles rapides pour la structure Dashboard */
-        .sidebar {
-            width: 280px;
-            height: 100vh;
-            background: #09090b;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        :root {
+            --primary-gold: rgb(218, 166, 34);
+            --primary-gold-rgb: 218, 166, 34;
+            --deep-dark: #09090b;
+            --deep-dark-rgb: 9, 9, 11;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --sidebar-width: 250px;
+            --text-secondary: #a1a1aa;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--deep-dark) 80%, rgba(var(--primary-gold-rgb), 0.12) 100%);
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
             position: fixed;
-            padding: 2rem;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle at 80% 10%, rgba(var(--primary-gold-rgb), 0.18) 0, transparent 60%),
+                radial-gradient(circle at 10% 80%, rgba(var(--primary-gold-rgb), 0.10) 0, transparent 70%);
+            z-index: 0;
         }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--deep-dark);
+            color: var(--primary-gold);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            padding: 2rem 1rem 1rem 1rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-right: 1.5px solid var(--border-color);
+            box-shadow: 2px 0 16px 0 rgba(var(--primary-gold-rgb), 0.04);
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .sidebar .logo a {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: color 0.2s, transform 0.18s cubic-bezier(.4, 1.3, .6, 1.0);
+        }
+
+        .sidebar .logo a:hover {
+            color: #b99309;
+            text-decoration: none;
+            transform: scale(1.08);
+        }
+
+        .sidebar .nav-link {
+            color: var(--primary-gold);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            background: rgba(var(--primary-gold-rgb), 0.15);
+            color: var(--primary-gold);
+            font-weight: 600;
+            border-color: var(--primary-gold);
+        }
+
+        .sidebar .nav-link.active {
+            background: rgba(var(--primary-gold-rgb), 0.2);
+            box-shadow: 0 0 10px rgba(var(--primary-gold-rgb), 0.2);
+        }
+
+        .sidebar .logout {
+            margin-top: auto;
+            color: #ff6b6b;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .sidebar .logout:hover {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
         .main-content {
-            margin-left: 280px;
-            padding: 3rem;
+            margin-left: var(--sidebar-width);
+            padding: 2rem 2vw;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
         }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-header h2 {
+            font-weight: bold;
+            color: var(--primary-gold);
+            letter-spacing: 1px;
+            font-size: 1.8rem;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935) !important;
+            color: var(--deep-dark) !important;
+            font-weight: 700 !important;
+            border: none !important;
+            border-radius: 10px !important;
+            padding: 0.7rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-gold:hover,
+        .btn-gold:focus {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(var(--primary-gold-rgb), 0.4) !important;
+        }
+
+        .btn-gold-outline {
+            background: transparent !important;
+            color: var(--primary-gold) !important;
+            border: 2px solid var(--primary-gold) !important;
+            font-weight: 600 !important;
+            border-radius: 10px !important;
+            padding: 0.7rem 1.5rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-gold-outline:hover {
+            background: rgba(var(--primary-gold-rgb), 0.1) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .profile-mini {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-mini img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-gold);
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(var(--primary-gold-rgb), 0.3);
+        }
+
+        .profile-mini .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-mini .name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .profile-mini .role {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Cards améliorées */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            border: 1.5px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-gold);
+        }
+
+        .stats-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-card .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stats-card .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            line-height: 1;
+        }
+
+        .stats-card .stat-subtext {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        .dashboard-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1.5px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-section:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-section h4 {
+            color: var(--primary-gold);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(var(--primary-gold-rgb), 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .dashboard-section h4 i {
+            font-size: 1.3rem;
+        }
+
+        /* Table améliorée */
+        /* Table améliorée - Background noir */
+        .bankai-table {
+            background: #000 !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .bankai-table thead th {
+            background: #000 !important;
+            color: var(--primary-gold) !important;
+            border-bottom: 2px solid var(--primary-gold) !important;
+            font-weight: 700 !important;
+            padding: 1rem !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .bankai-table tbody td {
+            color: #fff !important;
+            border-color: var(--border-color) !important;
+            padding: 1rem !important;
+            vertical-align: middle;
+            background: #000 !important;
+        }
+
+        .bankai-table tbody tr {
+            transition: all 0.3s ease;
+            background: #000 !important;
+        }
+
+        .bankai-table tbody tr:hover {
+            background: rgba(var(--primary-gold-rgb), 0.15) !important;
+        }
+
+        /* Badges améliorés */
+        .badge-status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-delivered {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .badge-processing {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .badge-shipping {
+            background: rgba(23, 162, 184, 0.2);
+            color: #17a2b8;
+            border: 1px solid rgba(23, 162, 184, 0.3);
+        }
+
+        /* Formulaires améliorés */
+        /* Paramètres - Background noir pour selects */
+        .bankai-form-control option {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        .bankai-form-control {
+            background: #000 !important;
+            border: 1px solid var(--border-color) !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            padding: 0.8rem 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .bankai-form-control:focus {
+            background: #000 !important;
+            border-color: var(--primary-gold) !important;
+            box-shadow: 0 0 0 3px rgba(var(--primary-gold-rgb), 0.2) !important;
+            color: #fff !important;
+        }
+
+        .form-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Nouvelle section : Mon abonnement */
+        .subscription-card {
+            background: linear-gradient(135deg, rgba(var(--primary-gold-rgb), 0.1), rgba(var(--primary-gold-rgb), 0.05));
+            border: 1.5px solid var(--primary-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .subscription-plan {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .plan-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .plan-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .renewal-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contacts améliorés */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .contact-card .icon {
+            font-size: 2.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card .contact-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card .contact-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            word-break: break-all;
+        }
+
+        /* Timeline améliorée */
+        .activity-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-gold), transparent);
+        }
+
+        .activity-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0.3rem;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            border: 3px solid var(--deep-dark);
+            box-shadow: 0 0 0 2px var(--primary-gold);
+        }
+
+        .activity-date {
+            color: var(--primary-gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-desc {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+        }
+
+        /* Responsive */
         @media (max-width: 992px) {
-            .sidebar { display: none; } /* On simplifie pour la maquette */
-            .main-content { margin-left: 0; padding: 1.5rem; }
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu-toggle {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Menu toggle pour mobile */
+        .menu-toggle {
+            display: none;
+            background: var(--primary-gold);
+            color: var(--deep-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 999;
+        }
+
+        /* Overlay pour mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4a935;
         }
     </style>
 </head>
-<body class="bg-deep-dark text-white">
 
-    <div class="d-flex">
-        <nav class="sidebar">
-            <a class="navbar-brand mb-5 d-block" href="index.html">
-                <span style="background: rgb(218, 166, 34); color: black; padding: 6px 10px; border-radius: 10px; font-weight: 600;">B</span>
-                <span class="text-white fw-bold">BANKAÏ</span>
+<body>
+    <!-- Menu toggle pour mobile -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="bi bi-list"></i> Menu
+    </button>
+
+    <!-- Overlay pour mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">
+            <a href="index.html">
+                <span style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-gold);
+            color: #000;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            margin-right: 8px;
+        ">B</span>
+                <span>BANKAÏ</span>
             </a>
-            
-            <ul class="nav flex-column gap-3 mt-5">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" style="color: rgb(218, 166, 34) !important;">
-                        <i class="bi bi-person-fill me-2"></i> Mon Profil
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-graph-up me-2"></i> Statistiques
-                    </a>
-                </li>
-                <li class="nav-item mt-5">
-                    <a href="index.html" class="nav-link text-danger">
-                        <i class="bi bi-box-arrow-left me-2"></i> Déconnexion
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        </div>
+        <a href="#" class="nav-link" data-section="overview">
+            <i class="bi bi-speedometer2"></i> Vue d'ensemble
+        </a>
+        <a href="#" class="nav-link" data-section="profile">
+            <i class="bi bi-person"></i> Mes renseignements
+        </a>
+        <a href="#" class="nav-link" data-section="subscription">
+            <i class="bi bi-credit-card"></i> Mon abonnement
+        </a>
+        <a href="#" class="nav-link" data-section="orders">
+            <i class="bi bi-bag"></i> Mes achats
+        </a>
+        <a href="#" class="nav-link" data-section="activity">
+            <i class="bi bi-clock-history"></i> Historique
+        </a>
+        <a href="#" class="nav-link" data-section="contacts">
+            <i class="bi bi-headset"></i> Support
+        </a>
+        <a href="#" class="nav-link" data-section="settings">
+            <i class="bi bi-gear"></i> Paramètres
+        </a>
+        <div class="logout" id="logoutBtn">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </div>
+    </nav>
 
-        <main class="main-content w-100">
-            <header class="d-flex justify-content-between align-items-center mb-5">
-                <div>
-                    <h2 class="fw-bold">Bienvenue, <span style="color: rgb(218, 166, 34);">Mamady</span></h2>
-                    <p class="text-secondary mb-0">Gérez votre identité numérique Bankaï</p>
-                </div>
-                <div class="stat-card py-2 px-3 d-flex align-items-center"
-                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(218, 166, 34, 0.1); border-radius: 15px;">
-                    <div class="text-end me-3">
-                        <small class="text-secondary d-block">Scans Totaux</small>
-                        <span class="fw-bold" style="color: rgb(218, 166, 34);">128</span>
-                    </div>
-                    <i class="bi bi-qr-code-scan fs-3" style="color: rgb(218, 166, 34);"></i>
-                </div>
-            </header>
-
-            <div class="row g-4">
-                <div class="col-lg-8">
-                    <div class="p-4 mb-4" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(218, 166, 34, 0.1); border-radius: 15px;">
-                        <h5 class="fw-bold mb-4" style="color: rgb(218, 166, 34);"><i class="bi bi-person-lines-fill me-2"></i>Informations Publiques</h5>
-                        <form id="profileForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label small text-secondary">Nom complet</label>
-                                    <input type="text" class="form-control custom-input" value="Mamady Keïta">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small text-secondary">Profession</label>
-                                    <input type="text" class="form-control custom-input" value="Designer Freelance">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small text-secondary">Ma Bio (max 150 caractères)</label>
-                                    <textarea class="form-control custom-input" rows="3">Passionné par le design minimaliste et les nouvelles technologies.</textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <div class="p-4" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(218, 166, 34, 0.1); border-radius: 15px;">
-                        <h5 class="fw-bold mb-4" style="color: rgb(218, 166, 34);"><i class="bi bi-share-fill me-2"></i>Mes Liens de Contact</h5>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-dark border-secondary text-success"><i class="bi bi-whatsapp"></i></span>
-                                    <input type="text" class="form-control custom-input" value="+224 620 00 00 00">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-dark border-secondary text-primary"><i class="bi bi-linkedin"></i></span>
-                                    <input type="text" class="form-control custom-input" value="linkedin.com/in/mamady">
-                                </div>
-                            </div>
-                            <div class="col-12 mt-4 text-end">
-                                <button class="btn btn-commander px-4" onclick="alert('Modifications enregistrées !')">Enregistrer les modifications</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="p-4 text-center" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(218, 166, 34, 0.1); border-radius: 15px;">
-                        <h6 class="text-secondary small mb-4">Aperçu de ma carte physique</h6>
-                        <div class="bankai-card-preview mx-auto mb-4">
-                            <div class="card-chip"></div>
-                            <div class="card-name">MAMADY KEÏTA</div>
-                            <div class="card-logo">B</div>
-                        </div>
-                        <button class="btn btn-outline-light btn-sm w-100 mb-2 py-2">
-                            <i class="bi bi-eye me-2"></i>Voir mon profil public
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm w-100 py-2">
-                            <i class="bi bi-slash-circle me-2"></i>Désactiver ma carte
-                        </button>
-                    </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h2 id="dashboardTitle">Bienvenue sur votre espace</h2>
+            <div class="profile-mini">
+                <img id="miniAvatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=bankai" alt="Avatar">
+                <div class="user-info">
+                    <span class="name" id="miniName">Chargement...</span>
+                    <span class="role" id="userRole">Utilisateur</span>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
 
+        <!-- Vue d'ensemble Section -->
+        <section class="dashboard-section" id="overviewSection">
+            <h4><i class="bi bi-speedometer2"></i> Vue d'ensemble</h4>
+            <div class="stats-cards">
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-credit-card"></i></div>
+                    <div class="stat-label">Cartes actives</div>
+                    <div class="stat-value" id="statsCards">1</div>
+                    <div class="stat-subtext">Dernière mise à jour: Aujourd'hui</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-cash-stack"></i></div>
+                    <div class="stat-label">Total dépensé</div>
+                    <div class="stat-value" id="statsSpent">150 000 GNF</div>
+                    <div class="stat-subtext">Sur les 30 derniers jours</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-arrow-repeat"></i></div>
+                    <div class="stat-label">Renouvellement</div>
+                    <div class="stat-value" id="statsRenewal">30j</div>
+                    <div class="stat-subtext">Avant expiration abonnement</div>
+                </div>
+                <div class="stats-card">
+                    <div class="icon"><i class="bi bi-shield-check"></i></div>
+                    <div class="stat-label">Statut compte</div>
+                    <div class="stat-value" id="statsStatus">Actif</div>
+                    <div class="stat-subtext">Vérifié et confirmé</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mes renseignements Section -->
+        <section class="dashboard-section d-none" id="profileSection">
+            <h4><i class="bi bi-person"></i> Mes renseignements</h4>
+            <form id="profileForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Prénom *</label>
+                        <input type="text" class="form-control bankai-form-control" id="profileFirstName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nom *</label>
+                        <input type="text" class="form-control bankai-form-control" id="profileLastName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email *</label>
+                        <input type="email" class="form-control bankai-form-control" id="profileEmail" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control bankai-form-control" id="profilePhone">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fonction</label>
+                        <input type="text" class="form-control bankai-form-control" id="profileFunction">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date de naissance</label>
+                        <input type="date" class="form-control bankai-form-control" id="profileBirthdate">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Adresse</label>
+                        <textarea class="form-control bankai-form-control" id="profileAddress" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nouveau mot de passe</label>
+                        <input type="password" class="form-control bankai-form-control" id="profilePassword"
+                            placeholder="••••••••">
+                        <div class="form-text small">Laissez vide pour ne pas changer</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Confirmer le mot de passe</label>
+                        <input type="password" class="form-control bankai-form-control" id="profilePasswordConfirm"
+                            placeholder="••••••••">
+                    </div>
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-gold">
+                            <i class="bi bi-save me-2"></i> Enregistrer les modifications
+                        </button>
+                        <button type="button" class="btn btn-gold-outline ms-2" id="cancelProfileEdit">
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Mon abonnement Section -->
+        <section class="dashboard-section d-none" id="subscriptionSection">
+            <h4><i class="bi bi-credit-card"></i> Mon abonnement</h4>
+            <div class="subscription-card">
+                <div class="subscription-plan">
+                    <div>
+                        <div class="plan-name" id="subscriptionPlan">Bankaï Essentiel</div>
+                        <div class="renewal-date mt-2">
+                            Prochain renouvellement: <span id="nextRenewal">25/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="plan-price" id="subscriptionPrice">150 000 GNF/an</div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Statut</label>
+                            <div class="badge badge-delivered" id="subscriptionStatus">Actif</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Carte associée</label>
+                            <div class="text-white" id="subscriptionCard">Carte #BKA-001234</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <button class="btn btn-gold" id="upgradePlanBtn">
+                        <i class="bi bi-arrow-up me-2"></i> Améliorer mon plan
+                    </button>
+                    <button class="btn btn-gold-outline" id="cancelSubscriptionBtn">
+                        <i class="bi bi-x-circle me-2"></i> Annuler l'abonnement
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mes achats Section -->
+        <section class="dashboard-section d-none" id="ordersSection">
+            <h4><i class="bi bi-bag"></i> Mes achats</h4>
+            <div class="table-responsive">
+                <table class="table bankai-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Commande N°</th>
+                            <th>Produit</th>
+                            <th>Statut</th>
+                            <th>Montant</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Les commandes seront injectées ici -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-gold-outline" id="loadMoreOrders">
+                    <i class="bi bi-arrow-clockwise me-2"></i> Charger plus d'historique
+                </button>
+            </div>
+        </section>
+
+        <!-- Historique Section -->
+        <section class="dashboard-section d-none" id="activitySection">
+            <h4><i class="bi bi-clock-history"></i> Historique d'activité</h4>
+            <div class="activity-timeline" id="activityTimeline">
+                <!-- Activités injectées ici -->
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="dashboard-section d-none" id="contactsSection">
+            <h4><i class="bi bi-headset"></i> Support & Contact</h4>
+            <div class="contacts-grid">
+                <div class="contact-card">
+                    <div class="icon"><i class="bi bi-envelope"></i></div>
+                    <div class="contact-label">Email support</div>
+                    <div class="contact-value">support@bankai.com</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon"><i class="bi bi-telephone"></i></div>
+                    <div class="contact-label">Téléphone</div>
+                    <div class="contact-value">+224 622 00 00 00</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon"><i class="bi bi-whatsapp"></i></div>
+                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-value">+224 622 00 00 00</div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon"><i class="bi bi-clock"></i></div>
+                    <div class="contact-label">Horaires</div>
+                    <div class="contact-value">Lun-Ven: 8h-18h</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Paramètres Section -->
+        <section class="dashboard-section d-none" id="settingsSection">
+            <h4><i class="bi bi-gear"></i> Paramètres</h4>
+            <form id="settingsForm" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Notifications par email</label>
+                        <select class="form-select bankai-form-control" id="notifEmail" name="notifEmail">
+                            <option value="on">Activées</option>
+                            <option value="off">Désactivées</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Notifications par SMS</label>
+                        <select class="form-select bankai-form-control" id="notifSms" name="notifSms">
+                            <option value="on">Activées</option>
+                            <option value="off">Désactivées</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                            <label class="form-check-label" for="twoFactorAuth">
+                                Authentification à deux facteurs
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-gold">
+                        <i class="bi bi-save me-2"></i> Enregistrer les paramètres
+                    </button>
+                </div>
+            </form>
+        </section>
+        <!-- Nouvelle Section : Mes cartes (si utilisateur a des cartes) -->
+        <section class="dashboard-section d-none" id="cardsSection">
+            <h4><i class="bi bi-credit-card-2-front"></i> Mes cartes</h4>
+            <div id="userCardsContainer">
+                <!-- Cartes injectées ici -->
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Vérification de connexion
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            if (!currentUser) {
+                // Rediriger vers la page de login si pas connecté
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Initialisation du dashboard
+            initializeDashboard(currentUser);
+        });
+
+        function initializeDashboard(user) {
+            // Mettre à jour l'affichage avec les vraies données
+            updateUserDisplay(user);
+            loadUserData(user);
+            setupEventListeners();
+            setupMobileMenu();
+        }
+
+        function updateUserDisplay(user) {
+            // Mettre à jour le header
+            document.getElementById('miniName').textContent = user.fullName || `${user.firstName} ${user.lastName}`;
+            document.getElementById('userRole').textContent = user.type === 'enterprise' ? 'Compte Entreprise' : 'Utilisateur';
+
+            // Générer un avatar basé sur le nom
+            const avatarSeed = user.email || user.fullName || 'bankai';
+            document.getElementById('miniAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(avatarSeed)}`;
+
+            // Mettre à jour le formulaire profil
+            document.getElementById('profileFirstName').value = user.firstName || '';
+            document.getElementById('profileLastName').value = user.lastName || '';
+            document.getElementById('profileEmail').value = user.email || '';
+            document.getElementById('profilePhone').value = user.phone || '';
+            document.getElementById('profileFunction').value = user.function || '';
+            document.getElementById('profileAddress').value = user.address || '';
+
+            // Mettre à jour les stats
+            document.getElementById('statsCards').textContent = user.cards || 1;
+            document.getElementById('statsSpent').textContent = (user.totalSpent || 150000).toLocaleString('fr-FR') + ' GNF';
+
+            // Calculer les jours avant renouvellement
+            const renewalDate = new Date();
+            renewalDate.setDate(renewalDate.getDate() + 30);
+            document.getElementById('nextRenewal').textContent = renewalDate.toLocaleDateString('fr-FR');
+
+            const daysUntilRenewal = Math.ceil((renewalDate - new Date()) / (1000 * 60 * 60 * 24));
+            document.getElementById('statsRenewal').textContent = `${daysUntilRenewal}j`;
+
+            // Mettre à jour l'abonnement
+            document.getElementById('subscriptionPlan').textContent = user.subscription || 'Bankaï Essentiel';
+            document.getElementById('subscriptionPrice').textContent = (user.subscriptionPrice || 150000).toLocaleString('fr-FR') + ' GNF/an';
+            document.getElementById('subscriptionStatus').textContent = user.subscriptionStatus || 'Actif';
+            document.getElementById('subscriptionCard').textContent = user.cardNumber || 'Carte #BKA-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+        }
+
+        function loadUserData(user) {
+            // Charger les commandes
+            loadOrders(user);
+
+            // Charger l'historique
+            loadActivityHistory(user);
+
+            // Charger les paramètres
+            loadSettings(user);
+        }
+
+        function loadOrders(user) {
+            const orders = user.orders || [
+                {
+                    id: 'CMD-' + Date.now().toString().slice(-8),
+                    date: new Date().toLocaleDateString('fr-FR'),
+                    product: 'Carte NFC Bankaï Essentiel',
+                    status: 'Livrée',
+                    amount: 150000,
+                    receipt: true
+                },
+                {
+                    id: 'CMD-' + (Date.now() - 86400000).toString().slice(-8),
+                    date: new Date(Date.now() - 86400000).toLocaleDateString('fr-FR'),
+                    product: 'Accessoire NFC',
+                    status: 'En production',
+                    amount: 50000,
+                    receipt: false
+                },
+                {
+                    id: 'CMD-' + (Date.now() - 172800000).toString().slice(-8),
+                    date: new Date(Date.now() - 172800000).toLocaleDateString('fr-FR'),
+                    product: 'Renouvellement abonnement',
+                    status: 'Livraison en cours',
+                    amount: 150000,
+                    receipt: true
+                }
+            ];
+
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '';
+
+            orders.forEach(order => {
+                let statusClass = 'badge-processing';
+                if (order.status === 'Livrée') statusClass = 'badge-delivered';
+                if (order.status === 'Livraison en cours') statusClass = 'badge-shipping';
+
+                const row = `
+                    <tr>
+                        <td>${order.date}</td>
+                        <td><span class="text-gold">${order.id}</span></td>
+                        <td>${order.product}</td>
+                        <td><span class="badge-status ${statusClass}">${order.status}</span></td>
+                        <td>${order.amount.toLocaleString('fr-FR')} GNF</td>
+                        <td>
+                            ${order.receipt ?
+                        `<button class="btn btn-sm btn-gold" onclick="downloadReceipt('${order.id}')">
+                                    <i class="bi bi-download me-1"></i> Reçu
+                                </button>` :
+                        `<button class="btn btn-sm btn-gold-outline" disabled>
+                                    <i class="bi bi-clock me-1"></i> En attente
+                                </button>`
+                    }
+                            <button class="btn btn-sm btn-gold-outline ms-1" onclick="viewOrderDetails('${order.id}')">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function loadActivityHistory(user) {
+            const activities = user.activities || [
+                { date: 'Aujourd\'hui, 14:30', desc: 'Connexion à votre compte depuis Conakry', time: 'Il y a 2 heures' },
+                { date: 'Hier, 10:15', desc: 'Mise à jour de vos informations personnelles', time: 'Il y a 1 jour' },
+                { date: '25/12/2023', desc: 'Paiement de votre abonnement Bankaï Essentiel', time: 'Il y a 3 jours' },
+                { date: '24/12/2023', desc: 'Activation de votre carte NFC #BKA-001234', time: 'Il y a 4 jours' },
+                { date: '22/12/2023', desc: 'Commande de votre carte Bankaï Essentiel', time: 'Il y a 6 jours' }
+            ];
+
+            const timeline = document.getElementById('activityTimeline');
+            timeline.innerHTML = '';
+
+            activities.forEach(activity => {
+                const item = `
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-date">${activity.date}</div>
+                        <div class="activity-desc">${activity.desc}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                `;
+                timeline.innerHTML += item;
+            });
+        }
+
+        function loadSettings(user) {
+            const settings = user.settings || {
+                notifEmail: 'on',
+                notifSms: 'off',
+                twoFactorAuth: false
+            };
+
+            document.getElementById('notifEmail').value = settings.notifEmail;
+            document.getElementById('notifSms').value = settings.notifSms;
+            document.getElementById('twoFactorAuth').checked = settings.twoFactorAuth;
+        }
+
+        function setupEventListeners() {
+            // Navigation
+            const sections = {
+                overview: document.getElementById('overviewSection'),
+                profile: document.getElementById('profileSection'),
+                subscription: document.getElementById('subscriptionSection'),
+                orders: document.getElementById('ordersSection'),
+                activity: document.getElementById('activitySection'),
+                contacts: document.getElementById('contactsSection'),
+                settings: document.getElementById('settingsSection'),
+                cards: document.getElementById('cardsSection')
+            };
+
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            const dashboardTitle = document.getElementById('dashboardTitle');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+
+                    // Retirer la classe active de tous les liens
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Ajouter la classe active au lien cliqué
+                    link.classList.add('active');
+
+                    // Cacher toutes les sections
+                    Object.values(sections).forEach(sec => sec.classList.add('d-none'));
+
+                    // Afficher la section correspondante
+                    const section = link.getAttribute('data-section');
+                    sections[section].classList.remove('d-none');
+
+                    // Mettre à jour le titre
+                    updateDashboardTitle(section);
+
+                    // Fermer le menu mobile si ouvert
+                    closeMobileMenu();
+                });
+            });
+
+            // Mettre à jour le titre
+            function updateDashboardTitle(section) {
+                const titles = {
+                    overview: 'Vue d\'ensemble',
+                    profile: 'Mes renseignements',
+                    subscription: 'Mon abonnement',
+                    orders: 'Mes achats',
+                    activity: 'Historique d\'activité',
+                    contacts: 'Support & Contact',
+                    settings: 'Paramètres',
+                    cards: 'Mes cartes'
+                };
+                dashboardTitle.textContent = titles[section] || 'Tableau de bord';
+            }
+
+            // Formulaire profil
+            document.getElementById('profileForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+                // Mettre à jour les données utilisateur
+                currentUser.firstName = document.getElementById('profileFirstName').value;
+                currentUser.lastName = document.getElementById('profileLastName').value;
+                currentUser.fullName = `${currentUser.firstName} ${currentUser.lastName}`;
+                currentUser.email = document.getElementById('profileEmail').value;
+                currentUser.phone = document.getElementById('profilePhone').value;
+                currentUser.function = document.getElementById('profileFunction').value;
+                currentUser.address = document.getElementById('profileAddress').value;
+
+                const newPassword = document.getElementById('profilePassword').value;
+                if (newPassword) {
+                    const confirmPassword = document.getElementById('profilePasswordConfirm').value;
+                    if (newPassword === confirmPassword) {
+                        currentUser.password = newPassword;
+                    } else {
+                        alert('Les mots de passe ne correspondent pas.');
+                        return;
+                    }
+                }
+
+                // Sauvegarder dans localStorage
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                // Mettre à jour l'affichage
+                updateUserDisplay(currentUser);
+
+                // Afficher un message de succès
+                alert('Profil mis à jour avec succès !');
+            });
+
+            // Annuler les modifications profil
+            document.getElementById('cancelProfileEdit').addEventListener('click', function () {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                updateUserDisplay(currentUser);
+            });
+
+            // Formulaire paramètres
+            document.getElementById('settingsForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+                currentUser.settings = {
+                    notifEmail: document.getElementById('notifEmail').value,
+                    notifSms: document.getElementById('notifSms').value,
+                    twoFactorAuth: document.getElementById('twoFactorAuth').checked
+                };
+
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                alert('Paramètres enregistrés avec succès !');
+            });
+
+            // Boutons d'action
+            document.getElementById('upgradePlanBtn').addEventListener('click', function () {
+                window.location.href = 'cartes.html';
+            });
+
+            document.getElementById('cancelSubscriptionBtn').addEventListener('click', function () {
+                if (confirm('Êtes-vous sûr de vouloir annuler votre abonnement ?')) {
+                    alert('Votre demande d\'annulation a été prise en compte.');
+                }
+            });
+
+            document.getElementById('loadMoreOrders').addEventListener('click', function () {
+                alert('Chargement de plus d\'historique...');
+            });
+
+            // Déconnexion
+            document.getElementById('logoutBtn').addEventListener('click', function () {
+                if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Afficher la vue d'ensemble par défaut
+            navLinks[0].classList.add('active');
+            sections.overview.classList.remove('d-none');
+            dashboardTitle.textContent = 'Vue d\'ensemble';
+        }
+
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            menuToggle.addEventListener('click', function () {
+                sidebar.classList.add('show');
+                overlay.classList.add('show');
+            });
+
+            overlay.addEventListener('click', function () {
+                closeMobileMenu();
+            });
+
+            // Fermer le menu quand on clique sur un lien
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', closeMobileMenu);
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('sidebar').classList.remove('show');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+        }
+
+        // Fonctions utilitaires
+        function downloadReceipt(orderId) {
+            alert(`Téléchargement du reçu pour la commande ${orderId}...`);
+        }
+
+        function viewOrderDetails(orderId) {
+            alert(`Affichage des détails de la commande ${orderId}...`);
+        }
+
+        // Gestion du responsive
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+    </script>
 </body>
+
 </html>

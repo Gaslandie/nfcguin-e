@@ -76,7 +76,42 @@
             backdrop-filter: blur(10px);
         }
 
-        .card-option input:checked + .card-option-content {
+        .card-badge {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935);
+            color: var(--deep-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin: 0 auto 1rem auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            width: fit-content;
+        }
+
+        /* Style pour la carte Pro (qui est "Recommandé" dans cartes.html) */
+        .card-option[data-card-type="pro"] .card-badge {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935);
+            color: var(--deep-dark);
+            position: relative;
+        }
+
+        .card-option[data-card-type="pro"] .card-badge::before {
+            content: "Recommandé";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-gold);
+            color: var(--deep-dark);
+            font-size: 0.65rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .card-option input:checked+.card-option-content {
             background: rgba(var(--primary-gold-rgb), 0.1);
             border-color: var(--primary-gold);
             border-top: 3px solid var(--primary-gold);
@@ -461,6 +496,7 @@
     <main class="py-5">
         <div class="container">
             <!-- Card Selection Section -->
+            <!-- Card Selection Section -->
             <section class="card-selector-wrapper">
                 <div class="card-selector-title" data-aos="fade-up">
                     <h2>Choisissez Votre Carte</h2>
@@ -469,60 +505,60 @@
                 <div class="cards-grid py-5" data-aos="fade-up" data-aos-delay="100">
                     <!-- Essentiel Card -->
                     <label class="card-option">
-                        <input type="radio" name="cardType" value="essentiel" data-price="150000"
-                            data-material="PVC Premium" data-warranty="2 ans" checked>
+                        <input type="radio" name="cardType" value="essentiel" data-price="150000" checked>
                         <div class="card-option-content mt-2">
                             <div class="card-checkmark">✓</div>
                             <div class="card-icon"><i class="bi bi-credit-card"></i></div>
                             <div class="card-badge">Essentiel</div>
-                            <p class="card-subtitle">La solution parfaite pour débuter</p>
+                            <p class="card-subtitle">Particuliers</p>
                             <div class="card-option-price">150 000 GNF</div>
                             <ul class="card-option-features">
-                                <li><i class="bi bi-check2-circle"></i> Carte en PVC Premium</li>
+                                <li><i class="bi bi-check2-circle"></i> Carte en PVC design minimaliste</li>
                                 <li><i class="bi bi-check2-circle"></i> Partage NFC + QR Code</li>
-                                <li><i class="bi bi-check2-circle"></i> Design minimaliste</li>
-                                <li><i class="bi bi-check2-circle"></i> Production 3-5 jours</li>
+                                <li><i class="bi bi-check2-circle"></i> Gestion via application mobile</li>
+                                <li><i class="bi bi-check2-circle"></i> Livraison offerte</li>
                             </ul>
                         </div>
                     </label>
 
                     <!-- Pro Card -->
                     <label class="card-option">
-                        <input type="radio" name="cardType" value="pro" data-price="250000"
-                            data-material="Métal Anodisé" data-warranty="5 ans">
+                        <input type="radio" name="cardType" value="pro" data-price="250000">
                         <div class="card-option-content mt-2">
                             <div class="card-checkmark">✓</div>
                             <div class="card-icon"><i class="bi bi-star-fill"></i></div>
                             <div class="card-badge"
-                                style="background: linear-gradient(135deg, #4a90e2, #357abd); color: white;">Pro</div>
-                            <p class="card-subtitle">La plus demandée des professionnels</p>
+                                style="background: linear-gradient(135deg, var(--primary-gold), #d4a935); color: var(--deep-dark);">
+                                Pro
+                            </div>
+                            <p class="card-subtitle">Clients professionnels</p>
                             <div class="card-option-price">250 000 GNF</div>
                             <ul class="card-option-features">
-                                <li><i class="bi bi-check2-circle"></i> Métal anodisé finition luxe</li>
-                                <li><i class="bi bi-check2-circle"></i> NFC + QR + URL personnalisée</li>
-                                <li><i class="bi bi-check2-circle"></i> 3 couleurs disponibles</li>
-                                <li><i class="bi bi-check2-circle"></i> Garantie 5 ans constructeur</li>
+                                <li><i class="bi bi-check2-circle"></i> Matériau PVC ou Métal au choix</li>
+                                <li><i class="bi bi-check2-circle"></i> Design personnalisé par nos experts</li>
+                                <li><i class="bi bi-check2-circle"></i> Statistiques détaillées des scans</li>
+                                <li><i class="bi bi-check2-circle"></i> Premier abonnement offert (1 an)</li>
                             </ul>
                         </div>
                     </label>
 
                     <!-- Entreprise Card -->
                     <label class="card-option">
-                        <input type="radio" name="cardType" value="entreprise" data-price="400000"
-                            data-material="Titane Grade 5" data-warranty="Illimitée">
+                        <input type="radio" name="cardType" value="entreprise" data-price="400000">
                         <div class="card-option-content mt-2">
                             <div class="card-checkmark">✓</div>
                             <div class="card-icon"><i class="bi bi-gem"></i></div>
                             <div class="card-badge"
-                                style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white;">Entreprise
+                                style="background: linear-gradient(135deg, var(--primary-gold), #d4a935); color: var(--deep-dark);">
+                                Entreprise
                             </div>
-                            <p class="card-subtitle">L'excellence pour les leaders</p>
+                            <p class="card-subtitle">Pack Entreprise</p>
                             <div class="card-option-price">400 000 GNF</div>
                             <ul class="card-option-features">
-                                <li><i class="bi bi-check2-circle"></i> Titane Grade 5 premium</li>
-                                <li><i class="bi bi-check2-circle"></i> Tous les services inclus</li>
-                                <li><i class="bi bi-check2-circle"></i> Logo gravé personnalisé</li>
-                                <li><i class="bi bi-check2-circle"></i> Garantie à vie + Support VIP</li>
+                                <li><i class="bi bi-check2-circle"></i> Tableau de bord centralisé (Admin)</li>
+                                <li><i class="bi bi-check2-circle"></i> Suivi de performance des équipes</li>
+                                <li><i class="bi bi-check2-circle"></i> Extraction facile des données en CSV</li>
+                                <li><i class="bi bi-check2-circle"></i> Personnalisation collective</li>
                             </ul>
                         </div>
                     </label>
@@ -557,17 +593,20 @@
                             <div class="col-md-6">
                                 <h6><i class="bi bi-info-circle"></i> Caractéristiques</h6>
                                 <ul class="list-unstyled small">
-                                    <li><strong>Matériau :</strong> <span id="specMaterial">PVC Premium</span></li>
-                                    <li><strong>Dimensions :</strong> 85.6 x 53.98 x 0.8 mm</li>
-                                    <li><strong>Puce NFC :</strong> NTAG216 / NTAG424</li>
+                                    <li><strong>Matériau :</strong> <span id="specMaterial">PVC design
+                                            minimaliste</span></li>
+                                    <li><strong>Cible :</strong> <span id="specTarget">Particuliers</span></li>
+                                    <li><strong>Puce NFC :</strong> NTAG216 compatible</li>
+                                    <li><strong>QR Code :</strong> Dynamique intégré</li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <h6><i class="bi bi-truck"></i> Livraison & SAV</h6>
                                 <ul class="list-unstyled small">
                                     <li><strong>Production :</strong> 3-5 jours ouvrés</li>
-                                    <li><strong>Garantie :</strong> <span id="specWarranty">2 ans</span></li>
-                                    <li><strong>Support :</strong> 7j/7 par chat</li>
+                                    <li><strong>Garantie :</strong> <span id="specWarranty">1 an</span></li>
+                                    <li><strong>Livraison :</strong> Offerte partout en Guinée</li>
+                                    <li><strong>Support :</strong> Email et WhatsApp</li>
                                 </ul>
                             </div>
                         </div>
@@ -615,8 +654,8 @@
                                     <div class="col-12">
                                         <label class="form-label">Remarques / Infos supplémentaires</label>
                                         <textarea class="form-control bankai-input" id="inputRemarks"
-                                            placeholder="Détails spéciaux, couleur, gravure personnalisée..."
-                                            rows="3" style="resize: vertical;"></textarea>
+                                            placeholder="Détails spéciaux, couleur, gravure personnalisée..." rows="3"
+                                            style="resize: vertical;"></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -717,27 +756,54 @@
         });
 
         // Card Data Configuration
+        // Card Data Configuration (basé sur cartes.html)
         const cardConfigs = {
             essentiel: {
                 name: 'Essentiel',
                 price: 150000,
-                material: 'PVC Premium',
-                warranty: '2 ans'
+                material: 'PVC design minimaliste',
+                warranty: '1 an',
+                description: 'Carte en PVC design minimaliste - Partage instantané NFC + QR Code',
+                target: 'Particuliers',
+                features: [
+                    'Carte en PVC design minimaliste',
+                    'Partage instantané NFC + QR Code',
+                    'Gestion via application mobile',
+                    'Répertoire intégré dans l\'appli',
+                    'Livraison offerte'
+                ]
             },
             pro: {
                 name: 'Pro',
                 price: 250000,
-                material: 'Métal Anodisé',
-                warranty: '5 ans'
+                material: 'PVC ou Métal au choix',
+                warranty: '2 ans',
+                description: 'Matériau PVC ou Métal au choix - Design personnalisé',
+                target: 'Clients professionnels',
+                features: [
+                    'Matériau PVC ou Métal au choix',
+                    'Design personnalisé par nos experts',
+                    'Statistiques détaillées des scans',
+                    'Premier abonnement offert (1 an)',
+                    'Support prioritaire'
+                ]
             },
             entreprise: {
                 name: 'Entreprise',
                 price: 400000,
-                material: 'Titane Grade 5',
-                warranty: 'Illimitée'
+                material: 'PVC ou Métal au choix',
+                warranty: '3 ans',
+                description: 'Tableau de bord centralisé - Pack Entreprise',
+                target: 'Pack Entreprise',
+                features: [
+                    'Tableau de bord centralisé (Admin)',
+                    'Suivi de performance des équipes',
+                    'Extraction facile des données en CSV',
+                    'Service assistance et SAV dédié',
+                    'Personnalisation collective'
+                ]
             }
         };
-
         // DOM Elements
         const cardTypeRadios = document.querySelectorAll('input[name="cardType"]');
         const inputQty = document.getElementById('inputQty');
@@ -767,6 +833,7 @@
         }
 
         // Update all displays
+        // Update all displays
         function updateDisplay() {
             const selectedCard = document.querySelector('input[name="cardType"]:checked');
             const cardType = selectedCard.value;
@@ -779,10 +846,11 @@
             const total = subtotal - discountAmount;
 
             // Update preview
-            previewCardName.textContent = config.name;
+            previewCardName.textContent = `Bankaï ${config.name}`;
             previewPrice.textContent = formatPrice(unitPrice);
             specMaterial.textContent = config.material;
             specWarranty.textContent = config.warranty;
+            document.getElementById('specTarget').textContent = config.target;
 
             // Update summary
             summaryUnit.textContent = formatPrice(unitPrice);
@@ -790,7 +858,6 @@
             summaryDiscount.textContent = discount > 0 ? `-${Math.round(discount * 100)}% (${formatPrice(discountAmount)})` : 'Aucune';
             totalEl.textContent = formatPrice(total);
         }
-
         // Event listeners for card selection
         cardTypeRadios.forEach(radio => {
             radio.addEventListener('change', () => {
@@ -804,7 +871,7 @@
             const selectedCard = document.querySelector('input[name="cardType"]:checked').value;
             const companyField = document.querySelector('.field-enterprise');
             const companyInput = document.getElementById('inputCompany');
-            
+
             if (selectedCard === 'entreprise') {
                 companyField.classList.add('show');
                 companyInput.required = true;
@@ -859,9 +926,15 @@
             // Show success modal
             document.getElementById('modal-customer-name').textContent = firstName + ' ' + lastName;
             document.getElementById('modal-card-quantity').textContent = qty;
-            document.getElementById('modal-card-type').textContent = cardConfigs[cardType].name;
+            document.getElementById('modal-card-type').textContent = `Bankaï ${config.name}`;
 
-            successModal.show();
+            // Message plus détaillé
+            const modalDesc = document.querySelector('#successModal .modal-body p');
+            modalDesc.innerHTML = `
+    Merci <span style="color: var(--primary-gold); font-weight: 700;">${firstName} ${lastName}</span> !<br>
+    Votre commande pour <strong>${qty}</strong> carte(s) <span style="color: var(--primary-gold); font-weight: 700;">Bankaï ${config.name}</span> a bien été enregistrée.<br>
+    <em style="font-size: 0.9em; color: var(--text-secondary);">${config.target}</em>
+`;
 
             // Reset form after a delay
             setTimeout(() => {
