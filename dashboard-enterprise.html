@@ -366,10 +366,29 @@
             letter-spacing: 0.3px;
         }
 
-        .badge-active { background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid rgba(40, 167, 69, 0.3); }
-        .badge-inactive { background: rgba(108, 117, 125, 0.2); color: #6c757d; border: 1px solid rgba(108, 117, 125, 0.3); }
-        .badge-blocked { background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid rgba(220, 53, 69, 0.3); }
-        .badge-pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3); }
+        .badge-active {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .badge-inactive {
+            background: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+            border: 1px solid rgba(108, 117, 125, 0.3);
+        }
+
+        .badge-blocked {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .badge-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
 
         /* Formulaires améliorés */
         .bankai-form-control {
@@ -537,6 +556,7 @@
             .sidebar {
                 width: 220px;
             }
+
             .main-content {
                 margin-left: 220px;
             }
@@ -549,20 +569,25 @@
                 transition: left 0.3s ease;
                 z-index: 1000;
             }
+
             .sidebar.show {
                 left: 0;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 1rem;
             }
+
             .dashboard-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .menu-toggle {
                 display: block !important;
             }
+
             .employee-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -572,12 +597,15 @@
             .stats-cards {
                 grid-template-columns: 1fr;
             }
+
             .contacts-grid {
                 grid-template-columns: 1fr;
             }
+
             .dashboard-section {
                 padding: 1.5rem;
             }
+
             .employee-stats {
                 grid-template-columns: 1fr;
             }
@@ -738,9 +766,12 @@
                             <i class="bi bi-download me-2"></i> Exporter
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="exportData('csv')"><i class="bi bi-filetype-csv me-2"></i> CSV</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="exportData('excel')"><i class="bi bi-filetype-xlsx me-2"></i> Excel</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="exportData('json')"><i class="bi bi-filetype-json me-2"></i> JSON</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportData('csv')"><i
+                                        class="bi bi-filetype-csv me-2"></i> CSV</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportData('excel')"><i
+                                        class="bi bi-filetype-xlsx me-2"></i> Excel</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportData('json')"><i
+                                        class="bi bi-filetype-json me-2"></i> JSON</a></li>
                         </ul>
                     </div>
                     <button class="btn btn-gold" id="addCardBtn">
@@ -748,7 +779,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <div class="table-responsive">
                 <table class="table enterprise-table">
                     <thead>
@@ -768,12 +799,13 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <input type="text" class="form-control bankai-form-control" id="searchCard" placeholder="Rechercher une carte ou un employé...">
+                            <input type="text" class="form-control bankai-form-control" id="searchCard"
+                                placeholder="Rechercher une carte ou un employé...">
                             <button class="btn btn-gold" type="button">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -834,7 +866,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="mt-4">
                 <button class="btn btn-gold-outline" onclick="generateReport()">
                     <i class="bi bi-file-earmark-text me-2"></i> Générer rapport complet
@@ -948,7 +980,8 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label">Site web</label>
-                        <input type="url" class="form-control bankai-form-control" id="companyWebsite" placeholder="https://">
+                        <input type="url" class="form-control bankai-form-control" id="companyWebsite"
+                            placeholder="https://">
                     </div>
                 </div>
                 <div class="mt-4">
@@ -1010,29 +1043,120 @@
                 </div>
             </form>
         </section>
-
-        <!-- Modal de blocage de carte -->
-        <div class="modal fade block-modal" id="blockCardModal" tabindex="-1">
+        <!-- Modal de modification de carte -->
+        <div class="modal fade" id="editCardModal" tabindex="-1">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="background: #000; border: 1px solid var(--primary-gold);">
                     <div class="modal-header">
-                        <h5 class="modal-title text-gold">Bloquer une carte</h5>
+                        <h5 class="modal-title text-gold">Modifier la carte</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Êtes-vous sûr de vouloir bloquer la carte <strong id="cardToBlock">#BKA-000000</strong> ?</p>
-                        <div class="mb-3">
-                            <label class="form-label">Raison du blocage (optionnel)</label>
-                            <textarea class="form-control bankai-form-control" id="blockReason" rows="2" placeholder="Ex: Employé parti, perte de carte..."></textarea>
-                        </div>
-                        <div class="alert alert-warning">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            La carte sera immédiatement désactivée et ne pourra plus être utilisée.
+                        <form id="editCardForm">
+                            <div class="mb-3">
+                                <label class="form-label">ID Carte</label>
+                                <input type="text" class="form-control bankai-form-control" id="editCardId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Employé *</label>
+                                <input type="text" class="form-control bankai-form-control" id="editEmployee" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Département *</label>
+                                <input type="text" class="form-control bankai-form-control" id="editDepartment"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Statut *</label>
+                                <select class="form-control bankai-form-control" id="editStatus" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="blocked">Bloquée</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nombre de scans</label>
+                                <input type="number" class="form-control bankai-form-control" id="editScans" min="0">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Liens actifs</label>
+                                <input type="number" class="form-control bankai-form-control" id="editActiveLinks"
+                                    min="0" max="20">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Dernier scan</label>
+                                <input type="datetime-local" class="form-control bankai-form-control" id="editLastScan">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-gold-outline" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-gold" id="saveCardChanges">Enregistrer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal d'ajout de carte -->
+        <div class="modal fade" id="addCardModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background: #000; border: 1px solid var(--primary-gold);">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-gold">Ajouter une nouvelle carte</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCardForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Employé *</label>
+                                    <input type="text" class="form-control bankai-form-control" id="newEmployee"
+                                        required placeholder="Nom complet de l'employé">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Département *</label>
+                                    <input type="text" class="form-control bankai-form-control" id="newDepartment"
+                                        required placeholder="Ex: Commercial, IT, RH...">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Fonction</label>
+                                    <input type="text" class="form-control bankai-form-control" id="newFunction"
+                                        placeholder="Ex: Manager, Développeur...">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control bankai-form-control" id="newEmail"
+                                        placeholder="employe@entreprise.com">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Type de carte</label>
+                                    <select class="form-control bankai-form-control" id="newCardType">
+                                        <option value="essentiel">Bankaï Essentiel (PVC)</option>
+                                        <option value="pro">Bankaï Pro (Métal)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Statut initial</label>
+                                    <select class="form-control bankai-form-control" id="newStatus">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Notes (optionnel)</label>
+                                    <textarea class="form-control bankai-form-control" id="newNotes" rows="2"
+                                        placeholder="Informations supplémentaires..."></textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            La carte sera créée avec un ID unique. L'employé recevra des instructions par email.
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-gold-outline" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-gold" id="confirmBlock">Bloquer la carte</button>
+                        <button type="button" class="btn btn-gold" id="createNewCard">Créer la carte</button>
                     </div>
                 </div>
             </div>
@@ -1169,9 +1293,9 @@
         };
 
         // Initialisation du dashboard
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
+
             if (!currentUser || currentUser.type !== 'enterprise') {
                 window.location.href = 'login.html';
                 return;
@@ -1183,18 +1307,18 @@
         function initializeEnterpriseDashboard(user) {
             // Mettre à jour l'affichage utilisateur
             updateUserDisplay(user);
-            
+
             // Charger les données de l'entreprise
             loadCompanyData();
             loadCardsData();
             loadOrdersData();
             loadAnalyticsData();
             loadSettingsData();
-            
+
             // Configurer les événements
             setupEventListeners();
             setupMobileMenu();
-            
+
             // Afficher la vue d'ensemble par défaut
             showSection('overview');
         }
@@ -1202,14 +1326,14 @@
         function updateUserDisplay(user) {
             document.getElementById('miniName').textContent = user.company || "Entreprise";
             document.getElementById('userRole').textContent = 'Compte Entreprise';
-            
+
             const avatarSeed = user.company || user.email || 'entreprise';
             document.getElementById('miniAvatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(avatarSeed)}`;
         }
 
         function loadCompanyData() {
             const company = enterpriseData.company;
-            
+
             // Mettre à jour les stats
             const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
             document.getElementById('statsActiveCards').textContent = activeCards;
@@ -1217,18 +1341,18 @@
             document.getElementById('statsEmployees').textContent = company.employees;
             document.getElementById('statsTotalScans').textContent = enterpriseData.analytics.monthScans.toLocaleString();
             document.getElementById('statsSpent').textContent = (company.subscriptionPrice + (company.extraCards * 20000)).toLocaleString('fr-FR') + ' GNF';
-            
+
             // Mettre à jour l'abonnement
             document.getElementById('subscriptionPlan').textContent = company.subscription;
             document.getElementById('subscriptionPrice').textContent = company.subscriptionPrice.toLocaleString('fr-FR') + ' GNF/an';
             document.getElementById('includedCards').textContent = company.cardsIncluded + ' cartes';
             document.getElementById('extraCards').textContent = company.extraCards + ' cartes (20 000 GNF/unité)';
-            
+
             // Calculer la date de renouvellement
             const renewalDate = new Date();
             renewalDate.setMonth(renewalDate.getMonth() + 1);
             document.getElementById('nextRenewal').textContent = renewalDate.toLocaleDateString('fr-FR');
-            
+
             // Mettre à jour le formulaire profil
             document.getElementById('companyName').value = company.name;
             document.getElementById('companyTaxId').value = company.taxId;
@@ -1239,16 +1363,15 @@
             document.getElementById('companyAddress').value = company.address;
             document.getElementById('companyWebsite').value = company.website;
         }
-
         function loadCardsData() {
             const cards = enterpriseData.cards;
             const tbody = document.getElementById('cardsTableBody');
             tbody.innerHTML = '';
-            
+
             cards.forEach(card => {
                 let statusClass = 'badge-inactive';
                 let statusText = 'Inactive';
-                
+
                 if (card.status === 'active') {
                     statusClass = 'badge-active';
                     statusText = 'Active';
@@ -1256,40 +1379,40 @@
                     statusClass = 'badge-blocked';
                     statusText = 'Bloquée';
                 }
-                
-                const lastScan = new Date(card.lastScan).toLocaleDateString('fr-FR') + ' ' + 
-                                new Date(card.lastScan).toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
-                
+
+                const lastScan = new Date(card.lastScan).toLocaleDateString('fr-FR') + ' ' +
+                    new Date(card.lastScan).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
                 const row = `
-                    <tr data-status="${card.status}">
-                        <td><strong class="text-gold">${card.id}</strong></td>
-                        <td>${card.employee}</td>
-                        <td>${card.department}</td>
-                        <td><span class="badge-status ${statusClass}">${statusText}</span></td>
-                        <td><strong>${card.scans}</strong></td>
-                        <td>${card.activeLinks} liens</td>
-                        <td>${lastScan}</td>
-                        <td>
-                            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')" title="Voir détails">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-gold-outline ms-1" onclick="editCard('${card.id}')" title="Modifier">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status === 'blocked' ? 'd-none' : ''}" 
-                                    onclick="blockCard('${card.id}', '${card.employee}')" title="Bloquer">
-                                <i class="bi bi-slash-circle"></i>
-                            </button>
-                            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status !== 'blocked' ? 'd-none' : ''}" 
-                                    onclick="unblockCard('${card.id}')" title="Débloquer">
-                                <i class="bi bi-check-circle"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
+    <tr data-status="${card.status}">
+        <td><strong class="text-gold">${card.id}</strong></td>
+        <td>${card.employee}</td>
+        <td>${card.department}</td>
+        <td><span class="badge-status ${statusClass}">${statusText}</span></td>
+        <td><strong>${card.scans}</strong></td>
+        <td>${card.activeLinks} liens</td>
+        <td>${lastScan}</td>
+        <td>
+            <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')" title="Voir détails">
+                <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-gold-outline ms-1" onclick="editCard('${card.id}')" title="Modifier">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status === 'blocked' ? 'd-none' : ''}" 
+                    onclick="blockCard('${card.id}', '${card.employee}')" title="Bloquer">
+                <i class="bi bi-slash-circle"></i>
+            </button>
+            <button class="btn btn-sm btn-gold-outline ms-1 ${card.status !== 'blocked' ? 'd-none' : ''}" 
+                    onclick="unblockCard('${card.id}')" title="Débloquer">
+                <i class="bi bi-check-circle"></i>
+            </button>
+        </td>
+    </tr>
+`;
                 tbody.innerHTML += row;
             });
-            
+
             // Configurer les filtres
             setupCardFilters();
         }
@@ -1298,7 +1421,7 @@
             const orders = enterpriseData.orders;
             const tbody = document.getElementById('ordersTableBody');
             tbody.innerHTML = '';
-            
+
             orders.forEach(order => {
                 const row = `
                     <tr>
@@ -1309,12 +1432,12 @@
                         <td>${order.amount.toLocaleString('fr-FR')} GNF</td>
                         <td><span class="badge-status badge-active">${order.status}</span></td>
                         <td>
-                            ${order.receipt ? 
-                                `<button class="btn btn-sm btn-gold" onclick="downloadInvoice('${order.invoice}')">
+                            ${order.receipt ?
+                        `<button class="btn btn-sm btn-gold" onclick="downloadInvoice('${order.invoice}')">
                                     <i class="bi bi-download me-1"></i> PDF
                                 </button>` :
-                                `<span class="text-secondary">En attente</span>`
-                            }
+                        `<span class="text-secondary">En attente</span>`
+                    }
                         </td>
                     </tr>
                 `;
@@ -1324,16 +1447,16 @@
 
         function loadAnalyticsData() {
             const analytics = enterpriseData.analytics;
-            
+
             // Mettre à jour les stats
             document.getElementById('todayScans').textContent = analytics.todayScans;
             document.getElementById('weekScans').textContent = analytics.weekScans;
             document.getElementById('monthScans').textContent = analytics.monthScans.toLocaleString();
-            
+
             // Charger le top des employés
             const topEmployeesDiv = document.getElementById('topEmployees');
             topEmployeesDiv.innerHTML = '';
-            
+
             analytics.topEmployees.forEach(employee => {
                 const employeeDiv = `
                     <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
@@ -1346,7 +1469,7 @@
                 `;
                 topEmployeesDiv.innerHTML += employeeDiv;
             });
-            
+
             // Charger les cartes employés
             loadEmployeesCards();
         }
@@ -1354,7 +1477,7 @@
         function loadEmployeesCards() {
             const container = document.getElementById('employeesContainer');
             container.innerHTML = '';
-            
+
             enterpriseData.cards.forEach(card => {
                 const cardDiv = `
                     <div class="employee-card">
@@ -1385,14 +1508,14 @@
                             <button class="btn btn-sm btn-gold-outline" onclick="viewCardDetails('${card.id}')">
                                 <i class="bi bi-eye me-1"></i> Détails
                             </button>
-                            ${card.status !== 'blocked' ? 
-                                `<button class="btn btn-sm btn-gold-outline" onclick="blockCard('${card.id}', '${card.employee}')">
+                            ${card.status !== 'blocked' ?
+                        `<button class="btn btn-sm btn-gold-outline" onclick="blockCard('${card.id}', '${card.employee}')">
                                     <i class="bi bi-slash-circle me-1"></i> Bloquer
                                 </button>` :
-                                `<button class="btn btn-sm btn-gold-outline" onclick="unblockCard('${card.id}')">
+                        `<button class="btn btn-sm btn-gold-outline" onclick="unblockCard('${card.id}')">
                                     <i class="bi bi-check-circle me-1"></i> Débloquer
                                 </button>`
-                            }
+                    }
                         </div>
                     </div>
                 `;
@@ -1402,7 +1525,7 @@
 
         function loadSettingsData() {
             const settings = enterpriseData.settings;
-            
+
             document.getElementById('notifEmail').value = settings.notifEmail;
             document.getElementById('notifSms').value = settings.notifSms;
             document.getElementById('autoRenewal').checked = settings.autoRenewal;
@@ -1410,32 +1533,108 @@
             document.getElementById('monthlyReport').checked = settings.monthlyReport;
         }
 
+        // === FONCTIONS GLOBALES POUR LES CARTES ===
+
+        // Modifier une carte
+        function editCard(cardId) {
+            const card = enterpriseData.cards.find(c => c.id === cardId);
+            if (!card) {
+                alert('Carte non trouvée');
+                return;
+            }
+
+            // Remplir le formulaire
+            document.getElementById('editCardId').value = card.id;
+            document.getElementById('editEmployee').value = card.employee;
+            document.getElementById('editDepartment').value = card.department;
+            document.getElementById('editStatus').value = card.status;
+            document.getElementById('editScans').value = card.scans;
+            document.getElementById('editActiveLinks').value = card.activeLinks;
+
+            // Convertir la date pour l'input datetime-local
+            const lastScanDate = new Date(card.lastScan);
+            const formattedDate = lastScanDate.toISOString().slice(0, 16);
+            document.getElementById('editLastScan').value = formattedDate;
+
+            // Afficher le modal
+            const modal = new bootstrap.Modal(document.getElementById('editCardModal'));
+            modal.show();
+        }
+
+        // Bloquer une carte (avec prompt)
+        function blockCard(cardId, employeeName) {
+            const reason = prompt(`Bloquer la carte ${cardId} (${employeeName}) ?\n\nRaison (optionnel):`);
+
+            if (reason !== null) { // L'utilisateur n'a pas cliqué sur Annuler
+                // Trouver et bloquer la carte
+                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex].status = 'blocked';
+                    loadCardsData();
+                    loadEmployeesCards();
+
+                    // Mettre à jour les stats
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+
+                    alert(`✅ Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
+                }
+            }
+        }
+
+        // Débloquer une carte
+        function unblockCard(cardId) {
+            if (confirm(`Voulez-vous vraiment débloquer la carte ${cardId} ?`)) {
+                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex].status = 'active';
+                    loadCardsData();
+                    loadEmployeesCards();
+
+                    // Mettre à jour les stats
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+
+                    alert(`✅ Carte ${cardId} débloquée avec succès !`);
+                }
+            }
+        }
+
+        // Voir les détails d'une carte
+        function viewCardDetails(cardId) {
+            const card = enterpriseData.cards.find(c => c.id === cardId);
+            if (card) {
+                alert(`Détails de la carte ${cardId}:\n\n` +
+                    `Employé: ${card.employee}\n` +
+                    `Département: ${card.department}\n` +
+                    `Statut: ${card.status}\n` +
+                    `Scans totaux: ${card.scans}\n` +
+                    `Liens actifs: ${card.activeLinks}\n` +
+                    `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
+                    `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
+            }
+        }
         function setupEventListeners() {
             // Navigation
             const navLinks = document.querySelectorAll('.sidebar .nav-link');
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', function (e) {
                     e.preventDefault();
-                    
-                    // Retirer la classe active de tous les liens
+
                     navLinks.forEach(l => l.classList.remove('active'));
-                    // Ajouter la classe active au lien cliqué
                     this.classList.add('active');
-                    
-                    // Afficher la section correspondante
+
                     const section = this.getAttribute('data-section');
                     showSection(section);
-                    
-                    // Fermer le menu mobile si ouvert
+
                     closeMobileMenu();
                 });
             });
 
             // Formulaire entreprise
-            document.getElementById('companyForm').addEventListener('submit', function(e) {
+            document.getElementById('companyForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-                
-                // Mettre à jour les données de l'entreprise
+
                 enterpriseData.company.name = document.getElementById('companyName').value;
                 enterpriseData.company.taxId = document.getElementById('companyTaxId').value;
                 enterpriseData.company.contact = document.getElementById('companyContact').value;
@@ -1444,37 +1643,110 @@
                 enterpriseData.company.sector = document.getElementById('companySector').value;
                 enterpriseData.company.address = document.getElementById('companyAddress').value;
                 enterpriseData.company.website = document.getElementById('companyWebsite').value;
-                
-                // Mettre à jour l'affichage
+
                 updateUserDisplay({ company: enterpriseData.company.name });
                 loadCompanyData();
-                
+
                 alert('Profil entreprise mis à jour avec succès !');
             });
 
+            // Ouvrir le modal d'ajout
+            document.getElementById('addCardBtn').addEventListener('click', function () {
+                document.getElementById('addCardForm').reset();
+                const modal = new bootstrap.Modal(document.getElementById('addCardModal'));
+                modal.show();
+            });
+
+            // Créer une nouvelle carte
+            document.getElementById('createNewCard').addEventListener('click', function () {
+                const employee = document.getElementById('newEmployee').value.trim();
+                const department = document.getElementById('newDepartment').value.trim();
+
+                if (!employee || !department) {
+                    alert('Veuillez remplir les champs obligatoires (Employé et Département)');
+                    return;
+                }
+
+                const lastCardId = Math.max(...enterpriseData.cards.map(c => parseInt(c.id.split('-')[1])));
+                const newCardId = `BKA-${String(lastCardId + 1).padStart(6, '0')}`;
+
+                const newCard = {
+                    id: newCardId,
+                    employee: employee,
+                    department: department,
+                    function: document.getElementById('newFunction').value.trim() || null,
+                    email: document.getElementById('newEmail').value.trim() || null,
+                    cardType: document.getElementById('newCardType').value,
+                    status: document.getElementById('newStatus').value,
+                    scans: 0,
+                    activeLinks: 0,
+                    lastScan: new Date().toISOString(),
+                    created: new Date().toISOString(),
+                    notes: document.getElementById('newNotes').value.trim() || null
+                };
+
+                enterpriseData.cards.push(newCard);
+                loadCardsData();
+                loadEmployeesCards();
+
+                const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                const totalCards = enterpriseData.cards.length;
+                document.getElementById('statsActiveCards').textContent = activeCards;
+                document.getElementById('statsTotalCards').textContent = totalCards;
+
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addCardModal'));
+                modal.hide();
+
+                alert(`✅ Carte ${newCardId} créée avec succès !\n\nEmployé: ${employee}\nDépartement: ${department}`);
+            });
+
+            // Sauvegarder les modifications d'une carte
+            document.getElementById('saveCardChanges').addEventListener('click', function () {
+                const cardId = document.getElementById('editCardId').value;
+                const cardIndex = enterpriseData.cards.findIndex(c => c.id === cardId);
+
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex] = {
+                        ...enterpriseData.cards[cardIndex],
+                        employee: document.getElementById('editEmployee').value,
+                        department: document.getElementById('editDepartment').value,
+                        status: document.getElementById('editStatus').value,
+                        scans: parseInt(document.getElementById('editScans').value) || 0,
+                        activeLinks: parseInt(document.getElementById('editActiveLinks').value) || 0,
+                        lastScan: document.getElementById('editLastScan').value || enterpriseData.cards[cardIndex].lastScan
+                    };
+
+                    loadCardsData();
+                    loadEmployeesCards();
+
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('editCardModal'));
+                    modal.hide();
+
+                    alert(`✅ Carte ${cardId} modifiée avec succès !`);
+                }
+            });
+
             // Formulaire paramètres
-            document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            document.getElementById('settingsForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 enterpriseData.settings.notifEmail = document.getElementById('notifEmail').value;
                 enterpriseData.settings.notifSms = document.getElementById('notifSms').value;
                 enterpriseData.settings.autoRenewal = document.getElementById('autoRenewal').checked;
                 enterpriseData.settings.newCardNotification = document.getElementById('newCardNotification').checked;
                 enterpriseData.settings.monthlyReport = document.getElementById('monthlyReport').checked;
-                
+
                 alert('Paramètres enregistrés avec succès !');
             });
 
-            // Bouton ajouter carte
-            document.getElementById('addCardBtn').addEventListener('click', function() {
-                alert('Fonctionnalité d\'ajout de carte - À implémenter');
-            });
-
             // Recherche de cartes
-            document.getElementById('searchCard').addEventListener('input', function(e) {
+            document.getElementById('searchCard').addEventListener('input', function (e) {
                 const searchTerm = e.target.value.toLowerCase();
                 const rows = document.querySelectorAll('#cardsTableBody tr');
-                
+
                 rows.forEach(row => {
                     const text = row.textContent.toLowerCase();
                     row.style.display = text.includes(searchTerm) ? '' : 'none';
@@ -1482,51 +1754,26 @@
             });
 
             // Déconnexion
-            document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('logoutBtn').addEventListener('click', function () {
                 if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
                     localStorage.removeItem('currentUser');
                     window.location.href = 'login.html';
                 }
             });
-
-            // Confirmation de blocage
-            document.getElementById('confirmBlock').addEventListener('click', function() {
-                const cardId = this.dataset.cardId;
-                const reason = document.getElementById('blockReason').value;
-                
-                // Trouver et bloquer la carte
-                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
-                if (cardIndex !== -1) {
-                    enterpriseData.cards[cardIndex].status = 'blocked';
-                    loadCardsData();
-                    loadEmployeesCards();
-                    
-                    // Mettre à jour les stats
-                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
-                    document.getElementById('statsActiveCards').textContent = activeCards;
-                }
-                
-                // Fermer le modal
-                const modal = bootstrap.Modal.getInstance(document.getElementById('blockCardModal'));
-                modal.hide();
-                
-                alert(`Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
-            });
         }
-
         function setupCardFilters() {
             const filterButtons = document.querySelectorAll('[data-filter]');
             const rows = document.querySelectorAll('#cardsTableBody tr');
-            
+
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Retirer la classe active de tous les boutons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     // Ajouter la classe active au bouton cliqué
                     this.classList.add('active');
-                    
+
                     const filter = this.getAttribute('data-filter');
-                    
+
                     rows.forEach(row => {
                         if (filter === 'all') {
                             row.style.display = '';
@@ -1544,12 +1791,12 @@
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
 
-            menuToggle.addEventListener('click', function() {
+            menuToggle.addEventListener('click', function () {
                 sidebar.classList.add('show');
                 overlay.classList.add('show');
             });
 
-            overlay.addEventListener('click', function() {
+            overlay.addEventListener('click', function () {
                 closeMobileMenu();
             });
 
@@ -1571,10 +1818,10 @@
             document.querySelectorAll('.dashboard-section').forEach(sec => {
                 sec.classList.add('d-none');
             });
-            
+
             // Afficher la section demandée
             document.getElementById(section + 'Section').classList.remove('d-none');
-            
+
             // Mettre à jour le titre
             updateDashboardTitle(section);
         }
@@ -1590,7 +1837,7 @@
                 profile: 'Profil Entreprise',
                 settings: 'Paramètres Entreprise'
             };
-            
+
             document.getElementById('dashboardTitle').textContent = titles[section] || 'Tableau de bord Entreprise';
         }
 
@@ -1602,10 +1849,10 @@
                 analytics: enterpriseData.analytics,
                 exportDate: new Date().toISOString()
             };
-            
+
             let content, mimeType, filename;
-            
-            switch(format) {
+
+            switch (format) {
                 case 'csv':
                     // Convertir les cartes en CSV simple
                     let csv = 'ID Carte,Employé,Département,Statut,Scans,Liens actifs,Dernier scan\n';
@@ -1614,9 +1861,9 @@
                     });
                     content = csv;
                     mimeType = 'text/csv';
-                    filename = `bankai-cards-${new Date().toISOString().slice(0,10)}.csv`;
+                    filename = `bankai-cards-${new Date().toISOString().slice(0, 10)}.csv`;
                     break;
-                    
+
                 case 'excel':
                     // Pour Excel, on crée un CSV (Excel peut l'ouvrir)
                     let excel = 'ID Carte\tEmployé\tDépartement\tStatut\tScans\tLiens actifs\tDernier scan\n';
@@ -1625,16 +1872,16 @@
                     });
                     content = excel;
                     mimeType = 'application/vnd.ms-excel';
-                    filename = `bankai-cards-${new Date().toISOString().slice(0,10)}.xls`;
+                    filename = `bankai-cards-${new Date().toISOString().slice(0, 10)}.xls`;
                     break;
-                    
+
                 case 'json':
                     content = JSON.stringify(data, null, 2);
                     mimeType = 'application/json';
-                    filename = `bankai-data-${new Date().toISOString().slice(0,10)}.json`;
+                    filename = `bankai-data-${new Date().toISOString().slice(0, 10)}.json`;
                     break;
             }
-            
+
             // Créer et télécharger le fichier
             const blob = new Blob([content], { type: mimeType });
             const url = URL.createObjectURL(blob);
@@ -1645,7 +1892,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
+
             alert(`Données exportées en ${format.toUpperCase()} avec succès !`);
         }
 
@@ -1654,13 +1901,13 @@
             const card = enterpriseData.cards.find(c => c.id === cardId);
             if (card) {
                 alert(`Détails de la carte ${cardId}:\n\n` +
-                      `Employé: ${card.employee}\n` +
-                      `Département: ${card.department}\n` +
-                      `Statut: ${card.status}\n` +
-                      `Scans totaux: ${card.scans}\n` +
-                      `Liens actifs: ${card.activeLinks}\n` +
-                      `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
-                      `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
+                    `Employé: ${card.employee}\n` +
+                    `Département: ${card.department}\n` +
+                    `Statut: ${card.status}\n` +
+                    `Scans totaux: ${card.scans}\n` +
+                    `Liens actifs: ${card.activeLinks}\n` +
+                    `Dernier scan: ${new Date(card.lastScan).toLocaleString('fr-FR')}\n` +
+                    `Créée le: ${new Date(card.created).toLocaleDateString('fr-FR')}`);
             }
         }
 
@@ -1669,12 +1916,23 @@
         }
 
         function blockCard(cardId, employeeName) {
-            document.getElementById('cardToBlock').textContent = cardId + ' (' + employeeName + ')';
-            document.getElementById('confirmBlock').dataset.cardId = cardId;
-            document.getElementById('blockReason').value = '';
-            
-            const modal = new bootstrap.Modal(document.getElementById('blockCardModal'));
-            modal.show();
+            const reason = prompt(`Bloquer la carte ${cardId} (${employeeName}) ?\n\nRaison (optionnel):`);
+
+            if (reason !== null) { // L'utilisateur n'a pas cliqué sur Annuler
+                // Trouver et bloquer la carte
+                const cardIndex = enterpriseData.cards.findIndex(card => card.id === cardId);
+                if (cardIndex !== -1) {
+                    enterpriseData.cards[cardIndex].status = 'blocked';
+                    loadCardsData();
+                    loadEmployeesCards();
+
+                    // Mettre à jour les stats
+                    const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
+                    document.getElementById('statsActiveCards').textContent = activeCards;
+
+                    alert(`Carte ${cardId} bloquée avec succès${reason ? ' (' + reason + ')' : ''}`);
+                }
+            }
         }
 
         function unblockCard(cardId) {
@@ -1684,12 +1942,12 @@
                     enterpriseData.cards[cardIndex].status = 'active';
                     loadCardsData();
                     loadEmployeesCards();
-                    
+
                     // Mettre à jour les stats
                     const activeCards = enterpriseData.cards.filter(card => card.status === 'active').length;
                     document.getElementById('statsActiveCards').textContent = activeCards;
-                    
-                    alert(`Carte ${cardId} débloquée avec succès !`);
+
+                    alert(`✅ Carte ${cardId} débloquée avec succès !`);
                 }
             }
         }
@@ -1715,12 +1973,31 @@
             alert('Export des données analytiques - À implémenter');
         }
 
+        // Générer un email à partir du nom
+        function generateEmail(name) {
+            const normalized = name
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, '.');
+            return `${normalized}@${enterpriseData.company.email.split('@')[1]}`;
+        }
+
+        // Pré-remplir l'email dans le formulaire d'ajout
+        document.getElementById('newEmployee').addEventListener('blur', function () {
+            const emailField = document.getElementById('newEmail');
+            if (!emailField.value && this.value) {
+                emailField.value = generateEmail(this.value);
+            }
+        });
+
         // Gestion du responsive
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (window.innerWidth > 768) {
                 closeMobileMenu();
             }
         });
     </script>
 </body>
+
 </html>
