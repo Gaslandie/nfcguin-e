@@ -2229,10 +2229,7 @@
  .call-to-action-card {
      background: linear-gradient(145deg, rgba(25, 25, 28, 0.8), rgba(218, 166, 34, 0.05));
      border: 1px solid rgba(218, 166, 34, 0.2);
-     border-radius: 40px;
- }
-
- /* page commander */
+     border-radius: 40px;page commander
  /* --- Formulaire de Commande --- */
  .form-label-custom {
      display: block;
@@ -2425,6 +2422,9 @@
  }
 
 
+ }
+
+ 
 
  /* Couleurs d'origine conservées */
  .bg-deep-dark {

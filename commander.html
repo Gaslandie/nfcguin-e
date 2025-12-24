@@ -11,13 +11,440 @@
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --primary-gold: rgb(218, 166, 34);
+            --primary-gold-rgb: 218, 166, 34;
+            --deep-dark: #09090b;
+            --deep-dark-rgb: 9, 9, 11;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-secondary: #a1a1aa;
+        }
+
+        /* Card Selector Styles */
+        .card-selector-wrapper {
+            margin: 3rem 0 2rem 0;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .card-selector-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-selector-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-selector-title p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-option input {
+            display: none;
+        }
+
+        .card-option-content {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-top: 3px solid transparent;
+            border-radius: 1.25rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-option input:checked + .card-option-content {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            border-color: var(--primary-gold);
+            border-top: 3px solid var(--primary-gold);
+            box-shadow: 0 0 30px rgba(var(--primary-gold-rgb), 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card-option:hover .card-option-content {
+            border-color: rgba(var(--primary-gold-rgb), 0.5);
+            background: rgba(var(--primary-gold-rgb), 0.05);
+        }
+
+        .card-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935);
+            color: var(--deep-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin: 0 auto 1rem auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            width: fit-content;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .card-icon i {
+            line-height: 1;
+        }
+
+        .card-option-content .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-option-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .card-option-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .card-option-features li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-option-features li:first-child {
+            border-top: none;
+        }
+
+        .card-option-features i {
+            color: var(--primary-gold);
+            margin-right: 0.7rem;
+        }
+
+        .card-checkmark {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-dark);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-option input:checked~.card-checkmark {
+            opacity: 1;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            background: linear-gradient(135deg, var(--card-bg), rgba(var(--primary-gold-rgb), 0.05));
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .preview-card-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .preview-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        /* Enhanced Config Panel */
+        .config-panel {
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        .config-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .config-section:last-child {
+            border-bottom: none;
+        }
+
+        .config-section h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .config-section h6 i {
+            color: var(--primary-gold);
+            font-size: 1.2rem;
+        }
+
+        .form-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .bankai-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .bankai-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(var(--primary-gold-rgb), 0.2);
+            color: #fff;
+        }
+
+        .bankai-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .qty-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            width: fit-content;
+        }
+
+        .qty-selector button {
+            background: none;
+            border: none;
+            color: var(--primary-gold);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            border-radius: 0.5rem;
+        }
+
+        .qty-selector button:hover {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+        }
+
+        .qty-selector input {
+            background: none;
+            border: none;
+            color: #fff;
+            width: 50px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .qty-selector input:focus {
+            outline: none;
+        }
+
+        .order-summary {
+            background: rgba(var(--primary-gold-rgb), 0.05);
+            border: 1px solid var(--primary-gold);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .summary-row.total {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .summary-row.total span:last-child {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+        }
+
+        .btn-add-cart {
+            background: linear-gradient(135deg, var(--primary-gold), #d4a935);
+            color: var(--deep-dark);
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(var(--primary-gold-rgb), 0.3);
+            background: linear-gradient(135deg, #d4a935, var(--primary-gold));
+        }
+
+        .volume-discount {
+            background: rgba(var(--primary-gold-rgb), 0.1);
+            border-left: 3px solid var(--primary-gold);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .volume-discount p {
+            color: var(--primary-gold);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .field-enterprise {
+            display: none;
+        }
+
+        .field-enterprise.show {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .specs-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .specs-box h6 {
+            color: var(--primary-gold);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .specs-box ul li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .config-panel {
+                padding: 1.5rem;
+            }
+
+            .card-option-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .preview-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
-<body class="text-white bg-deep-dark">
+<body class="text-white" style="background-color: var(--deep-dark);">
 
     <!-- Barre de navigation -->
     <div id="navbar-placeholder"></div>
 
+    <!-- Header -->
 
     <header class="page-header">
         <div class="container text-center" data-aos="zoom-out">
@@ -30,202 +457,424 @@
         </div>
     </header>
 
-
-    <section class="py-5 mt-5">
+    <!-- Main Content -->
+    <main class="py-5">
         <div class="container">
+            <!-- Card Selection Section -->
+            <section class="card-selector-wrapper">
+                <div class="card-selector-title" data-aos="fade-up">
+                    <h2>Choisissez Votre Carte</h2>
+                </div>
 
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8">
-                    <div class="progress-container">
-                        <div class="progress-step active" id="step1-indicator">
-                            <span class="step-number">1</span>
-                            <span class="step-text">Modèle</span>
+                <div class="cards-grid py-5" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Essentiel Card -->
+                    <label class="card-option">
+                        <input type="radio" name="cardType" value="essentiel" data-price="150000"
+                            data-material="PVC Premium" data-warranty="2 ans" checked>
+                        <div class="card-option-content mt-2">
+                            <div class="card-checkmark">✓</div>
+                            <div class="card-icon"><i class="bi bi-credit-card"></i></div>
+                            <div class="card-badge">Essentiel</div>
+                            <p class="card-subtitle">La solution parfaite pour débuter</p>
+                            <div class="card-option-price">150 000 GNF</div>
+                            <ul class="card-option-features">
+                                <li><i class="bi bi-check2-circle"></i> Carte en PVC Premium</li>
+                                <li><i class="bi bi-check2-circle"></i> Partage NFC + QR Code</li>
+                                <li><i class="bi bi-check2-circle"></i> Design minimaliste</li>
+                                <li><i class="bi bi-check2-circle"></i> Production 3-5 jours</li>
+                            </ul>
                         </div>
-                        <div class="progress-line"></div>
-                        <div class="progress-step" id="step2-indicator">
-                            <span class="step-number">2</span>
-                            <span class="step-text">Design</span>
+                    </label>
+
+                    <!-- Pro Card -->
+                    <label class="card-option">
+                        <input type="radio" name="cardType" value="pro" data-price="250000"
+                            data-material="Métal Anodisé" data-warranty="5 ans">
+                        <div class="card-option-content mt-2">
+                            <div class="card-checkmark">✓</div>
+                            <div class="card-icon"><i class="bi bi-star-fill"></i></div>
+                            <div class="card-badge"
+                                style="background: linear-gradient(135deg, #4a90e2, #357abd); color: white;">Pro</div>
+                            <p class="card-subtitle">La plus demandée des professionnels</p>
+                            <div class="card-option-price">250 000 GNF</div>
+                            <ul class="card-option-features">
+                                <li><i class="bi bi-check2-circle"></i> Métal anodisé finition luxe</li>
+                                <li><i class="bi bi-check2-circle"></i> NFC + QR + URL personnalisée</li>
+                                <li><i class="bi bi-check2-circle"></i> 3 couleurs disponibles</li>
+                                <li><i class="bi bi-check2-circle"></i> Garantie 5 ans constructeur</li>
+                            </ul>
                         </div>
-                        <div class="progress-line"></div>
-                        <div class="progress-step" id="step3-indicator">
-                            <span class="step-number">3</span>
-                            <span class="step-text">Livraison</span>
+                    </label>
+
+                    <!-- Entreprise Card -->
+                    <label class="card-option">
+                        <input type="radio" name="cardType" value="entreprise" data-price="400000"
+                            data-material="Titane Grade 5" data-warranty="Illimitée">
+                        <div class="card-option-content mt-2">
+                            <div class="card-checkmark">✓</div>
+                            <div class="card-icon"><i class="bi bi-gem"></i></div>
+                            <div class="card-badge"
+                                style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white;">Entreprise
+                            </div>
+                            <p class="card-subtitle">L'excellence pour les leaders</p>
+                            <div class="card-option-price">400 000 GNF</div>
+                            <ul class="card-option-features">
+                                <li><i class="bi bi-check2-circle"></i> Titane Grade 5 premium</li>
+                                <li><i class="bi bi-check2-circle"></i> Tous les services inclus</li>
+                                <li><i class="bi bi-check2-circle"></i> Logo gravé personnalisé</li>
+                                <li><i class="bi bi-check2-circle"></i> Garantie à vie + Support VIP</li>
+                            </ul>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Main Content Grid -->
+            <div class="row g-5">
+                <!-- Left Column: Card Preview & Specs -->
+                <div class="col-lg-6" data-aos="fade-right">
+                    <!-- Preview Section -->
+                    <div class="preview-section">
+                        <div class="preview-header">
+                            <div>
+                                <p
+                                    style="color: var(--text-secondary); margin: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Votre sélection</p>
+                                <div class="preview-card-name" id="previewCardName">Essentiel</div>
+                            </div>
+                            <div class="text-end">
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">Prix unitaire</p>
+                                <div class="preview-price" id="previewPrice">150 000 GNF</div>
+                            </div>
+                        </div>
+                        <img src="./img/heroimage.jpg" alt="Carte Bankaï" class="img-fluid rounded-3" id="previewImage"
+                            style="width: 100%; object-fit: cover; border: 1px solid var(--border-color);">
+                    </div>
+
+                    <!-- Specifications -->
+                    <div class="specs-box mt-5 p-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-info-circle"></i> Caractéristiques</h6>
+                                <ul class="list-unstyled small">
+                                    <li><strong>Matériau :</strong> <span id="specMaterial">PVC Premium</span></li>
+                                    <li><strong>Dimensions :</strong> 85.6 x 53.98 x 0.8 mm</li>
+                                    <li><strong>Puce NFC :</strong> NTAG216 / NTAG424</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-truck"></i> Livraison & SAV</h6>
+                                <ul class="list-unstyled small">
+                                    <li><strong>Production :</strong> 3-5 jours ouvrés</li>
+                                    <li><strong>Garantie :</strong> <span id="specWarranty">2 ans</span></li>
+                                    <li><strong>Support :</strong> 7j/7 par chat</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row g-5">
-                <div class="col-lg-7" data-aos="fade-right">
-                    <form id="orderForm">
-
-                        <div class="form-step-section mb-5" id="step1">
-                            <h3 class="fw-bold mb-4 text-white">Quel est votre choix ?</h3>
-                            <div class="row g-3 mb-4">
-                                <div class="col-md-4">
-                                    <input type="radio" class="btn-check" name="cardType" id="typeEssentiel"
-                                        value="150000" checked>
-                                    <label class="card-select-btn" for="typeEssentiel">
-                                        <span class="d-block fw-bold">Essentiel</span>
-                                        <span class="price">150 000 GNF</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="radio" class="btn-check" name="cardType" id="typePro" value="250000">
-                                    <label class="card-select-btn" for="typePro">
-                                        <span class="d-block fw-bold">Pro</span>
-                                        <span class="price">250 000 GNF</span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="radio" class="btn-check" name="cardType" id="typeEntreprise"
-                                        value="Devis">
-                                    <label class="card-select-btn" for="typeEntreprise">
-                                        <span class="d-block fw-bold">Entreprise</span>
-                                        <span class="price">Sur Devis</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-2 col-md-4">
-                            <label class="form-label small text-secondary">Quantité</label>
-                            <div class="input-group">
-                                <button class="btn btn-gold-outline" type="button" id="btnMinus">-</button>
-                                <input type="number" class="form-control custom-input text-center" id="inputQty"
-                                    value="1" min="1">
-                                <button class="btn btn-gold-outline" type="button" id="btnPlus">+</button>
-                            </div>
-                        </div>
-
-                        <div class="form-step-section mb-5" id="step2">
-                            <h3 class="fw-bold mb-4 text-white">Personnalisation visuelle</h3>
-                            <div class="mb-4">
-                                <label class="form-label small text-secondary">Couleur de la carte</label>
-                                <div class="d-flex gap-3">
-                                    <div class="color-option active" style="background: #000;" data-color="Noir"></div>
-                                    <div class="color-option" style="background: #fff;" data-color="Blanc"></div>
-                                    <div class="color-option" style="background: #198754;" data-color="Vert"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3" id="nameInputGroup">
-                                <label class="form-label small text-secondary" id="nameLabel">Nom sur la carte</label>
-                                <input type="text" class="form-control custom-input" id="inputName"
-                                    placeholder="Ex: Mamady Keïta">
-                            </div>
-                            <div id="logoUploadArea" class="mb-3 d-none">
-                                <label class="form-label small text-secondary">Logo de l'entreprise</label>
-                                <div class="upload-box">
-                                    <i class="bi bi-image"></i>
-                                    <p class="small mb-0">Logo PNG/SVG recommandé</p>
-                                    <input type="file" class="file-input">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-step-section" id="step3">
-                            <h3 class="fw-bold mb-4 text-white">Informations de livraison</h3>
-
-                            <div class="mb-4">
-                                <label class="form-label small text-secondary">Mode de livraison</label>
-                                <div class="row g-2">
+                <!-- Right Column: Configuration Panel -->
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="config-panel">
+                        <!-- Form Section -->
+                        <div class="config-section">
+                            <h6><i class="bi bi-pencil-square"></i> Personnalisation</h6>
+                            <form id="orderForm">
+                                <div class="row g-3">
                                     <div class="col-md-6">
-                                        <input type="radio" class="btn-check" name="deliveryMethod" id="delEssentiel"
-                                            value="0" checked>
-                                        <label class="card-select-btn py-3" for="delEssentiel">
-                                            <i class="bi bi-truck me-2"></i> Essentiel (Gratuit)
-                                        </label>
+                                        <label class="form-label">Prénom*</label>
+                                        <input type="text" class="form-control bankai-input" id="inputFirstName"
+                                            placeholder="Jean" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="radio" class="btn-check" name="deliveryMethod" id="delExpress"
-                                            value="25000">
-                                        <label class="card-select-btn py-3" for="delExpress">
-                                            <i class="bi bi-lightning-charge me-2"></i> Express 24h (+25k)
-                                        </label>
+                                        <label class="form-label">Nom*</label>
+                                        <input type="text" class="form-control bankai-input" id="inputLastName"
+                                            placeholder="Dupont" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Fonction / Titre*</label>
+                                        <input type="text" class="form-control bankai-input" id="inputFunction"
+                                            placeholder="Directeur Commercial" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">E-mail (optionnel)</label>
+                                        <input type="email" class="form-control bankai-input" id="inputEmail"
+                                            placeholder="contact@exemple.com">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Téléphone (optionnel)</label>
+                                        <input type="tel" class="form-control bankai-input" id="inputPhone"
+                                            placeholder="+224 XXX XX XX XX">
+                                    </div>
+                                    <div class="col-12 field-enterprise">
+                                        <label class="form-label">Nom de l'Entreprise*</label>
+                                        <input type="text" class="form-control bankai-input" id="inputCompany"
+                                            placeholder="Votre Entreprise">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Remarques / Infos supplémentaires</label>
+                                        <textarea class="form-control bankai-input" id="inputRemarks"
+                                            placeholder="Détails spéciaux, couleur, gravure personnalisée..."
+                                            rows="3" style="resize: vertical;"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Volume Section -->
+                        <div class="config-section">
+                            <h6><i class="bi bi-layers-fill"></i> Quantité</h6>
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                                        Nombre de cartes</p>
+                                    <div class="qty-selector">
+                                        <button type="button" id="btnMinus">−</button>
+                                        <input type="number" id="inputQty" value="1" min="1" max="1000">
+                                        <button type="button" id="btnPlus">+</button>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control custom-input"
-                                        placeholder="Ville (Ex: Conakry)" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control custom-input" placeholder="Quartier"
-                                        required>
-                                </div>
-                                <div class="col-12">
-                                    <select class="form-select custom-input" required>
-                                        <option selected disabled>Méthode de paiement</option>
-                                        <option>Orange Money</option>
-                                        <option>Mobile Money (MTN)</option>
-                                        <option>Cash à la livraison</option>
-                                    </select>
-                                </div>
+                            <div class="volume-discount">
+                                <p><i class="bi bi-gift"></i> Remises sur volume : -10% dès 10 cartes • -20% dès 50
+                                    cartes</p>
                             </div>
                         </div>
-                    </form>
-                </div>
 
-                <div class="col-lg-5">
-                    <div class="order-summary-card sticky-top" style="top: 120px;">
-                        <h4 class="fw-bold mb-4">Récapitulatif</h4>
-                        <div class="summary-item">
-                            <span>Modèle</span>
-                            <span id="sum-model" class="fw-bold">Bankaï Essentiel</span>
+                        <!-- Order Summary -->
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span>Prix unitaire :</span>
+                                <span id="summaryUnit">150 000 GNF</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Quantité :</span>
+                                <span id="summaryQty">1</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Remise :</span>
+                                <span id="summaryDiscount">Aucune</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total de la commande</span>
+                                <span id="sum-total">150 000 GNF</span>
+                            </div>
                         </div>
-                        <div class="summary-item">
-                            <span>Couleur</span>
-                            <span id="sum-color" class="fw-bold">Noir</span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Nom</span>
-                            <span id="sum-name" class="fw-bold">—</span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Livraison</span>
-                            <span id="sum-delivery" class="fw-bold">Gratuit</span>
-                        </div>
-                        <hr class="border-secondary">
-                        <div class="summary-item fs-5">
-                            <span>Total</span>
-                            <span id="sum-total" class="text-gold fw-bold">150 000 GNF</span>
-                        </div>
-                        <button class="btn btn-commander w-100 py-3 mt-4" id="btn-submit">
-                            CONFIRMER LA COMMANDE
+
+                        <!-- Submit Button -->
+                        <button class="btn btn-add-cart w-100" id="btn-submit">
+                            <i class="bi bi-bag-check me-2"></i> CONFIRMER LA COMMANDE
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
+
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
+    <!-- Success Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-deep-dark border-gold p-4">
-                <div class="modal-body text-center">
-                    <div class="success-icon-wrapper mb-4">
+            <div class="modal-content" style="background: var(--deep-dark); border: 1px solid var(--border-color);">
+                <div class="modal-body text-center p-5">
+                    <div
+                        style="font-size: 3rem; color: var(--primary-gold); margin-bottom: 1.5rem; animation: slideUp 0.6s ease-out;">
                         <i class="bi bi-check-lg"></i>
                     </div>
                     <h2 class="fw-bold text-white mb-3">Commande Reçue !</h2>
-                    <p class="text-secondary">
-                        Merci <span id="modal-customer-name" class="text-gold fw-bold"></span> !
-                        Votre commande pour une <span id="modal-card-type" class="text-white"></span> a bien été
-                        simulée.
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6;">
+                        Merci <span id="modal-customer-name"
+                            style="color: var(--primary-gold); font-weight: 700;"></span> !<br>
+                        Votre commande pour <strong id="modal-card-quantity">1</strong> carte <span id="modal-card-type"
+                            style="color: var(--primary-gold); font-weight: 700;"></span> a bien été enregistrée.
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Vous recevrez une confirmation par e-mail sous peu. Production : 3-5 jours ouvrés.
                     </p>
                     <button onclick="window.location.href='commander.html';" type="button"
-                        class="btn btn-gold-outline w-100" data-bs-dismiss="modal">Retour au site</button>
+                        class="btn btn-add-cart w-100" data-bs-dismiss="modal">
+                        <i class="bi bi-arrow-left me-2"></i> Retour à la page commande
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="./js/script.js"></script>
     <script src="./js/include.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Card Data Configuration
+        const cardConfigs = {
+            essentiel: {
+                name: 'Essentiel',
+                price: 150000,
+                material: 'PVC Premium',
+                warranty: '2 ans'
+            },
+            pro: {
+                name: 'Pro',
+                price: 250000,
+                material: 'Métal Anodisé',
+                warranty: '5 ans'
+            },
+            entreprise: {
+                name: 'Entreprise',
+                price: 400000,
+                material: 'Titane Grade 5',
+                warranty: 'Illimitée'
+            }
+        };
+
+        // DOM Elements
+        const cardTypeRadios = document.querySelectorAll('input[name="cardType"]');
+        const inputQty = document.getElementById('inputQty');
+        const btnMinus = document.getElementById('btnMinus');
+        const btnPlus = document.getElementById('btnPlus');
+        const btnSubmit = document.getElementById('btn-submit');
+        const previewCardName = document.getElementById('previewCardName');
+        const previewPrice = document.getElementById('previewPrice');
+        const specMaterial = document.getElementById('specMaterial');
+        const specWarranty = document.getElementById('specWarranty');
+        const summaryUnit = document.getElementById('summaryUnit');
+        const summaryQty = document.getElementById('summaryQty');
+        const summaryDiscount = document.getElementById('summaryDiscount');
+        const totalEl = document.getElementById('sum-total');
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+        // Format number with separators
+        function formatPrice(price) {
+            return new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 0 }).format(price) + ' GNF';
+        }
+
+        // Calculate discount based on quantity
+        function getDiscount(qty) {
+            if (qty >= 50) return 0.20;
+            if (qty >= 10) return 0.10;
+            return 0;
+        }
+
+        // Update all displays
+        function updateDisplay() {
+            const selectedCard = document.querySelector('input[name="cardType"]:checked');
+            const cardType = selectedCard.value;
+            const config = cardConfigs[cardType];
+            const qty = parseInt(inputQty.value) || 1;
+            const discount = getDiscount(qty);
+            const unitPrice = config.price;
+            const subtotal = unitPrice * qty;
+            const discountAmount = Math.floor(subtotal * discount);
+            const total = subtotal - discountAmount;
+
+            // Update preview
+            previewCardName.textContent = config.name;
+            previewPrice.textContent = formatPrice(unitPrice);
+            specMaterial.textContent = config.material;
+            specWarranty.textContent = config.warranty;
+
+            // Update summary
+            summaryUnit.textContent = formatPrice(unitPrice);
+            summaryQty.textContent = qty;
+            summaryDiscount.textContent = discount > 0 ? `-${Math.round(discount * 100)}% (${formatPrice(discountAmount)})` : 'Aucune';
+            totalEl.textContent = formatPrice(total);
+        }
+
+        // Event listeners for card selection
+        cardTypeRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                updateDisplay();
+                updateFormFields();
+            });
+        });
+
+        // Function to show/hide enterprise field based on card type
+        function updateFormFields() {
+            const selectedCard = document.querySelector('input[name="cardType"]:checked').value;
+            const companyField = document.querySelector('.field-enterprise');
+            const companyInput = document.getElementById('inputCompany');
+            
+            if (selectedCard === 'entreprise') {
+                companyField.classList.add('show');
+                companyInput.required = true;
+            } else {
+                companyField.classList.remove('show');
+                companyInput.required = false;
+                companyInput.value = '';
+            }
+        }
+
+        // Quantity controls
+        btnMinus.addEventListener('click', (e) => {
+            e.preventDefault();
+            const current = parseInt(inputQty.value) || 1;
+            if (current > 1) {
+                inputQty.value = current - 1;
+                updateDisplay();
+            }
+        });
+
+        btnPlus.addEventListener('click', (e) => {
+            e.preventDefault();
+            const current = parseInt(inputQty.value) || 1;
+            inputQty.value = current + 1;
+            updateDisplay();
+        });
+
+        inputQty.addEventListener('input', () => {
+            let value = parseInt(inputQty.value) || 1;
+            if (value < 1) value = 1;
+            if (value > 1000) value = 1000;
+            inputQty.value = value;
+            updateDisplay();
+        });
+
+        // Form submission
+        btnSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Validate form using native HTML5 validation
+            if (!document.getElementById('orderForm').checkValidity()) {
+                document.getElementById('orderForm').reportValidity();
+                return;
+            }
+
+            const firstName = document.getElementById('inputFirstName').value.trim();
+            const lastName = document.getElementById('inputLastName').value.trim();
+            const fonction = document.getElementById('inputFunction').value.trim();
+            const qty = inputQty.value;
+            const cardType = document.querySelector('input[name="cardType"]:checked').value;
+
+            // Show success modal
+            document.getElementById('modal-customer-name').textContent = firstName + ' ' + lastName;
+            document.getElementById('modal-card-quantity').textContent = qty;
+            document.getElementById('modal-card-type').textContent = cardConfigs[cardType].name;
+
+            successModal.show();
+
+            // Reset form after a delay
+            setTimeout(() => {
+                document.getElementById('orderForm').reset();
+                updateFormFields();
+                updateDisplay();
+            }, 2000);
+        });
+
+        // Initialize display
+        updateDisplay();
+        updateFormFields();
+    </script>
 </body>
 
 </html>
