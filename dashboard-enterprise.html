@@ -30,7 +30,7 @@
         body {
             min-height: 100vh;
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--deep-dark) 80%, rgba(var(--primary-gold-rgb), 0.12) 100%);
+            background: var(--deep-dark);
             color: #fff;
             position: relative;
             overflow-x: hidden;
@@ -1438,6 +1438,7 @@
                     <div class="plan-price" id="subscriptionPrice">400 000 GNF/an</div>
                 </div>
 
+
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -1632,6 +1633,18 @@
                                     <option value="important" selected>Seulement importantes</option>
                                     <option value="none">Aucune</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="card bg-dark border border-warning mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning"><i class="bi bi-shield-lock me-2"></i>Sécurité du
+                                    compte</h5>
+                                <button class="btn btn-warning w-100 mb-2" onclick="changePassword()">
+                                    Changer le mot de passe
+                                </button>
+                                <button class="btn btn-gold-outline w-100" onclick="enableTwoFactor()">
+                                    Activer 2FA
+                                </button>
                             </div>
                         </div>
 

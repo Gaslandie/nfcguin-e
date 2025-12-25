@@ -47,7 +47,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             width: 100%;
-            max-width: 500px; /* Augmenté de 420px à 500px */
+            max-width: 500px;
             z-index: 1;
             position: relative;
         }
@@ -220,9 +220,26 @@
 
         /* Animation d'erreur */
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
         }
 
         .shake {
@@ -245,10 +262,25 @@
             transition: width 0.3s ease, background 0.3s ease;
         }
 
-        .strength-weak { width: 25%; background: #ff6b6b; }
-        .strength-fair { width: 50%; background: #ffa500; }
-        .strength-good { width: 75%; background: #ffd700; }
-        .strength-strong { width: 100%; background: #4cd964; }
+        .strength-weak {
+            width: 25%;
+            background: #ff6b6b;
+        }
+
+        .strength-fair {
+            width: 50%;
+            background: #ffa500;
+        }
+
+        .strength-good {
+            width: 75%;
+            background: #ffd700;
+        }
+
+        .strength-strong {
+            width: 100%;
+            background: #4cd964;
+        }
 
         /* Modal de succès */
         .success-modal {
@@ -299,16 +331,16 @@
                 padding: 1.5rem !important;
                 max-width: 100%;
             }
-            
+
             .form-grid {
                 grid-template-columns: 1fr;
                 gap: 0.8rem;
             }
-            
+
             .account-type-container {
                 flex-direction: column;
             }
-            
+
             .account-type-btn {
                 min-height: 70px;
             }
@@ -346,15 +378,15 @@
             <form id="loginForm">
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Email ou Téléphone</label>
-                    <input type="text" id="loginIdentifier" class="form-control bankai-input" 
-                           placeholder="user@bankai.com ou +224..." required>
+                    <input type="text" id="loginIdentifier" class="form-control bankai-input"
+                        placeholder="user@bankai.com ou +224..." required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Mot de passe</label>
-                    <input type="password" id="loginPassword" class="form-control bankai-input" 
-                           placeholder="••••••••" required>
+                    <input type="password" id="loginPassword" class="form-control bankai-input" placeholder="••••••••"
+                        required>
                 </div>
-                
+
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="rememberMe">
@@ -364,11 +396,11 @@
                         Mot de passe oublié ?
                     </a>
                 </div>
-                
+
                 <div id="loginErrorMessage" class="alert alert-danger d-none small py-2 mb-3">
                     Identifiants incorrects. Veuillez réessayer.
                 </div>
-                
+
                 <button type="submit" class="btn btn-bankai-submit w-100 mb-3">
                     <i class="bi bi-box-arrow-in-right me-2"></i> Se connecter
                 </button>
@@ -397,28 +429,27 @@
                 <!-- Champ Entreprise (caché par défaut) -->
                 <div class="mb-4 d-none" id="companyField">
                     <label class="form-label small fw-bold text-secondary">Nom de l'entreprise</label>
-                    <input type="text" class="form-control bankai-input" id="companyName" 
-                           placeholder="Nom de votre entreprise">
+                    <input type="text" class="form-control bankai-input" id="companyName"
+                        placeholder="Nom de votre entreprise">
                 </div>
 
                 <!-- Grille pour les champs côte à côte -->
                 <div class="form-grid mb-4">
                     <div>
                         <label class="form-label small fw-bold text-secondary">Prénom</label>
-                        <input type="text" class="form-control bankai-input" id="firstName" 
-                               placeholder="Mamady" required>
+                        <input type="text" class="form-control bankai-input" id="firstName" placeholder="Mamady"
+                            required>
                     </div>
                     <div>
                         <label class="form-label small fw-bold text-secondary">Nom</label>
-                        <input type="text" class="form-control bankai-input" id="lastName" 
-                               placeholder="Keïta" required>
+                        <input type="text" class="form-control bankai-input" id="lastName" placeholder="Keïta" required>
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Email</label>
-                    <input type="email" class="form-control bankai-input" id="registerEmail" 
-                           placeholder="votre@email.com" required>
+                    <input type="email" class="form-control bankai-input" id="registerEmail"
+                        placeholder="votre@email.com" required>
                 </div>
 
                 <div class="form-grid mb-4">
@@ -430,21 +461,21 @@
                                 <option value="+221">+221</option>
                                 <option value="+223">+223</option>
                             </select>
-                            <input type="tel" class="form-control bankai-input" id="registerPhone" 
-                                   placeholder="XX XX XX XX">
+                            <input type="tel" class="form-control bankai-input" id="registerPhone"
+                                placeholder="XX XX XX XX">
                         </div>
                     </div>
                     <div>
                         <label class="form-label small fw-bold text-secondary">Fonction (optionnel)</label>
-                        <input type="text" class="form-control bankai-input" id="function" 
-                               placeholder="Directeur, etc.">
+                        <input type="text" class="form-control bankai-input" id="function"
+                            placeholder="Directeur, etc.">
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Mot de passe</label>
-                    <input type="password" class="form-control bankai-input" id="registerPassword" 
-                           placeholder="Minimum 8 caractères" required minlength="8">
+                    <input type="password" class="form-control bankai-input" id="registerPassword"
+                        placeholder="Minimum 8 caractères" required minlength="8">
                     <div class="password-strength">
                         <div class="strength-bar" id="passwordStrengthBar"></div>
                     </div>
@@ -455,8 +486,8 @@
 
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Confirmer le mot de passe</label>
-                    <input type="password" class="form-control bankai-input" id="confirmPassword" 
-                           placeholder="Répétez le mot de passe" required>
+                    <input type="password" class="form-control bankai-input" id="confirmPassword"
+                        placeholder="Répétez le mot de passe" required>
                     <div id="passwordMatch" class="small mt-1 d-none"></div>
                 </div>
 
@@ -484,8 +515,8 @@
 
                 <div class="mb-4">
                     <label class="form-label small fw-bold text-secondary">Email</label>
-                    <input type="email" class="form-control bankai-input" id="resetEmail" 
-                           placeholder="votre@email.com" required>
+                    <input type="email" class="form-control bankai-input" id="resetEmail" placeholder="votre@email.com"
+                        required>
                 </div>
 
                 <div id="resetMessage" class="alert d-none small py-2 mb-3"></div>
@@ -549,8 +580,11 @@
         const continueToDashboardBtn = document.getElementById('continueToDashboard');
         const successMessage = document.getElementById('successMessage');
 
-        // Données de test
+        // ============================================
+        // MODIFICATION IMPORTANTE : DONNÉES DE TEST MISE À JOUR
+        // ============================================
         const mockUsers = [
+            // Utilisateur individuel
             {
                 id: 1,
                 email: 'user@bankai.com',
@@ -560,21 +594,25 @@
                 lastName: 'Diallo',
                 fullName: 'Alpha Diallo',
                 type: 'individual',
+                role: 'user', // Ajouté
                 company: null,
                 function: 'Manager'
             },
+            // SUPER ADMIN - MODIFIÉ
             {
                 id: 2,
                 email: 'admin@bankai.com',
                 phone: '+224633123456',
                 password: 'admin123',
-                firstName: 'Admin',
-                lastName: 'Bankaï',
-                fullName: 'Admin Bankaï',
-                type: 'admin',
-                company: null,
-                function: 'Administrateur'
+                firstName: 'Super',
+                lastName: 'Admin',
+                fullName: 'Super Admin',
+                type: 'superadmin', // CHANGÉ de 'admin' à 'superadmin'
+                role: 'superadmin', // AJOUTÉ - Très important pour le dashboard admin
+                company: 'Bankaï',
+                function: 'Administrateur Principal'
             },
+            // Entreprise
             {
                 id: 3,
                 email: 'entreprise@bankai.com',
@@ -584,6 +622,7 @@
                 lastName: 'Konaté',
                 fullName: 'Mohamed Konaté',
                 type: 'enterprise',
+                role: 'enterprise_admin', // Ajouté
                 company: 'Konaté & Fils SARL',
                 function: 'Directeur Général'
             }
@@ -597,14 +636,14 @@
             loginForm.classList.add('d-none');
             registerForm.classList.add('d-none');
             forgotPasswordForm.classList.add('d-none');
-            
+
             btnLogin.classList.remove('active');
             btnRegister.classList.remove('active');
-            
+
             document.getElementById('loginErrorMessage').classList.add('d-none');
             document.getElementById('registerErrorMessage').classList.add('d-none');
             document.getElementById('resetMessage').classList.add('d-none');
-            
+
             if (tab === 'login') {
                 btnLogin.classList.add('active');
                 loginForm.classList.remove('d-none');
@@ -631,10 +670,10 @@
             btn.addEventListener('click', () => {
                 accountTypeBtns.forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
-                
+
                 const type = btn.dataset.type;
                 accountTypeInput.value = type;
-                
+
                 if (type === 'enterprise') {
                     companyField.classList.remove('d-none');
                 } else {
@@ -650,12 +689,12 @@
         function updatePasswordStrength() {
             const password = registerPassword.value;
             let strength = 0;
-            
+
             if (password.length >= 8) strength++;
             if (/[A-Z]/.test(password)) strength++;
             if (/[0-9]/.test(password)) strength++;
             if (/[^A-Za-z0-9]/.test(password)) strength++;
-            
+
             const classes = ['strength-weak', 'strength-fair', 'strength-good', 'strength-strong'];
             passwordStrengthBar.className = 'strength-bar ' + (classes[strength - 1] || '');
         }
@@ -680,30 +719,30 @@
         // Événements
         btnRegister.addEventListener('click', () => setActiveTab('register'));
         btnLogin.addEventListener('click', () => setActiveTab('login'));
-        
+
         forgotPasswordLink.addEventListener('click', (e) => {
             e.preventDefault();
             setActiveTab('forgotPassword');
         });
-        
+
         backToLoginFromReset.addEventListener('click', () => setActiveTab('login'));
 
         // Connexion
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const identifier = document.getElementById('loginIdentifier').value.trim();
             const password = document.getElementById('loginPassword').value;
             const errorDiv = document.getElementById('loginErrorMessage');
             const rememberMe = document.getElementById('rememberMe').checked;
-            
+
             errorDiv.classList.add('d-none');
-            
+
             // Chercher l'utilisateur
-            const user = mockUsers.find(u => 
+            const user = mockUsers.find(u =>
                 u.email === identifier || u.phone === identifier
             ) || newlyRegisteredUser; // Vérifie aussi l'utilisateur nouvellement inscrit
-            
+
             if (user && user.password === password) {
                 // Stocker en localStorage
                 const userData = {
@@ -714,17 +753,18 @@
                     lastName: user.lastName,
                     fullName: user.fullName,
                     type: user.type,
+                    role: user.role || user.type, // AJOUTÉ : Inclure le rôle
                     company: user.company,
                     function: user.function,
                     isNew: user === newlyRegisteredUser
                 };
-                
+
                 localStorage.setItem('currentUser', JSON.stringify(userData));
-                
+
                 if (rememberMe) {
                     localStorage.setItem('rememberedUser', identifier);
                 }
-                
+
                 // Redirection
                 redirectToDashboard(user.type);
             } else {
@@ -735,9 +775,9 @@
         });
 
         // Inscription
-        registerForm.addEventListener('submit', function(e) {
+        registerForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
@@ -748,32 +788,35 @@
             const companyName = document.getElementById('companyName').value;
             const userFunction = document.getElementById('function').value;
             const errorDiv = document.getElementById('registerErrorMessage');
-            
+
             errorDiv.classList.add('d-none');
-            
+
             // Validations
             if (password !== confirmPass) {
                 errorDiv.textContent = "Les mots de passe ne correspondent pas.";
                 errorDiv.classList.remove('d-none');
                 return;
             }
-            
+
             if (password.length < 8) {
                 errorDiv.textContent = "Le mot de passe doit contenir au moins 8 caractères.";
                 errorDiv.classList.remove('d-none');
                 return;
             }
-            
+
             // Vérifier si l'email existe déjà
-            const emailExists = mockUsers.some(u => u.email === email) || 
-                               (newlyRegisteredUser && newlyRegisteredUser.email === email);
-            
+            const emailExists = mockUsers.some(u => u.email === email) ||
+                (newlyRegisteredUser && newlyRegisteredUser.email === email);
+
             if (emailExists) {
                 errorDiv.textContent = "Cet email est déjà utilisé.";
                 errorDiv.classList.remove('d-none');
                 return;
             }
-            
+
+            // Déterminer le rôle selon le type de compte
+            let role = accountType === 'enterprise' ? 'enterprise_admin' : 'user';
+
             // Créer nouvel utilisateur
             newlyRegisteredUser = {
                 id: Date.now(), // ID unique
@@ -784,10 +827,11 @@
                 lastName: lastName,
                 fullName: `${firstName} ${lastName}`,
                 type: accountType,
+                role: role, // AJOUTÉ
                 company: accountType === 'enterprise' ? companyName : null,
                 function: userFunction || null
             };
-            
+
             // Message personnalisé
             const accountTypeText = accountType === 'enterprise' ? 'entreprise' : 'particulier';
             successMessage.innerHTML = `
@@ -795,13 +839,13 @@
                 Votre compte ${accountTypeText} a été créé avec succès.
                 ${accountType === 'enterprise' ? `<br><small class="text-gold">${companyName}</small>` : ''}
             `;
-            
+
             // Afficher le modal de succès
             successModal.classList.add('show');
         });
 
         // Continuer vers le dashboard après inscription
-        continueToDashboardBtn.addEventListener('click', function() {
+        continueToDashboardBtn.addEventListener('click', function () {
             if (newlyRegisteredUser) {
                 // Stocker l'utilisateur
                 const userData = {
@@ -812,43 +856,44 @@
                     lastName: newlyRegisteredUser.lastName,
                     fullName: newlyRegisteredUser.fullName,
                     type: newlyRegisteredUser.type,
+                    role: newlyRegisteredUser.role, // AJOUTÉ
                     company: newlyRegisteredUser.company,
                     function: newlyRegisteredUser.function,
                     isNew: true
                 };
-                
+
                 localStorage.setItem('currentUser', JSON.stringify(userData));
-                
+
                 // Fermer le modal
                 successModal.classList.remove('show');
-                
+
                 // Rediriger
                 redirectToDashboard(newlyRegisteredUser.type);
             }
         });
 
         // Fermer le modal en cliquant à l'extérieur
-        successModal.addEventListener('click', function(e) {
+        successModal.addEventListener('click', function (e) {
             if (e.target === successModal) {
                 successModal.classList.remove('show');
             }
         });
 
         // Mot de passe oublié
-        forgotPasswordForm.addEventListener('submit', function(e) {
+        forgotPasswordForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('resetEmail').value;
             const messageDiv = document.getElementById('resetMessage');
-            
-            const userExists = mockUsers.some(u => u.email === email) || 
-                              (newlyRegisteredUser && newlyRegisteredUser.email === email);
-            
+
+            const userExists = mockUsers.some(u => u.email === email) ||
+                (newlyRegisteredUser && newlyRegisteredUser.email === email);
+
             if (userExists) {
                 messageDiv.textContent = "Un lien de réinitialisation a été envoyé à votre email.";
                 messageDiv.className = 'alert alert-success small py-2 mb-3';
                 messageDiv.classList.remove('d-none');
-                
+
                 setTimeout(() => setActiveTab('login'), 3000);
             } else {
                 messageDiv.textContent = "Aucun compte n'est associé à cet email.";
@@ -857,28 +902,51 @@
             }
         });
 
-        // Fonction de redirection
+        // ============================================
+        // MODIFICATION IMPORTANTE : FONCTION DE REDIRECTION
+        // ============================================
         function redirectToDashboard(userType) {
-            switch(userType) {
-                case 'admin':
-                    window.location.href = 'dashboard-admin.html';
-                    break;
-                case 'enterprise':
-                    window.location.href = 'dashboard-enterprise.html';
-                    break;
-                default:
-                    window.location.href = 'dashboard-user.html';
+            // Récupérer l'utilisateur complet pour vérifier le rôle
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            // Vérifier d'abord le rôle superadmin
+            if (currentUser && (currentUser.type === 'superadmin' || currentUser.role === 'superadmin')) {
+                // IMPORTANT : Assurez-vous que le fichier s'appelle 'superadmin-dashboard.html'
+                window.location.href = 'superadmin-dashboard.html';
+            }
+            // Vérifier ensuite les autres types
+            else if (userType === 'enterprise' || currentUser.type === 'enterprise') {
+                window.location.href = 'dashboard-enterprise.html';
+            }
+            else if (userType === 'admin' || currentUser.type === 'admin') {
+                window.location.href = 'dashboard-admin.html';
+            }
+            else {
+                window.location.href = 'dashboard-user.html';
             }
         }
 
         // Remplir l'identifiant si mémorisé
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             const rememberedUser = localStorage.getItem('rememberedUser');
             if (rememberedUser) {
                 document.getElementById('loginIdentifier').value = rememberedUser;
                 document.getElementById('rememberMe').checked = true;
             }
+
+            // Vérifier s'il y a un utilisateur en localStorage (utile pour le développement)
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                console.log('Utilisateur connecté:', JSON.parse(currentUser));
+            }
         });
+
+        // Initialisation : Afficher les infos de connexion dans la console pour le développement
+        console.log('=== BANKAÏ - Comptes de test ===');
+        console.log('1. Utilisateur individuel: user@bankai.com / user123');
+        console.log('2. Super Admin: admin@bankai.com / admin123');
+        console.log('3. Entreprise: entreprise@bankai.com / entreprise123');
+        console.log('==============================');
     </script>
 </body>
 
