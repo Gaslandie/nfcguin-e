@@ -668,7 +668,7 @@
             margin-top: 0.2rem;
         }
 
-        /* Responsive */
+        /* Responsive - SUPPRIMEZ LES SECTIONS MOBILE */
         @media (max-width: 992px) {
             .sidebar {
                 width: 220px;
@@ -677,79 +677,6 @@
             .main-content {
                 margin-left: 220px;
             }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -250px;
-                transition: left 0.3s ease;
-                z-index: 1000;
-            }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .menu-toggle {
-                display: block !important;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .stats-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .contacts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-section {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Menu toggle pour mobile */
-        .menu-toggle {
-            display: none;
-            background: var(--primary-gold);
-            color: var(--deep-dark);
-            border: none;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 999;
-        }
-
-        /* Overlay pour mobile */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-
-        .sidebar-overlay.show {
-            display: block;
         }
 
         /* Scrollbar personnalisée */
@@ -775,13 +702,13 @@
 </head>
 
 <body>
-    <!-- Menu toggle pour mobile -->
-    <button class="menu-toggle" id="menuToggle">
+    <!-- SUPPRIMEZ LE BOUTON MENU MOBILE -->
+    <!-- <button class="menu-toggle" id="menuToggle">
         <i class="bi bi-list"></i> Menu
-    </button>
+    </button> -->
 
-    <!-- Overlay pour mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- SUPPRIMEZ L'OVERLAY MOBILE -->
+    <!-- <div class="sidebar-overlay" id="sidebarOverlay"></div> -->
 
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
@@ -1238,12 +1165,20 @@
             initializeDashboard(currentUser);
         });
 
+        // Fonction de déconnexion - AJOUTEZ CETTE FONCTION
+        function logout() {
+            if (confirm('Voulez-vous vous déconnecter ?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        }
+
         function initializeDashboard(user) {
             // Mettre à jour l'affichage avec les vraies données
             updateUserDisplay(user);
             loadUserData(user);
             setupEventListeners();
-            setupMobileMenu();
+            // SUPPRIMEZ CET APPEL : setupMobileMenu();
         }
 
         function updateUserDisplay(user) {
@@ -1263,7 +1198,6 @@
             document.getElementById('profileFunction').value = user.function || '';
             document.getElementById('profileAddress').value = user.address || '';
             document.getElementById('profileBirthdate').value = user.birthdate || '';
-
 
             // Mettre à jour les stats
             document.getElementById('statsCards').textContent = user.cards || 1;
@@ -1428,9 +1362,6 @@
 
                     // Mettre à jour le titre
                     updateDashboardTitle(section);
-
-                    // Fermer le menu mobile si ouvert
-                    closeMobileMenu();
                 });
             });
 
@@ -1508,11 +1439,11 @@
             });
 
             // Boutons d'action
-            document.getElementById('upgradePlanBtn').addEventListener('click', function () {
+            document.getElementById('upgradePlanBtn')?.addEventListener('click', function () {
                 window.location.href = 'cartes.html';
             });
 
-            document.getElementById('cancelSubscriptionBtn').addEventListener('click', function () {
+            document.getElementById('cancelSubscriptionBtn')?.addEventListener('click', function () {
                 if (confirm('Êtes-vous sûr de vouloir annuler votre abonnement ?')) {
                     alert('Votre demande d\'annulation a été prise en compte.');
                 }
@@ -1522,45 +1453,13 @@
                 alert('Chargement de plus d\'historique...');
             });
 
-            // Déconnexion
-            document.getElementById('logoutBtn').addEventListener('click', function () {
-                if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
-                    localStorage.removeItem('currentUser');
-                    window.location.href = 'index.html';
-                }
-            });
+            // DÉCONNEXION - CORRECTION IMPORTANTE !
+            document.getElementById('logoutBtn').addEventListener('click', logout);
 
             // Afficher la vue d'ensemble par défaut
             navLinks[0].classList.add('active');
             sections.overview.classList.remove('d-none');
             dashboardTitle.textContent = 'Vue d\'ensemble';
-        }
-
-        function setupMobileMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-
-            menuToggle.addEventListener('click', function () {
-                sidebar.classList.add('show');
-                overlay.classList.add('show');
-            });
-
-            overlay.addEventListener('click', function () {
-                closeMobileMenu();
-            });
-
-            // Fermer le menu quand on clique sur un lien
-            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-
-            document.getElementById('logoutBtn').addEventListener('click', closeMobileMenu);
-        }
-
-        function closeMobileMenu() {
-            document.getElementById('sidebar').classList.remove('show');
-            document.getElementById('sidebarOverlay').classList.remove('show');
         }
 
         // Fonctions utilitaires
@@ -1571,14 +1470,6 @@
         function viewOrderDetails(orderId) {
             alert(`Affichage des détails de la commande ${orderId}...`);
         }
-
-        // Gestion du responsive
-        window.addEventListener('resize', function () {
-            if (window.innerWidth > 768) {
-                closeMobileMenu();
-            }
-        });
     </script>
 </body>
-
 </html>
