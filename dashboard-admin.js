@@ -2394,6 +2394,6 @@ L'équipe Bankaï`);
         function logout() {
             if (confirm('Voulez-vous vous déconnecter ?')) {
                 localStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
+                window.location.href = 'index.html';
             }
         }
