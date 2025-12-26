@@ -2430,3 +2430,47 @@
 
 
  }
+
+ /* pour petit ecran */
+ /* Correction pour le problème de dépassement sur mobile */
+@media (max-width: 768px) {
+    /* Assure que le conteneur principal ne dépasse pas */
+    .container {
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Force le contenu à rester dans l'écran */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .col-lg-6, .col-md-6, .col-sm-12 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Important: fix pour l'image hero qui pourrait causer des problèmes */
+    .hero-image {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+/* Correction supplémentaire pour les images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Assure que toutes les sections ne dépassent pas */
+section {
+    width: 100%;
+    overflow: hidden;
+}
