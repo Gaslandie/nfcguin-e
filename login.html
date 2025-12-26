@@ -42,27 +42,31 @@
             z-index: 0;
         }
 
-  .login-card-custom {
-    /* Fond : Noir dominant avec un reflet doré très léger (10%) en haut à gauche */
-    background: radial-gradient(
-        circle at 50% 0%, 
-        rgba(218, 166, 34, 0.12) 0%, 
-        rgba(20, 20, 22, 0.98) 70%, 
-        rgba(9, 9, 11, 1) 100%
-    );
+.login-card-custom {
+    /* Couleur uniforme sur toute la surface :
+       Un mélange savant de noir profond et d'une touche de bronze (doré très sombre)
+    */
+    background: rgba(18, 16, 12, 0.98); 
     
-    /* Bordure : On passe sur un doré très sombre pour ne pas "étouffer" le design */
-    border: 1px solid rgba(218, 166, 34, 0.15);
-    
-    /* Le reste ne change pas */
+    /* On ajoute une bordure interne (inset box-shadow) 
+       pour donner un reflet doré léger et égal sur TOUS les bords 
+    */
+    box-shadow: 
+        inset 0 0 20px rgba(218, 166, 34, 0.05), /* Lueur interne diffuse */
+        0 20px 40px rgba(0, 0, 0, 0.8);          /* Ombre portée extérieure */
+
+    /* Bordure dorée très fine et égale sur tout le contour */
+    border: 1px solid rgba(218, 166, 34, 0.2);
+
+    /* --- Structure --- */
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(15px);
     width: 100%;
-    max-width: 450px;
+    max-width: 440px;
     margin: 0 auto;
     z-index: 1;
     position: relative;
+    padding: 2.5rem !important;
 }
 .auth-wrapper {
     min-height: 100vh;
