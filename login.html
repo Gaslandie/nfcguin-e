@@ -43,20 +43,26 @@
         }
 
   .login-card-custom {
-    background: var(--card-bg);
+    /* Fond : Noir dominant avec un reflet doré très léger (10%) en haut à gauche */
+    background: radial-gradient(
+        circle at 50% 0%, 
+        rgba(218, 166, 34, 0.12) 0%, 
+        rgba(20, 20, 22, 0.98) 70%, 
+        rgba(9, 9, 11, 1) 100%
+    );
+    
+    /* Bordure : On passe sur un doré très sombre pour ne pas "étouffer" le design */
+    border: 1px solid rgba(218, 166, 34, 0.15);
+    
+    /* Le reste ne change pas */
     border-radius: 20px;
-    border: 1.5px solid var(--border-color);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    
-    /* --- FIXER LA LARGEUR --- */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
     width: 100%;
-    max-width: 450px; /* Une largeur unique pour Connexion ET Inscription */
-    margin: 0 auto;   /* Sécurité pour le centrage */
-    
+    max-width: 450px;
+    margin: 0 auto;
     z-index: 1;
     position: relative;
-    overflow: hidden; /* Empêche tout contenu de faire déborder la carte */
 }
 .auth-wrapper {
     min-height: 100vh;
@@ -90,6 +96,7 @@
             border-radius: 12px;
             padding: 4px;
             margin-bottom: 1.5rem;
+            gap: 12px;
         }
 
         .auth-pill-item {

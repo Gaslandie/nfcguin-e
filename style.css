@@ -19,6 +19,13 @@
      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
  }
 
+ /* diminuer la taille du texte dans la nav bar pour le responsive */
+ @media (max-width: 992px) {
+     .navbar {
+         font-size: 0.7rem;
+     }
+ }
+
  .navbar-brand {
      font-size: 1.2rem;
      font-weight: 700;
