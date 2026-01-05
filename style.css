@@ -463,19 +463,19 @@
      color: white;
  }
 
- /* .section-subtitle {
-     color: rgb(218, 166, 34);
-     font-size: 0.9rem;
-     font-weight: 600;
+ .section-subtitle {
+     color: rgb(218, 166, 34) !important;
+     font-size: 2rem;
+     font-weight: 800;
      text-transform: uppercase;
      letter-spacing: 2px;
      text-align: center;
-     margin-bottom: 15px;
- } */
+     margin-bottom: 20px;
+ }
 
  .section-title {
-     font-size: 3rem;
-     font-weight: 800;
+     font-size: 1.5rem;
+     font-weight: 600;
      text-align: center;
      margin-bottom: 20px;
      line-height: 1.2;
